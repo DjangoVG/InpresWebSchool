@@ -290,8 +290,6 @@ iframe {
   font-family: Linearicons-Free;
   font-size: 18px;
   color: #999999;
-
-  content: attr(data-placeholder);
   display: block;
   width: 100%;
   position: absolute;
@@ -305,9 +303,106 @@ iframe {
   transition: all 0.4s;
 }
 
+.Mail::after
+{
+  font-family: Linearicons-Free;
+  font-size: 18px;
+  color: #999999;
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 40px;
+  left: 35px;
+ 
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  content: url(../images/icons/Email.png);
+}
+
+.NomPrenom::after
+{
+  font-family: Linearicons-Free;
+  font-size: 18px;
+  color: #999999;
+  display: block;
+  width: 70%;
+  position: absolute;
+  top: 40px;
+  left: 35px;
+ 
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  content: url(../images/icons/NomPrenom.png);
+}
+
+.Etablissement::after
+{
+  font-family: Linearicons-Free;
+  font-size: 18px;
+  color: #999999;
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 40px;
+  left: 35px;
+ 
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  content: url(../images/icons/EtablissementScolaire.png);
+}
+
+.Section::after
+{
+  font-family: Linearicons-Free;
+  font-size: 18px;
+  color: #999999;
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 40px;
+  left: 35px;
+ 
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  content: url(../images/icons/Section.png);
+}
+
+.Cours::after
+{
+  font-family: Linearicons-Free;
+  font-size: 18px;
+  color: #999999;
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 40px;
+  left: 35px;
+ 
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  content: url(../images/icons/Cours.png);
+}
+
 .input100:focus {
   padding-left: 60px;
 }
+
+
 
 .input100:focus + .focus-input100::after {
   left: 23px;
@@ -363,6 +458,7 @@ iframe {
   min-width: 160px;
   height: 42px;
   border-radius: 21px;
+  margin: 5px;
 
   background: #d41872;
   background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);

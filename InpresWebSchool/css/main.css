@@ -441,7 +441,7 @@ iframe {
   content: '\f063';
   font-family: 'FontAwesome';
   font-size: 2em;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 0, 149);
   right: 20px;
   top: calc(50% - 0.5em);
 }
@@ -526,7 +526,7 @@ iframe {
 
 /* ----- Select Box Black Panther ----- */
 .sel {
-  border-bottom: 4px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 4px solid rgba(121, 0, 151, 0.3);
 }
 
 .sel--black-panther {

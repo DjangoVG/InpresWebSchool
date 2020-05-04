@@ -498,13 +498,14 @@ iframe {
   list-style-type: none;
   text-align: left;
   font-size: 1em;
-  background-color: #FFF;
+  background-color: rgb(233, 233, 233);
   width: calc(100% + 8px);
   box-sizing: border-box;
-  max-height: 12em;
+  max-height: 10em;
   overflow-y: scroll;
   scrollbar-color: rgb(255, 0, 149);
   scrollbar-width: auto;
+  border-radius: 2%;
 }
 
 .sel.active .sel__box {
@@ -534,7 +535,8 @@ iframe {
 }
 
 .sel__box__options:hover {
-  background-color: #ebedef;
+  background-color: #ffffff;
+  color: #a445b2;
 }
 
 /* ----- Select Box  ----- */

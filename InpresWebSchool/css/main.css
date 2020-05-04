@@ -524,19 +524,25 @@ iframe {
   background-color: #ebedef;
 }
 
-/* ----- Select Box Black Panther ----- */
+/* ----- Select Box  ----- */
 .sel {
   border-bottom: 4px solid rgba(121, 0, 151, 0.3);
 }
 
-.sel--black-panther {
+.sel--Plage01 {
+  z-index: 4;
+}
+
+.sel--Plage02 {
   z-index: 3;
 }
 
-/* ----- Select Box Superman ----- */
-.sel--superman {
-/*   display: none; */
+.sel--Plage03 {
   z-index: 2;
+}
+
+.sel--Plage04 {
+  z-index: 1;
 }
 
 /* ===== Keyframes ===== */

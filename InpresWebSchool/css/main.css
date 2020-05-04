@@ -180,7 +180,7 @@ iframe {
 }
 
 .wrap-login100 {
-  width: 550px;
+  width: 900px;
   border-radius: 10px;
   overflow: hidden;
 
@@ -436,10 +436,10 @@ iframe {
 
 /* ===== Select Box ===== */
 .sel {
-  font-size: 1rem;
+  font-size: 1em;
   display: inline-block;
   margin: 3em 2em;
-  width: 500px;
+  width: 835px;
   background-color: transparent;
   position: relative;
   cursor: pointer;
@@ -461,7 +461,7 @@ iframe {
 
 .sel__placeholder {
   display: block;
-  font-family: 'Quicksand';
+  font-family: 'Ubuntu-Regular';
   font-size: 2.3em;
   color: #7e7e7e;
   padding: 0.2em 0.5em;
@@ -514,8 +514,8 @@ iframe {
 
 .sel__box__options {
   display: list-item;
-  font-family: 'Quicksand';
-  font-size: 1.5em;
+  font-family: 'Ubuntu-Regular';
+  font-size: 1em;
   color: #838e95;
   padding: 0.5em 1em;
   user-select: none;
@@ -523,7 +523,7 @@ iframe {
 
 .sel__box__options::after {
   content: '\f00c';
-  font-family: 'FontAwesome';
+  font-family: 'Ubuntu-Regular';
   font-size: 0.5em;
   margin-left: 5px;
   display: none;

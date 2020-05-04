@@ -1,4 +1,41 @@
 
+function ConnexionUtilisateur(){
+    if($("#NomUtilisateur").val().length == 0 || $("#MotDePasse").val().length == 0){
+        alert("Veuillez compléter tous les champs");
+        return;
+    }
+    $.ajax({
+        url : "php/ConnexionUser.php",
+        method : "POST",
+        dataType : "JSON",
+        data : {
+            nomutilisateur : $("#Utilisateur").val(),
+            motdepasse : $("#MotDePasse").val()
+        },
+        success : function(result){
+            if(result['erreur']){
+                alert(result['message']);
+            }
+            else{
+                localStorage.setItem("user",$("#NomUtilisateur").val());
+                $("#FormLogin").hide();
+                $("#bodyprojet").show();
+                $(".navbar").show();
+                $("#SupprimerProjet").hide();
+                $("#CreerTache").hide();
+                AfficheProjets();
+            }
+            $("#NomUtilisateur").val("");
+            $("#MotDePasse").val("");
+        }
+    });
+}
+
+
+
+
+/* --------------------------------------------------------------------------------------------------- */
+
 (function ($) {
     "use strict";
 

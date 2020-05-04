@@ -62,7 +62,6 @@
         $currentSel.children('select').prop('selectedIndex', index + 1);
       });
   
-  
     /*==================================================================
     [ Validate ]*/
     var input = $('.validate-input .input100');

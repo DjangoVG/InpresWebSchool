@@ -426,11 +426,20 @@ iframe {
   padding-left: 60px;
 }
 
+/* ===== Horizontal Rule ===== */
+.rule {
+  margin: 10px 0;
+  height: 1.5px;
+  background-image: linear-gradient(left, #f0f0f0, #c9bbae, #f0f0f0);
+}
+
+
+/* ===== Select Box ===== */
 .sel {
   font-size: 1rem;
   display: inline-block;
   margin: 3em 2em;
-  width: 490px;
+  width: 500px;
   background-color: transparent;
   position: relative;
   cursor: pointer;
@@ -492,6 +501,10 @@ iframe {
   background-color: #FFF;
   width: calc(100% + 8px);
   box-sizing: border-box;
+  max-height: 12em;
+  overflow-y: scroll;
+  scrollbar-color: rgb(255, 0, 149);
+  scrollbar-width: auto;
 }
 
 .sel.active .sel__box {
@@ -530,19 +543,20 @@ iframe {
 }
 
 .sel--Plage01 {
-  z-index: 4;
+  z-index: 5;
+  
 }
 
 .sel--Plage02 {
-  z-index: 3;
+  z-index: 4;
 }
 
 .sel--Plage03 {
-  z-index: 2;
+  z-index: 3;
 }
 
 .sel--Plage04 {
-  z-index: 1;
+  z-index: 2;
 }
 
 /* ===== Keyframes ===== */
@@ -579,6 +593,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  z-index: 1;
 }
 
 .login100-form-btn {

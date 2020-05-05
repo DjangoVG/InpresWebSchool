@@ -12,7 +12,6 @@ function AjoutCoursPlage()
 
 function AjoutCoursPlages(n)
 {
-  console.log("Début fonction");
   $.ajax({
     url : "php/AjoutCoursPlage.php",
     method : "POST",
@@ -58,7 +57,28 @@ function AjoutCoursPlages(n)
       alert(error);
     }
 });
-  console.log("Fin fonction");
+}
+
+function AjouterEtudiant()
+{
+  $.ajax({
+    url : "php/AjoutEtudiant.php",
+    method : "POST",
+    dataType : "JSON",
+    data : {
+        mailetudiant : $("#AdresseMail").val(),
+        nometudiant : $("#Nom").val(),
+        prenometudiant : $("#Prenom").val(),
+        etablissementetudiant : $("#Etablissement").val()
+    },
+    success : function(result){
+        if(result['erreur']){
+            alert(result['message']);
+        }
+        else
+            location.reload();
+    }
+});
 }
 
 function showTab(n)
@@ -92,8 +112,10 @@ function nextPrev(n) {
   // Increase or decrease the current tab by 1:
   currentTab += n;
   // if you have reached the end of the form... :
-  if (currentTab >= x.length) {
+  if (currentTab >= x.length)
+  {
     //...the form gets submitted:
+    AjouterEtudiant();
     document.getElementById("regForm").submit();
     return false;
   }
@@ -103,6 +125,7 @@ function nextPrev(n) {
 
 function validateForm() {
   // This function deals with validation of the form fields
+  var input = $('.validate-input .input100');
   var x, y, i, valid = true;
   x = document.getElementsByClassName("tab");
   y = x[currentTab].getElementsByTagName("input");
@@ -136,7 +159,6 @@ function fixStepIndicator(n) {
 
  (function($) {
     "use strict";
-
 
     /*==================================================================
     [ Focus input ]*/

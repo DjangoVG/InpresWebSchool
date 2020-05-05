@@ -1,5 +1,4 @@
 <?php
-    console.log(Connexion à la base de données);
     try
     {
         $bdd = new mysqli('localhost','root','','inpreswebschool');

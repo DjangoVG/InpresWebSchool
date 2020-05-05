@@ -1,12 +1,5 @@
 <?php
-    try
-    {
-        $bdd = new mysqli("localhost", 'root', '', 'inpreswebschool');
-    }
-    catch (exception $e)
-    {
-        echo $e->getMessage();
-    }
+    include('ConnexionBD.php');
 
     $stmt = $bdd->query("SELECT * FROM cours");
 

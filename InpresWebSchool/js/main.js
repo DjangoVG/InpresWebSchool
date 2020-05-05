@@ -7,13 +7,10 @@ $(function(){
 
 function AjoutCoursPlage()
 {
-  AjoutCoursPlage1();
-  //AjoutCoursPlage2();
-  //AjoutCoursPlage3();
-  //AjoutCoursPlage4();
+  AjoutCoursPlages(1); AjoutCoursPlages(2); AjoutCoursPlages(3); AjoutCoursPlages(4);
 }
 
-function AjoutCoursPlage1()
+function AjoutCoursPlages(n)
 {
   console.log("Début fonction");
   $.ajax({
@@ -23,12 +20,39 @@ function AjoutCoursPlage1()
     success : function(result){
       if (result['erreur']) return;
 
-      document.getElementById("CoursPlage1").innerHTML = "";
-      $("#CoursPlage1").append("<option>- - - -</option>");
-      result['cours'].forEach(elem=>{
-          $("#CoursPlage1").append("<option>"+ elem['Nom']+ "</option>")
-      
+      result['cours'].forEach(elem=>
+      {
+        if (elem['Plage'] == n)
+        {
+          $('.sel--Plage0' + n).each(function() 
+          {
+            
+            var $current = $(this);
+            
+            $current.children('div').append($('<span>', {
+              class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+              text: elem['Nom']
+            }));
+
+            $('.sel__box__options').click(function() {
+              var txt = $(this).text();
+              var index = $(this).index();
+              
+              $(this).siblings('.sel__box__options').removeClass('selected');
+              $(this).addClass('selected');
+              
+              var $currentSel = $(this).closest('.sel');
+              $currentSel.children('.sel__placeholder').text(txt);
+              $currentSel.children('select').prop('selectedIndex', index + 1);
+            });
+          });          
+        }
     });
+    // -----
+    result['cours'].forEach(elem=>{
+    console.log(elem['Nom'])
+  
+  });
     },
     error: function(error){
       alert(error);
@@ -133,7 +157,8 @@ function fixStepIndicator(n) {
         var $current = $(this);
         
         $(this).find('option').each(function(i) {
-          if (i == 0) {
+          if (i == 0) 
+          {
             $current.prepend($('<div>', {
               class: $current.attr('class').replace(/sel/g, 'sel__box')
             }));

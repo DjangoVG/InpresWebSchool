@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<title>Mes informations</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->	
+		<link rel="icon" type="image/png" href="images/icons/Icone.ico"/>
+		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+		<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	<!--===============================================================================================-->
+	</head>
+	<body>
+		<div class="limiter">
+			<div class="container-login100" style="background-image: url('images/Fond_InpresWebSchool.jpeg');">
+				<div class="wrap-login100 p-t-30 p-b-50">
+                    <form id="regForm" action="">
+
+                        <!-- FIRST STEP INSCRIPTION -->
+                        <div class="tab">
+                            <span class="login100-form-title p-b-41">
+                                QUELQUES INFORMATIONS...
+                            </span>
+                            <div class="login100-form validate-form p-b-33 p-t-5" >
+                                <div class="wrap-input100 validate-input" data-validate = "Entrer votre adresse mail">
+                                    <input class="input100" type="text" name="AdresseMailUtilisateur" placeholder="Mon adresse mail" oninput="this.className = ''">
+                                    <span class="focus-input100 Mail"></span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Entrer votre nom">
+                                    <input class="input100" type="text" name="NomUtilisateur" placeholder="Mon nom" oninput="this.className = ''">
+                                    <span class="focus-input100 NomPrenom"></span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Entrer votre prénom">
+                                    <input class="input100" type="text" name="PrenomUtilisateur" placeholder="Mon prénom" oninput="this.className = ''">
+                                    <span class="focus-input100 NomPrenom"></span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Entrer votre établissement scolaire">
+                                    <input class="input100" type="text" name="EtablissementUtilisateur" placeholder="Mon établissement scolaire" oninput="this.className = ''">
+                                    <span class="focus-input100 Etablissement"></span>
+                                </div>
+                            </div>                        
+                        </div>
+
+                        
+                        <!-- NEXT STEP INSCRIPTION -->
+                        <div class="tab">
+                            <span class="login100-form-title p-b-41">
+                                MA FUTURE SECTION...
+                            </span>
+                            <div class="login100-form validate-form p-b-33 p-t-5" id="Form_Plages">
+                                <div class="sel sel--Plage01">
+                                    <select name="select-profession" id="select-profession">
+                                    <option value="" disabled>Ma future section...</option>
+                                    <option value="InfoGestion">Informatique de Gestion</option>
+                                    <option value="InfoReseauxSystemes">Informatique finalité : Réseaux et Systèmes</option>
+                                    <option value="InfoReseaux">Informatique finalité : Réseaux</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NEXT STEP INSCRIPTION -->
+                        <div class="tab">
+                            <span class="login100-form-title p-b-41">
+                                MES FUTURS COURS...
+                            </span>
+                            <div class="login100-form validate-form p-b-33 p-t-5" id="Form_Plages">
+                                <div class="sel sel--Plage01">
+                                    <select name="select-profession" id="select-profession">
+                                    <option value="" disabled>Plage 1 [8h20 - 10h20]</option>
+                                    <option value="Repos">Repos</option>
+                                    <option value="AnalyseOO">Analyse orienté object</option>
+                                    <option value="Programmation">Logique et langage de programmation</option>
+                                    <option value="Reseaux">Réseaux</option>
+                                    <option value="Anglais">Anglais technique</option>
+                                    <option value="Gestion">Gestion de programmation</option>
+                                    </select>
+                                </div>
+                                <hr class="rule">
+                                <div class="sel sel--Plage02">
+                                    <select name="select-profession" id="select-profession">
+                                    <option value="" disabled>Plage 2 [10h30 - 12h30]</option>
+                                    <option value="Repos">Repos</option>
+                                    <option value="AnalyseOO">Analyse orienté object</option>
+                                    <option value="Programmation">Logique et langage de programmation</option>
+                                    <option value="Reseaux">Réseaux</option>
+                                    <option value="Anglais">Anglais technique</option>
+                                    <option value="Gestion">Gestion de programmation</option>
+                                    </select>
+                                </div>
+                                <hr class="rule">
+                                <div class="sel sel--Plage03">
+                                    <select name="select-profession" id="select-profession">
+                                    <option value="" disabled>Plage 3 [13h30 - 15h30]</option>
+                                    <option value="Repos">Repos</option>
+                                    <option value="AnalyseOO">Analyse orienté object</option>
+                                    <option value="Programmation">Logique et langage de programmation</option>
+                                    <option value="Reseaux">Réseaux</option>
+                                    <option value="Anglais">Anglais technique</option>
+                                    <option value="Gestion">Gestion de programmation</option>
+                                    </select>
+                                </div>
+                                <hr class="rule">
+                                <div class="sel sel--Plage04">
+                                    <select name="select-profession" id="select-profession">
+                                    <option value="" disabled>Plage 4 [15h30 - 17h30]</option>
+                                    <option value="Repos">Repos</option>
+                                    <option value="AnalyseOO">Analyse orienté object</option>
+                                    <option value="Programmation">Logique et langage de programmation</option>
+                                    <option value="Reseaux">Réseaux</option>
+                                    <option value="Anglais">Anglais technique</option>
+                                    <option value="Gestion">Gestion de programmation</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-login100-form-btn m-t-32">
+                            <button type="button" id="nextBtn" class="login100-form-btn" onclick="nextPrev(1)">
+                                VALIDER
+                            </button>
+                            <button type="button" id="prevBtn" class="login100-form-btn" onclick="nextPrev(-1)">
+                                RETOUR
+                            </button>
+                        </div>
+
+                        <div style="text-align:center;margin-top:40px;">
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+					    </div>	
+                    </form>
+				</div>
+			</div>
+		</div>
+		
+	<!--===============================================================================================-->
+		<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+		<script src="vendor/animsition/js/animsition.min.js"></script>
+		<script src="vendor/bootstrap/js/popper.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="vendor/select2/select2.min.js"></script>
+		<script src="vendor/daterangepicker/moment.min.js"></script>
+		<script src="vendor/daterangepicker/daterangepicker.js"></script>
+		<script src="vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+		<script src="js/main.js"></script>
+
+	</body>
+</html>

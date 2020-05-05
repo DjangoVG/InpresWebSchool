@@ -32,6 +32,10 @@ body, html {
 	font-family: Ubuntu-Regular, sans-serif;
 }
 
+.tab {
+  display: none;
+}
+
 /*---------------------------------------------*/
 a {
 	font-family: Ubuntu-Regular;
@@ -582,6 +586,27 @@ iframe {
   to {
     opacity: 0;
   }
+}
+
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: rgb(175, 0, 82);
 }
 
 /*------------------------------------------------------------------

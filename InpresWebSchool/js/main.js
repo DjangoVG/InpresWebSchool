@@ -1,8 +1,44 @@
 var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the current tab
+
+$(function(){
+  showTab(currentTab); // Display the current tab
+  AjoutCoursPlage();
+})
+
+function AjoutCoursPlage()
+{
+  AjoutCoursPlage1();
+  //AjoutCoursPlage2();
+  //AjoutCoursPlage3();
+  //AjoutCoursPlage4();
+}
+
+function AjoutCoursPlage1()
+{
+  console.log("Début fonction");
+  $.ajax({
+    url : "php/AjoutCoursPlage.php",
+    method : "POST",
+    dataType : "JSON",
+    success : function(result){
+      if (result['erreur']) return;
+
+      document.getElementById("CoursPlage1").innerHTML = "";
+      $("#CoursPlage1").append("<option>- - - -</option>");
+      result['cours'].forEach(elem=>{
+          $("#CoursPlage1").append("<option>"+ elem['Nom']+ "</option>")
+      
+    });
+    },
+    error: function(error){
+      alert(error);
+    }
+});
+  console.log("Fin fonction");
+}
 
 function showTab(n)
- {
+{
   // This function will display the specified tab of the form ...
   var x = document.getElementsByClassName("tab");
   x[n].style.display = "block";

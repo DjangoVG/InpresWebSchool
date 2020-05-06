@@ -15,7 +15,8 @@
 		<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
 		<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 		<link rel="stylesheet" type="text/css" href="css/util.css">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/main.scss">
 	<!--===============================================================================================-->
 	</head>
 	<body>
@@ -53,17 +54,23 @@
                         <!-- NEXT STEP INSCRIPTION -->
                         <div class="etape">
                             <span class="login100-form-title p-b-41">
-                                MA FUTURE SECTION...
+                                MA(MES) FUTURE(S) SECTION(S)...
                             </span>
-                            <div class="login100-form validate-form p-b-33 p-t-5" id="Form_Plages">
-                                <div class="sel" style="z-index: 2;">
-                                    <select name="Section" id="select-profession">
-                                    <option value="" disabled>Ma future section...</option>
-                                    <option value="InfoGestion">Informatique de Gestion</option>
-                                    <option value="InfoReseauxSystemes">Informatique finalité : Réseaux et Systèmes</option>
-                                    <option value="InfoReseaux">Informatique finalité : Réseaux</option>
-                                    </select>
+                            <div class="login100-form validate-form p-b-5 p-t-5" id="Form_Plages">
+                                <div class="inputGroup">
+                                    <input id="option1" name="option1" type="checkbox"/>
+                                    <label for="option1">Informatique de Gestion</label>
                                 </div>
+                                
+                                <div class="inputGroup">
+                                <input id="option2" name="option2" type="checkbox"/>
+                                <label for="option2">Informatique finalité : Industrielle</label>
+                                </div>
+
+                                <div class="inputGroup">
+                                    <input id="option3" name="option3" type="checkbox"/>
+                                    <label for="option3">Informatique finalité : Réseau et télécom</label>
+                                    </div>
                             </div>
                         </div>
 

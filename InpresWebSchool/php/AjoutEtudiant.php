@@ -10,7 +10,7 @@
         echo $_POST['etablisementetudiant'];
         $stmt->bind_param("ssss",$_POST['mailetudiant'],$_POST['nometudiant'],$_POST['prenometudiant'],$_POST['etablissementetudiant']);
         if($stmt->execute())
-            $return['erreur'] = false;
+        $return['erreur'] = false;
         else
         {
             $return['erreur'] = true;

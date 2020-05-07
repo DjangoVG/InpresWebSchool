@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 07 mai 2020 à 19:33
+-- Généré le :  jeu. 07 mai 2020 à 20:02
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -21,6 +21,26 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `inpreswebschool`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `administrateur`
+--
+
+DROP TABLE IF EXISTS `administrateur`;
+CREATE TABLE IF NOT EXISTS `administrateur` (
+  `nomutilisateur` varchar(50) NOT NULL,
+  `motdepasse` varchar(100) NOT NULL,
+  PRIMARY KEY (`nomutilisateur`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `administrateur`
+--
+
+INSERT INTO `administrateur` (`nomutilisateur`, `motdepasse`) VALUES
+('admin', '1234');
 
 -- --------------------------------------------------------
 
@@ -100,12 +120,12 @@ CREATE TABLE IF NOT EXISTS `cours` (
 
 INSERT INTO `cours` (`NomCours`, `HeureDebut`, `HeureFin`, `ReprisDansListe`, `IdProfesseur`, `IdType`, `IdGroupe`, `NomLocal`) VALUES
 ('Analyse et gestion des données', '08:50:00', '10:20:00', 1, 6, 2, 2102, 'B22'),
-('Anglais Technique', '09:20:00', '10:20:00', 1, 14, 2, 2104, 'LPO7'),
+('Anglais technique', '09:20:00', '10:20:00', 1, 14, 2, 2104, 'LPO7'),
 ('Langage et logique de programmation 2', '08:20:00', '10:20:00', 1, 7, 2, 2101, 'B14'),
 ('Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 1, 4, 2, 2105, 'AN'),
 ('Analyse et gestion des données', '10:30:00', '12:00:00', 1, 8, 2, 2104, 'B22'),
 ('Anglais technique', '10:30:00', '11:30:00', 1, 11, 2, 2101, 'LPO7'),
-('Comptabilité appliquée et langue', '10:30:00', '00:00:00', 1, 15, 1, 2102, 'AE'),
+('Comptabilité appliquée et langue', '10:30:00', '12:30:00', 1, 15, 1, 2102, 'AE'),
 ('Logiciel de contrôle', '10:30:00', '13:00:00', 1, 10, 2, 2122, 'L02'),
 ('Réseau TCP/IP', '10:30:00', '12:30:00', 1, 12, 2, 2123, 'L01'),
 ('Analyse et gestion de données', '13:30:00', '15:00:00', 1, 6, 2, 2103, 'PV2'),

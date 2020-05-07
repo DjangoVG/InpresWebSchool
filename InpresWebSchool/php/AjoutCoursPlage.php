@@ -1,8 +1,7 @@
 <?php
     include('ConnexionBD.php');
-
     $stmt = $bdd->query("SELECT * FROM cours");
-
+    
     if ($stmt->num_rows > 0)
     {
         $results = array();

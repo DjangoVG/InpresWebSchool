@@ -2,6 +2,7 @@
     try
     {
         $bdd = new mysqli('localhost','root','','inpreswebschool');
+        $bdd->set_charset("utf8");
     }
     catch(exception $e)
     {

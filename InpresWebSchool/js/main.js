@@ -3,7 +3,7 @@ var currentTab = 0; // Current tab is set to be the first tab (0)
 (function($) 
 {
   showTab(currentTab); // Display the current tab
-  AjoutCoursPlage();
+  AjoutCoursPlages();
   "use strict";
 
   $('.sel').each(function() {
@@ -75,12 +75,7 @@ var currentTab = 0; // Current tab is set to be the first tab (0)
 
 })(jQuery);
 
-function AjoutCoursPlage()
-{
-  AjoutCoursPlages(1); AjoutCoursPlages(2); AjoutCoursPlages(3); AjoutCoursPlages(4);
-}
-
-function AjoutCoursPlages(n)
+function AjoutCoursPlages()
 {
   $.ajax({
     url : "php/AjoutCoursPlage.php",
@@ -91,16 +86,91 @@ function AjoutCoursPlages(n)
 
       result['cours'].forEach(elem=>
       {
-        if (elem['Plage'] == n)
+        if (elem['HeureFin'] <= '11:00:00') // PLAGE 1
         {
-          $('.sel--Plage0' + n).each(function() 
+          $('.sel--Plage01').each(function() 
           {
             
             var $current = $(this);
             
             $current.children('div').append($('<span>', {
               class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-              text: elem['Nom'] + " | Professeur : " + elem['Professeur']// FULL NOM
+              text: elem['NomCours']// FULL NOM
+            }));
+
+            $('.sel__box__options').click(function() {
+              var txt = $(this).text();
+              var index = $(this).index();
+              
+              $(this).siblings('.sel__box__options').removeClass('selected');
+              $(this).addClass('selected');
+              
+              var $currentSel = $(this).closest('.sel');
+              $currentSel.children('.sel__placeholder').text(txt);
+              $currentSel.children('select').prop('selectedIndex', index + 1);
+            });
+          });          
+        }
+        else if (elem['HeureFin'] <= '13:00:00') // pLAGE 2
+        {
+          $('.sel--Plage02').each(function() 
+          {
+            
+            var $current = $(this);
+            
+            $current.children('div').append($('<span>', {
+              class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+              text: elem['NomCours']
+            }));
+
+            $('.sel__box__options').click(function() {
+              var txt = $(this).text();
+              var index = $(this).index();
+              
+              $(this).siblings('.sel__box__options').removeClass('selected');
+              $(this).addClass('selected');
+              
+              var $currentSel = $(this).closest('.sel');
+              $currentSel.children('.sel__placeholder').text(txt);
+              $currentSel.children('select').prop('selectedIndex', index + 1);
+            });
+          });          
+        }
+        else if (elem['HeureFin'] <= '16:00:00') // PLAGE 3
+        {
+          $('.sel--Plage03').each(function() 
+          {
+            
+            var $current = $(this);
+            
+            $current.children('div').append($('<span>', {
+              class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+              text: elem['NomCours']
+            }));
+
+            $('.sel__box__options').click(function() {
+              var txt = $(this).text();
+              var index = $(this).index();
+              
+              $(this).siblings('.sel__box__options').removeClass('selected');
+              $(this).addClass('selected');
+              
+              var $currentSel = $(this).closest('.sel');
+              $currentSel.children('.sel__placeholder').text(txt);
+              $currentSel.children('select').prop('selectedIndex', index + 1);
+            });
+          });          
+        }
+        else if (elem['HeureFin'] <= '18:00:00') // DERNIERE PLAGE
+        {
+          $('.sel--Plage04').each(function() 
+          {
+            
+            var $current = $(this);
+            
+            $current.children('div').append($('<span>', {
+              class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+              text: elem['NomCours']
             }));
 
             $('.sel__box__options').click(function() {

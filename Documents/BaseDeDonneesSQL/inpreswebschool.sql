@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 07 mai 2020 à 20:02
+-- Généré le :  jeu. 07 mai 2020 à 22:05
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -41,6 +41,19 @@ CREATE TABLE IF NOT EXISTS `administrateur` (
 
 INSERT INTO `administrateur` (`nomutilisateur`, `motdepasse`) VALUES
 ('admin', '1234');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `assister`
+--
+
+DROP TABLE IF EXISTS `assister`;
+CREATE TABLE IF NOT EXISTS `assister` (
+  `IdGroupe` int(11) NOT NULL,
+  `NomCours` varchar(50) NOT NULL,
+  PRIMARY KEY (`NomCours`,`IdGroupe`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -105,11 +118,9 @@ CREATE TABLE IF NOT EXISTS `cours` (
   `ReprisDansListe` tinyint(4) NOT NULL,
   `IdProfesseur` int(11) NOT NULL,
   `IdType` int(11) NOT NULL,
-  `IdGroupe` int(11) NOT NULL,
   `NomLocal` varchar(10) NOT NULL,
-  PRIMARY KEY (`NomCours`,`HeureDebut`,`HeureFin`,`IdGroupe`),
+  PRIMARY KEY (`NomCours`,`HeureDebut`,`HeureFin`,`IdProfesseur`),
   KEY `IdType` (`IdType`),
-  KEY `IdGroupe` (`IdGroupe`),
   KEY `NomLocal` (`NomLocal`),
   KEY `IdProfesseur` (`IdProfesseur`)
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
@@ -118,22 +129,21 @@ CREATE TABLE IF NOT EXISTS `cours` (
 -- Déchargement des données de la table `cours`
 --
 
-INSERT INTO `cours` (`NomCours`, `HeureDebut`, `HeureFin`, `ReprisDansListe`, `IdProfesseur`, `IdType`, `IdGroupe`, `NomLocal`) VALUES
-('Analyse et gestion des données', '08:50:00', '10:20:00', 1, 6, 2, 2102, 'B22'),
-('Anglais technique', '09:20:00', '10:20:00', 1, 14, 2, 2104, 'LPO7'),
-('Langage et logique de programmation 2', '08:20:00', '10:20:00', 1, 7, 2, 2101, 'B14'),
-('Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 1, 4, 2, 2105, 'AN'),
-('Analyse et gestion des données', '10:30:00', '12:00:00', 1, 8, 2, 2104, 'B22'),
-('Anglais technique', '10:30:00', '11:30:00', 1, 11, 2, 2101, 'LPO7'),
-('Comptabilité appliquée et langue', '10:30:00', '12:30:00', 1, 15, 1, 2102, 'AE'),
-('Logiciel de contrôle', '10:30:00', '13:00:00', 1, 10, 2, 2122, 'L02'),
-('Réseau TCP/IP', '10:30:00', '12:30:00', 1, 12, 2, 2123, 'L01'),
-('Analyse et gestion de données', '13:30:00', '15:00:00', 1, 6, 2, 2103, 'PV2'),
-('Administration réseaux', '13:30:00', '15:30:00', 1, 10, 2, 2225, 'B22'),
-('Analyse orienté objet', '13:30:00', '15:00:00', 1, 8, 1, 2201, 'LPO1'),
-('Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 1, 2, 1, 2202, 'AE'),
-('Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 1, 2, 1, 2203, 'AE'),
-('Programmation web 2', '15:30:00', '17:30:00', 1, 3, 2, 2201, 'AN');
+INSERT INTO `cours` (`NomCours`, `HeureDebut`, `HeureFin`, `ReprisDansListe`, `IdProfesseur`, `IdType`, `NomLocal`) VALUES
+('Analyse et gestion des données', '08:50:00', '10:20:00', 1, 6, 2, 'B22'),
+('Anglais technique', '09:20:00', '10:20:00', 1, 14, 2, 'LPO7'),
+('Langage et logique de programmation 2', '08:20:00', '10:20:00', 1, 7, 2, 'B14'),
+('Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 1, 4, 2, 'AN'),
+('Analyse et gestion des données', '10:30:00', '12:00:00', 1, 8, 2, 'B22'),
+('Anglais technique', '10:30:00', '11:30:00', 1, 11, 2, 'LPO7'),
+('Comptabilité appliquée et langue', '10:30:00', '12:30:00', 1, 15, 1, 'AE'),
+('Logiciel de contrôle', '10:30:00', '13:00:00', 1, 10, 2, 'L02'),
+('Réseau TCP/IP', '10:30:00', '12:30:00', 1, 12, 2, 'L01'),
+('Analyse et gestion des données', '13:30:00', '15:00:00', 1, 12, 2, 'PV2'),
+('Administration réseaux', '13:30:00', '15:30:00', 1, 10, 2, 'B22'),
+('Analyse orienté objet', '13:30:00', '15:00:00', 1, 8, 1, 'LPO1'),
+('Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 1, 2, 1, 'AE'),
+('Programmation web 2', '15:30:00', '17:30:00', 1, 3, 2, 'AN');
 
 -- --------------------------------------------------------
 
@@ -301,10 +311,10 @@ INSERT INTO `professeur` (`IdProfesseur`, `Nom`, `Prenom`) VALUES
 (4, 'Kuty', 'Ludovic'),
 (5, 'Herbiet', 'Laurence'),
 (6, 'Serrhini', 'Souad'),
-(7, 'Lenoard', 'Anne'),
+(7, 'Leonard', 'Anne'),
 (8, 'Costa', 'Corinne'),
 (9, 'Sagot', 'Pierre'),
-(10, 'Quettier', 'Eric'),
+(10, 'Quettier', 'Patrick'),
 (11, 'Yans', 'Barbara'),
 (12, 'Colinet', 'Didier'),
 (13, 'Giovanizzo', 'Florence'),

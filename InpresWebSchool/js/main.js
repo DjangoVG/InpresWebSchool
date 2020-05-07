@@ -278,8 +278,11 @@ function CheckChampFormulaire()
    {
       if(!ValidationPattern(input[i]))
       {
-        showValidate(input[i]);
-        check=false;
+          if ( i<input.length-1) // Je suis l'établissement scolaire
+          {
+            showValidate(input[i]);
+            check=false;              
+          }
       }
       else
       {

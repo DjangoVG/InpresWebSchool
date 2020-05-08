@@ -205,14 +205,25 @@ function AjouterEtudiant()
     var i = 0;
     var section2 = document.getElementsByClassName("inputGroup clique");
 
-    $.each(section2, function()
+    $.each(section2, function() // Récupère les différentes sections choisies
     {
         sections.push($(section2[i]).children().first().prop("name")); 
         i++;
     });
 
-    alert("You have selected the sections : " + sections.join(", "));
+    var j = 0, cours, TabPlages = [];
+    for (j = 1 ; j < 5 ; j++)
+    {
+        cours = document.getElementsByClassName("sel__placeholder sel__placeholder--Plage0" + j);
+        TabPlages.push(cours[0].textContent);
+    }
 
+    console.log($("#AdresseMail").val());
+    console.log($("#Nom").val());
+    console.log($("#Prenom").val());
+    console.log($("#Etablissement").val());
+    console.log(sections);
+    console.log(TabPlages);
 
     $.ajax({
         url : "php/AjoutEtudiant.php",
@@ -223,7 +234,8 @@ function AjouterEtudiant()
             nometudiant : $("#Nom").val(),
             prenometudiant : $("#Prenom").val(),
             etablissementetudiant : $("#Etablissement").val(),
-            sections : sections
+            sections : sections,
+            Plages : TabPlages
         },
         success : function(result){
             if(result['erreur']){
@@ -231,7 +243,11 @@ function AjouterEtudiant()
             }
             else
                 location.reload();
+        },
+        error : function(result) {
+            alert (result['message']);
         }
+        
     });
 }
 

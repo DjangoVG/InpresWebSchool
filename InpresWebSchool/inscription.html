@@ -49,7 +49,6 @@
                             </div>                        
                         </div>
 
-                        
                         <!-- NEXT STEP INSCRIPTION -->
                         <div class="etape">
                             <span class="login100-form-title p-b-41">
@@ -69,7 +68,26 @@
                                 <div class="inputGroup" name="3">
                                     <input id="option3" name="Informatique finalité : Réseau et télécom" type="checkbox" onclick="ClickSection(2)" class="section"/>
                                     <label for="option3">Informatique finalité : Réseau et télécom</label>
-                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NEXT STEP INSCRIPTION -->
+                        <div class="etape">
+                            <span class="login100-form-title p-b-41">
+                                MA JOURNEE D'IMMERSION...
+                            </span>
+                            <div class="login100-form validate-form p-b-33 p-t-5" id="Form_Journee">
+                                <div class="sel sel--Journee">
+                                    <select name="Journee" id="Journee">
+                                        <option value="Journee" disabled>Ma meilleure journée !</option>
+                                        <option value="Lundi">Lundi 15 juin 2020</option> <!-- TO DO : VERIFIER NB COURS ENCORE DISPO-->
+                                        <option value="Mardi">Mardi 16 juin 2020</option>
+                                        <option value="Mercredi">Mercredi 17 juin 2020</option>
+                                        <option value="Jeudi">Jeudi 18 juin 2020</option>
+                                        <option value="Vendredi">Vendredi 19 juin 2020</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
@@ -80,28 +98,28 @@
                             </span>
                             <div class="login100-form validate-form p-b-33 p-t-5" id="Form_Plages">
                                 <div class="sel sel--Plage01">
-                                    <select id="CoursPlage1">
+                                    <select name="Plage1" id="CoursPlage1">
                                         <option value="Plage1" disabled>Plage 1 [8h20 - 10h20]</option>
                                         <option value="Repos">Repos</option>
                                     </select>
                                 </div>
                                 <hr class="rule">
                                 <div class="sel sel--Plage02">
-                                    <select name="Plage2" id="select-profession">
+                                    <select name="Plage2" id="CoursPlage2">
                                         <option value="" disabled>Plage 2 [10h30 - 12h30]</option>
                                         <option value="Repos">Repos</option>
                                     </select>
                                 </div>
                                 <hr class="rule">
                                 <div class="sel sel--Plage03">
-                                    <select name="Plage3" id="select-profession">
+                                    <select name="Plage3" id="CoursPlage3">
                                     <option value="" disabled>Plage 3 [13h30 - 15h30]</option>
                                     <option value="Repos">Repos</option>
                                     </select>
                                 </div>
                                 <hr class="rule">
                                 <div class="sel sel--Plage04">
-                                    <select name="Plage4" id="select-profession">
+                                    <select name="Plage4" id="CoursPlage4">
                                     <option value="" disabled>Plage 4 [15h30 - 17h30]</option>
                                     <option value="Repos">Repos</option>
                                     </select>
@@ -120,6 +138,7 @@
                         </div>
 
                         <div style="text-align:center;margin-top:40px;">
+                            <span class="step"></span>
                             <span class="step"></span>
                             <span class="step"></span>
                             <span class="step"></span>

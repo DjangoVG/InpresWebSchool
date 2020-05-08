@@ -3,7 +3,6 @@ var currentTab = 0; // Current tab is set to be the first tab (0)
 (function($) 
 {
   showTab(currentTab); // Display the current tab
-  AjoutCoursPlages();
   "use strict";
 
   $('.sel').each(function() {
@@ -77,11 +76,28 @@ var currentTab = 0; // Current tab is set to be the first tab (0)
 
 function AjoutCoursPlages()
 {
+    // JE RECUPERE L'ID DE LA JOURNEE ICI
+    var journeepicked = document.getElementsByClassName("sel__placeholder sel__placeholder--Journee") ;
+    if (journeepicked[0].textContent.includes("Lundi"))
+        $id = 1;
+    else if (journeepicked[0].textContent.includes("Mardi"))
+        $id = 2;
+    else if (journeepicked[0].textContent.includes("Mercredi"))
+        $id = 3;
+    else if (journeepicked[0].textContent.includes("Jeudi"))
+        $id = 4;
+    else if (journeepicked[0].textContent.includes("Vendredi"))
+        $id = 5;
+
   $.ajax({
     url : "php/AjoutCoursPlage.php",
     method : "POST",
     dataType : "JSON",
-    success : function(result){
+    data : {
+        idjournee : $id,
+    },
+   success : function(result)
+    {
       if (result['erreur']) return;
 
       result['cours'].forEach(elem=>
@@ -111,7 +127,7 @@ function AjoutCoursPlages()
             });
           });          
         }
-        else if (elem['HeureFin'] <= '13:00:00') // pLAGE 2
+        else if (elem['HeureFin'] <= '13:00:00') // PLAGE 2
         {
           $('.sel--Plage02').each(function() 
           {
@@ -189,7 +205,7 @@ function AjoutCoursPlages()
     });
     // -----
     result['cours'].forEach(elem=>{
-    console.log(elem['Nom'])
+    console.log(elem['NomCours'])
   
   });
     },
@@ -197,6 +213,20 @@ function AjoutCoursPlages()
       alert(error);
     }
 });
+}
+
+function SupprimerPlage()
+{
+    console.log("Je tente de supprimer");
+    var list = document.getElementsByClassName("sel__box__options sel__box__options--Plage01");
+    for(var i = list.length - 1; i > 0; i--)
+    {
+        if(list[i] && list[i].parentElement)
+        {
+                list[i].parentElement.removeChild(list[i]); 
+        }            
+    }
+
 }
 
 function AjouterEtudiant()
@@ -273,18 +303,24 @@ function showTab(n)
   var x = document.getElementsByClassName("etape");
   x[n].style.display = "block";
   // ... and fix the Previous/Next buttons:
-  if (n == 0) {
-    document.getElementById("prevBtn").style.display = "none";
-  } else {
+    if (n == 0)
+        document.getElementById("prevBtn").style.display = "none";
+    else 
     document.getElementById("prevBtn").style.display = "inline";
-  }
-  if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "ENVOYER";
-  } else {
-    document.getElementById("nextBtn").innerHTML = "CONTINUER";
-  }
-  // ... and run a function that displays the correct step indicator:
-  AffichageStepFormulaire(n)
+
+    if (n == (x.length - 1)) 
+        document.getElementById("nextBtn").innerHTML = "ENVOYER";
+    else 
+        document.getElementById("nextBtn").innerHTML = "CONTINUER";
+
+    if (n == (x.length - 1))
+    {
+        SupprimerPlage();
+        AjoutCoursPlages();
+    }
+        
+    
+    AffichageStepFormulaire(n)
 }
 
 function ClickBoutonFormulaire(n) 
@@ -292,7 +328,7 @@ function ClickBoutonFormulaire(n)
   if (CheckChampFormulaire())
   {
     var x = document.getElementsByClassName("etape");
-
+        
     x[currentTab].style.display = "none";
     currentTab += n;
     if (currentTab >= x.length)

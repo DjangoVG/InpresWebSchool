@@ -201,25 +201,55 @@ function AjoutCoursPlages()
 
 function AjouterEtudiant()
 {
-  $.ajax({
-    url : "php/AjoutEtudiant.php",
-    method : "POST",
-    dataType : "JSON",
-    data : {
-        mailetudiant : $("#AdresseMail").val(),
-        nometudiant : $("#Nom").val(),
-        prenometudiant : $("#Prenom").val(),
-        etablissementetudiant : $("#Etablissement").val()
-    },
-    success : function(result){
-        if(result['erreur']){
-            alert(result['message']);
+    var sections = [];
+    var i = 0;
+    var section2 = document.getElementsByClassName("inputGroup clique");
+
+    $.each(section2, function()
+    {
+        sections.push($(section2[i]).children().first().prop("name")); 
+        i++;
+    });
+
+    alert("You have selected the sections : " + sections.join(", "));
+
+
+    $.ajax({
+        url : "php/AjoutEtudiant.php",
+        method : "POST",
+        dataType : "JSON",
+        data : {
+            mailetudiant : $("#AdresseMail").val(),
+            nometudiant : $("#Nom").val(),
+            prenometudiant : $("#Prenom").val(),
+            etablissementetudiant : $("#Etablissement").val(),
+            sections : sections
+        },
+        success : function(result){
+            if(result['erreur']){
+                alert(result['message']);
+            }
+            else
+                location.reload();
         }
-        else
-            location.reload();
-    }
-});
+    });
 }
+
+function ClickSection(n) // Je clique sur une section (modification de sa classe)
+{
+    var i, x = document.getElementsByClassName("inputGroup");
+    for (i = 0; i < x.length; i++) 
+    {
+        if (n == i)
+        {
+            if (x[i].className == "inputGroup clique") 
+                x[i].className = "inputGroup";
+            else
+                x[i].className = "inputGroup clique";            
+        }
+    }
+}
+
 
 function showTab(n)
 {
@@ -301,14 +331,12 @@ function ValidationPattern (input)
 {
   if($(input).attr('type') == 'email') 
   {
-    console.log("Je suis un mail");
     if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
         return false;
     }
   }
   else 
   {
-    console.log("Je suis pas un mail");
     if($(input).val().trim() == '')
     {
         return false;

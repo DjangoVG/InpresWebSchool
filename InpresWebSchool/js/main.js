@@ -89,12 +89,23 @@ function AjoutCoursPlages()
     else if (journeepicked[0].textContent.includes("Vendredi"))
         $id = 5;
 
+    // JE RECUPERE LES SECTIONS QUE L'ETUDIANT A CHOISI
+    
+    var SectionsChoisies = document.getElementsByClassName("inputGroup clique");
+    var Sections = [];
+    for (let i = 0; i < SectionsChoisies.length; i++)
+    {
+        Sections.push(SectionsChoisies[i].textContent);
+    }
+
+
   $.ajax({
     url : "php/AjoutCoursPlage.php",
     method : "POST",
     dataType : "JSON",
     data : {
         idjournee : $id,
+        sectionss : Sections,
     },
    success : function(result)
     {

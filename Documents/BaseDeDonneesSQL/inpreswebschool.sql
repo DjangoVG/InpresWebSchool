@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 08 mai 2020 à 21:14
+-- Généré le :  sam. 09 mai 2020 à 14:05
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -133,12 +133,54 @@ INSERT INTO `composer` (`IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdPr
 
 DROP TABLE IF EXISTS `concerner`;
 CREATE TABLE IF NOT EXISTS `concerner` (
-  `IdCours` int(11) NOT NULL,
   `IdSection` int(11) NOT NULL,
-  PRIMARY KEY (`IdCours`,`IdSection`),
-  KEY `IdCours` (`IdCours`),
-  KEY `IdSection` (`IdSection`)
+  `NomCours` varchar(100) NOT NULL,
+  `HeureDebut` time NOT NULL,
+  `HeureFin` time NOT NULL,
+  `IdProfesseur` int(11) NOT NULL,
+  PRIMARY KEY (`IdSection`,`NomCours`,`HeureDebut`,`HeureFin`,`IdProfesseur`),
+  KEY `NomCours` (`NomCours`),
+  KEY `HeureDebut` (`HeureDebut`),
+  KEY `HeureFin` (`HeureFin`),
+  KEY `IdProfesseur` (`IdProfesseur`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `concerner`
+--
+
+INSERT INTO `concerner` (`IdSection`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
+(1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
+(1, 'Analyse et gestion de données', '10:30:00', '12:00:00', 8),
+(1, 'Anglais technique', '09:20:00', '10:20:00', 14),
+(1, 'Anglais technique', '10:30:00', '11:30:00', 11),
+(1, 'Comptabilité appliquée et lange', '10:30:00', '12:30:00', 15),
+(1, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
+(1, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 7),
+(1, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 4),
+(1, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 5),
+(1, 'Présentation Stage - TFE par les étudiants de 3ème', '08:50:00', '10:20:00', 18),
+(1, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 16),
+(2, 'Anglais technique', '09:20:00', '10:20:00', 14),
+(2, 'Anglais technique', '10:30:00', '11:30:00', 11),
+(2, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
+(2, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 7),
+(2, 'Logiciel de contrôle', '10:30:00', '13:00:00', 10),
+(2, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 4),
+(2, 'Présentation Stage - TFE par les étudiants de 3ème', '08:50:00', '10:20:00', 18),
+(2, 'Réseau TCP/IP', '10:30:00', '12:30:00', 12),
+(2, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 10),
+(2, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 16),
+(3, 'Administration réseaux', '13:30:00', '15:30:00', 10),
+(3, 'Anglais technique', '09:20:00', '10:20:00', 11),
+(3, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
+(3, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 7),
+(3, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 4),
+(3, 'Présentation Stage - TFE par les étudiants de 3ème', '08:50:00', '10:20:00', 18),
+(3, 'Réseau TCP/IP', '10:30:00', '12:30:00', 12),
+(3, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 10),
+(3, 'Sécurité réseau', '13:30:00', '15:30:00', 16),
+(3, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 16);
 
 -- --------------------------------------------------------
 
@@ -159,27 +201,66 @@ CREATE TABLE IF NOT EXISTS `cours` (
   KEY `IdType` (`IdType`),
   KEY `NomLocal` (`NomLocal`),
   KEY `IdProfesseur` (`IdProfesseur`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `cours`
 --
 
 INSERT INTO `cours` (`NomCours`, `HeureDebut`, `HeureFin`, `ReprisDansListe`, `IdProfesseur`, `IdType`, `NomLocal`) VALUES
-('Analyse et gestion des données', '08:50:00', '10:20:00', 1, 6, 2, 'B22'),
+('Analyse et gestion de données', '08:50:00', '10:20:00', 1, 6, 2, 'B22'),
 ('Anglais technique', '09:20:00', '10:20:00', 1, 14, 2, 'LPO7'),
 ('Langage et logique de programmation 2', '08:20:00', '10:20:00', 1, 7, 2, 'B14'),
 ('Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 1, 4, 2, 'AN'),
-('Analyse et gestion des données', '10:30:00', '12:00:00', 1, 8, 2, 'B22'),
+('Analyse et gestion de données', '10:30:00', '12:00:00', 1, 8, 2, 'B22'),
 ('Anglais technique', '10:30:00', '11:30:00', 1, 11, 2, 'LPO7'),
 ('Comptabilité appliquée et langue', '10:30:00', '12:30:00', 1, 15, 1, 'AE'),
 ('Logiciel de contrôle', '10:30:00', '13:00:00', 1, 10, 2, 'L02'),
 ('Réseau TCP/IP', '10:30:00', '12:30:00', 1, 12, 2, 'L01'),
-('Analyse et gestion des données', '13:30:00', '15:00:00', 1, 12, 2, 'PV2'),
+('Analyse et gestion de données', '13:30:00', '15:00:00', 1, 12, 2, 'PV2'),
 ('Administration réseaux', '13:30:00', '15:30:00', 1, 10, 2, 'B22'),
 ('Analyse orienté objet', '13:30:00', '15:00:00', 1, 8, 1, 'LPO1'),
 ('Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 1, 2, 1, 'AE'),
-('Programmation web 2', '15:30:00', '17:30:00', 1, 3, 2, 'AN');
+('Programmation web 2', '15:30:00', '17:30:00', 1, 3, 2, 'AN'),
+('Organisation et exploitation des données', '08:20:00', '10:20:00', 1, 5, 2, 'LEO'),
+('Technique des microprocesseurs', '08:50:00', '10:20:00', 1, 16, 2, 'BX'),
+('Développement orienté objets java', '08:20:00', '10:20:00', 1, 2, 1, 'AE'),
+('Analyse et gestion de données', '08:50:00', '10:20:00', 1, 8, 2, 'B02'),
+('Présentation Stage - TFE par les étudiants de 3ème', '08:50:00', '10:20:00', 1, 18, 3, 'PV2'),
+('Langage et logique de programmation 2', '10:30:00', '12:00:00', 1, 7, 2, 'B02'),
+('Mathématiques appliquées au traitement d\'images', '10:30:00', '12:30:00', 1, 4, 1, 'B16'),
+('Présentation Stage - TFE par les étudiants de 3ème', '10:30:00', '12:00:00', 1, 18, 3, 'PV2'),
+('Sécurité réseau', '13:30:00', '15:30:00', 1, 16, 2, 'BX'),
+('Langage et logique de programmation 2', '15:30:00', '17:00:00', 1, 8, 2, 'B01'),
+('Organisation et exploitation des données', '15:00:00', '17:00:00', 1, 5, 2, 'LEO'),
+('Réseaux et programmation réseaux', '15:30:00', '17:00:00', 1, 10, 2, 'B03'),
+('Analyse et gestion de données', '08:50:00', '10:20:00', 1, 12, 2, 'B16'),
+('Analyse et gestion de données', '10:30:00', '12:00:00', 1, 12, 2, 'PV3'),
+('Analyse et gestion de données', '10:30:00', '12:00:00', 1, 6, 2, 'B03'),
+('Analyse et gestion de données', '13:30:00', '15:00:00', 1, 6, 2, 'L01'),
+('Analyse et gestion de données', '13:30:00', '15:00:00', 1, 17, 2, 'L02'),
+('Anglais technique', '09:20:00', '10:20:00', 1, 11, 2, 'B16'),
+('Anglais technique', '09:20:00', '10:20:00', 1, 13, 2, 'L02'),
+('Anglais technique', '10:30:00', '11:30:00', 1, 16, 2, 'LEO'),
+('Anglais technique', '10:30:00', '11:30:00', 1, 14, 2, 'B01'),
+('Langage et logique de programmation 2', '08:20:00', '10:20:00', 1, 1, 2, 'LPO3'),
+('Langage et logique de programmation 2', '08:20:00', '10:20:00', 1, 9, 2, 'LPO4'),
+('Langage et logique de programmation 2', '10:30:00', '12:00:00', 1, 1, 2, 'LPO3'),
+('Langage et logique de programmation 2', '10:30:00', '12:00:00', 1, 9, 2, 'LPO4'),
+('Langage et logique de programmation 2', '15:30:00', '17:00:00', 1, 1, 2, 'LPO3'),
+('Langage et logique de programmation 2', '15:30:00', '17:00:00', 1, 9, 2, 'LPO4'),
+('Mathématiques et statistiques appliquées', '08:20:00', '10:20:00', 1, 15, 2, 'L01'),
+('Mathématiques et statistiques appliquées', '08:20:00', '10:20:00', 1, 19, 2, 'PV11'),
+('Organisation et exploitation des données', '08:20:00', '10:20:00', 1, 17, 2, 'B03'),
+('Organisation et exploitation des données', '08:20:00', '10:20:00', 1, 3, 2, 'PV12'),
+('Organisation et exploitation des données', '15:00:00', '17:00:00', 1, 2, 2, 'PV12'),
+('Organisation et exploitation des données', '15:00:00', '17:00:00', 1, 19, 2, 'PV11'),
+('Technique des microprocesseurs', '08:50:00', '10:20:00', 1, 10, 2, 'AX'),
+('Logiciel de contrôle', '10:30:00', '13:00:00', 1, 19, 2, 'LPO1'),
+('Réseau TCP/IP', '10:30:00', '12:30:00', 1, 23, 2, 'PV8'),
+('Développement orientée objet - JAVA', '13:30:00', '15:30:00', 1, 24, 2, 'PV8'),
+('Développement orientée objet - JAVA', '13:30:00', '15:30:00', 1, 23, 2, 'PV9'),
+('Réseaux et programmation réseaux', '15:30:00', '17:00:00', 1, 24, 2, 'PV9');
 
 -- --------------------------------------------------------
 
@@ -311,20 +392,27 @@ CREATE TABLE IF NOT EXISTS `local` (
 INSERT INTO `local` (`NomLocal`) VALUES
 ('AE'),
 ('AN'),
+('AX'),
 ('B01'),
 ('B02'),
 ('B03'),
 ('B16'),
 ('B22'),
+('BX'),
 ('L01'),
 ('L02'),
+('LEO'),
 ('LPO1'),
 ('LPO2'),
+('LPO3'),
+('LPO4'),
 ('LPO7'),
 ('PV11'),
 ('PV12'),
 ('PV2'),
-('PV3');
+('PV3'),
+('PV8'),
+('PV9');
 
 -- --------------------------------------------------------
 
@@ -358,7 +446,7 @@ CREATE TABLE IF NOT EXISTS `professeur` (
   `Nom` varchar(50) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
   PRIMARY KEY (`IdProfesseur`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `professeur`
@@ -381,7 +469,13 @@ INSERT INTO `professeur` (`IdProfesseur`, `Nom`, `Prenom`) VALUES
 (14, 'Lefebvre', 'Sabine'),
 (15, 'Taccogna', 'Angelo'),
 (16, 'Matagne', 'Xavier'),
-(17, 'Hazée', 'Claire');
+(17, 'Hazée', 'Claire'),
+(18, 'Stage', 'TFE'),
+(19, 'Borremans', 'Olivier'),
+(20, 'Boudron', 'Thomas'),
+(21, 'Lussardi', 'Anne'),
+(23, 'Vyncke', 'Eric'),
+(24, 'Schreurs', 'Daniel');
 
 -- --------------------------------------------------------
 

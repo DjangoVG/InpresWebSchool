@@ -1,10 +1,4 @@
-
-
-
-
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
-
+/* LES POLICES D'ECRITURES */
 @font-face {
   font-family: Ubuntu-Regular;
   src: url('../fonts/ubuntu/Ubuntu-Regular.ttf'); 
@@ -15,12 +9,7 @@
   src: url('../fonts/ubuntu/Ubuntu-Bold.ttf'); 
 }
 
-
-
-
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
-
+/* RESTYLE DES TAGS */
 * {
 	margin: 0px; 
 	padding: 0px; 
@@ -143,9 +132,7 @@ iframe {
 }
 
 
-/*//////////////////////////////////////////////////////////////////
-[ login ]*/
-
+/* CSS DU CONTAINER DU FORMULAIRE D'INSCRIPTION */
 .limiter {
   width: 100%;
   margin: 0 auto;
@@ -192,9 +179,7 @@ iframe {
 }
 
 
-/*------------------------------------------------------------------
-[ Form ]*/
-
+/* CSS DU FORMULAIRE D'INSCRIPTION */
 .login100-form {
   width: 100%;
   border-radius: 10px;
@@ -231,8 +216,7 @@ iframe {
 }
 
 
-/*------------------------------------------------------------------
-[ Input ]*/
+/* CSS DES INPUT DU FORMULAIRE */
 
 .wrap-input100 {
   width: 100%;
@@ -309,6 +293,7 @@ iframe {
   transition: all 0.4s;
 }
 
+/* CSS APRES AVOIR ECRIT DANS UN INPUT */
 .Mail::after
 {
   font-family: Linearicons-Free;
@@ -408,8 +393,6 @@ iframe {
   padding-left: 60px;
 }
 
-
-
 .input100:focus + .focus-input100::after {
   left: 23px;
   color: #d41872;
@@ -432,7 +415,7 @@ iframe {
   padding-left: 60px;
 }
 
-/* ===== Horizontal Rule ===== */
+/* CSS DU SEPARATEUR DU FORMULAIRE D'INSCRIPTION */
 .rule {
   margin: 10px 0;
   height: 1.5px;
@@ -440,7 +423,7 @@ iframe {
 }
 
 
-/* ===== Select Box ===== */
+/* CSS DE LA SELECT BOX DU FORMULAIRE D'INSCRIPTION */
 .sel {
   font-size: 1em;
   display: inline-block;
@@ -545,7 +528,7 @@ iframe {
   color: #a445b2;
 }
 
-/* ----- Select Box  ----- */
+/* CSS DE LA SELECT BOX DU FORMULAIRE D'INSCRIPTION */
 .sel {
   border-bottom: 4px solid rgba(121, 0, 151, 0.3);
 }
@@ -594,6 +577,7 @@ iframe {
   }
 }
 
+/* CSS DES PETITS POINTS EN DESSOUS DU FORMULAIRE D'INSCRIPTION */
 .step {
   height: 15px;
   width: 15px;
@@ -605,18 +589,15 @@ iframe {
   opacity: 0.5;
 }
 
-/* Mark the active step: */
 .step.active {
   opacity: 1;
 }
 
-/* Mark the steps that are finished and valid: */
 .step.finish {
   background-color: rgb(175, 0, 82);
 }
 
-/*------------------------------------------------------------------
-[ Button ]*/
+/* CSS DES BOUTONS DU FORMULAIRE D'INSCRIPTION */
 .container-login100-form-btn {
   width: 100%;
   display: -webkit-box;
@@ -690,11 +671,7 @@ iframe {
   opacity: 1;
 }
 
-
-
-/*------------------------------------------------------------------
-[ Alert validate ]*/
-
+/* CSS DE LA VALIDATION DU FORMULAIRE D'INSCRIPTION */
 .validate-input {
   position: relative;
 }
@@ -760,7 +737,7 @@ iframe {
   }
 }
 
-/* ---------------- CHECK BOX -----------------*/
+/* CSS DE LA CHECK BOX (SECTIONS) DU FORMULAIRE D'INSCRIPTION */
 .inputGroup {
     background-color: #fff;
     display: block;
@@ -835,6 +812,20 @@ iframe {
     cursor: pointer;
     visibility: hidden;
 }
+
+/* CSS DE L'INDEX.HTML */
+
+.acceuil {
+    vertical-align: inherit;
+}
+
+
+
+
+
+
+
+
 
 
 

@@ -90,14 +90,15 @@ function AjoutCoursPlages()
         $id = 5;
 
     // JE RECUPERE LES SECTIONS QUE L'ETUDIANT A CHOISI
-    
-    var SectionsChoisies = document.getElementsByClassName("inputGroup clique");
-    var Sections = [];
-    for (let i = 0; i < SectionsChoisies.length; i++)
-    {
-        Sections.push(SectionsChoisies[i].textContent);
-    }
 
+    var sections = [];
+    var i = 0;
+    var section2 = document.getElementsByClassName("inputGroup clique");
+    $.each(section2, function() // Récupère les différentes sections choisies
+    {
+        sections.push($(section2[i]).children().first().prop("name")); 
+        i++;
+    });
 
   $.ajax({
     url : "php/AjoutCoursPlage.php",
@@ -105,12 +106,13 @@ function AjoutCoursPlages()
     dataType : "JSON",
     data : {
         idjournee : $id,
-        sectionss : Sections,
+        sectionss : sections
     },
    success : function(result)
     {
       if (result['erreur']) return;
 
+      console.log("cours : " + result['cours']);
       result['cours'].forEach(elem=>
       {
         if (elem['HeureFin'] <= '11:00:00') // PLAGE 1

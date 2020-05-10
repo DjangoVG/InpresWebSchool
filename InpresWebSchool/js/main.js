@@ -76,19 +76,15 @@ var currentTab = 0; // Current tab is set to be the first tab (0)
 
 function AjoutCoursPlages()
 {
-    // JE RECUPERE L'ID DE LA JOURNEE ICI
-    var journeepicked = document.getElementsByClassName("sel__placeholder sel__placeholder--Journee") ;
-    if (journeepicked[0].textContent.includes("Lundi"))
-        $id = 1;
-    else if (journeepicked[0].textContent.includes("Mardi"))
-        $id = 2;
-    else if (journeepicked[0].textContent.includes("Mercredi"))
-        $id = 3;
-    else if (journeepicked[0].textContent.includes("Jeudi"))
-        $id = 4;
-    else if (journeepicked[0].textContent.includes("Vendredi"))
-        $id = 5;
-
+    // JE RECUPERE L'ID/LES NOMS DE LA JOURNEE ICI
+    var journees = [];
+    var j = 0;
+    var journee = document.getElementsByClassName("inputJournee clique");
+    $.each(journee, function() // Récupère les différentes journées choisies
+    {
+        journees.push($(journee[j]).children().first().prop("name")); 
+        j++;
+    });
     // JE RECUPERE LES SECTIONS QUE L'ETUDIANT A CHOISI
 
     var sections = [];
@@ -99,131 +95,127 @@ function AjoutCoursPlages()
         sections.push($(section2[i]).children().first().prop("name")); 
         i++;
     });
+    
+    console.log(sections);
+    console.log(journees);
 
   $.ajax({
     url : "php/AjoutCoursPlage.php",
     method : "POST",
     dataType : "JSON",
     data : {
-        idjournee : $id,
-        sectionss : sections
+        sectionss : sections,
+        journeess : journees
     },
-   success : function(result)
+    success : function(result)
     {
-      if (result['erreur']) return;
+        console.log("SUCCES : " + result);
+        if (result['erreur']) return;
 
-      console.log("cours : " + result['cours']);
-      result['cours'].forEach(elem=>
-      {
-        if (elem['HeureFin'] <= '11:00:00') // PLAGE 1
+        console.log("cours : " + result['cours']);
+        result['cours'].forEach(elem=>
         {
-          $('.sel--Plage01').each(function() 
-          {
-            
-            var $current = $(this);
-            
-            $current.children('div').append($('<span>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-              text: elem['NomCours']// FULL NOM
-            }));
+            if (elem['HeureFin'] <= '11:00:00') // PLAGE 1
+            {
+            $('.sel--Plage01').each(function() 
+            {
+                
+                var $current = $(this);
+                
+                $current.children('div').append($('<span>', {
+                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                text: elem['NomCours']// FULL NOM
+                }));
 
-            $('.sel__box__options').click(function() {
-              var txt = $(this).text();
-              var index = $(this).index();
-              
-              $(this).siblings('.sel__box__options').removeClass('selected');
-              $(this).addClass('selected');
-              
-              var $currentSel = $(this).closest('.sel');
-              $currentSel.children('.sel__placeholder').text(txt);
-              $currentSel.children('select').prop('selectedIndex', index + 1);
-            });
-          });          
-        }
-        else if (elem['HeureFin'] <= '13:00:00') // PLAGE 2
-        {
-          $('.sel--Plage02').each(function() 
-          {
-            
-            var $current = $(this);
-            
-            $current.children('div').append($('<span>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-              text: elem['NomCours']
-            }));
+                $('.sel__box__options').click(function() {
+                var txt = $(this).text();
+                var index = $(this).index();
+                
+                $(this).siblings('.sel__box__options').removeClass('selected');
+                $(this).addClass('selected');
+                
+                var $currentSel = $(this).closest('.sel');
+                $currentSel.children('.sel__placeholder').text(txt);
+                $currentSel.children('select').prop('selectedIndex', index + 1);
+                });
+            });          
+            }
+            else if (elem['HeureFin'] <= '13:00:00') // PLAGE 2
+            {
+            $('.sel--Plage02').each(function() 
+            {
+                
+                var $current = $(this);
+                
+                $current.children('div').append($('<span>', {
+                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                text: elem['NomCours']
+                }));
 
-            $('.sel__box__options').click(function() {
-              var txt = $(this).text();
-              var index = $(this).index();
-              
-              $(this).siblings('.sel__box__options').removeClass('selected');
-              $(this).addClass('selected');
-              
-              var $currentSel = $(this).closest('.sel');
-              $currentSel.children('.sel__placeholder').text(txt);
-              $currentSel.children('select').prop('selectedIndex', index + 1);
-            });
-          });          
-        }
-        else if (elem['HeureFin'] <= '16:00:00') // PLAGE 3
-        {
-          $('.sel--Plage03').each(function() 
-          {
-            
-            var $current = $(this);
-            
-            $current.children('div').append($('<span>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-              text: elem['NomCours']
-            }));
+                $('.sel__box__options').click(function() {
+                var txt = $(this).text();
+                var index = $(this).index();
+                
+                $(this).siblings('.sel__box__options').removeClass('selected');
+                $(this).addClass('selected');
+                
+                var $currentSel = $(this).closest('.sel');
+                $currentSel.children('.sel__placeholder').text(txt);
+                $currentSel.children('select').prop('selectedIndex', index + 1);
+                });
+            });          
+            }
+            else if (elem['HeureFin'] <= '16:00:00') // PLAGE 3
+            {
+            $('.sel--Plage03').each(function() 
+            {
+                
+                var $current = $(this);
+                
+                $current.children('div').append($('<span>', {
+                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                text: elem['NomCours']
+                }));
 
-            $('.sel__box__options').click(function() {
-              var txt = $(this).text();
-              var index = $(this).index();
-              
-              $(this).siblings('.sel__box__options').removeClass('selected');
-              $(this).addClass('selected');
-              
-              var $currentSel = $(this).closest('.sel');
-              $currentSel.children('.sel__placeholder').text(txt);
-              $currentSel.children('select').prop('selectedIndex', index + 1);
-            });
-          });          
-        }
-        else if (elem['HeureFin'] <= '18:00:00') // DERNIERE PLAGE
-        {
-          $('.sel--Plage04').each(function() 
-          {
-            
-            var $current = $(this);
-            
-            $current.children('div').append($('<span>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-              text: elem['NomCours']
-            }));
+                $('.sel__box__options').click(function() {
+                var txt = $(this).text();
+                var index = $(this).index();
+                
+                $(this).siblings('.sel__box__options').removeClass('selected');
+                $(this).addClass('selected');
+                
+                var $currentSel = $(this).closest('.sel');
+                $currentSel.children('.sel__placeholder').text(txt);
+                $currentSel.children('select').prop('selectedIndex', index + 1);
+                });
+            });          
+            }
+            else if (elem['HeureFin'] <= '18:00:00') // DERNIERE PLAGE
+            {
+            $('.sel--Plage04').each(function() 
+            {
+                
+                var $current = $(this);
+                
+                $current.children('div').append($('<span>', {
+                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                text: elem['NomCours']
+                }));
 
-            $('.sel__box__options').click(function() {
-              var txt = $(this).text();
-              var index = $(this).index();
-              
-              $(this).siblings('.sel__box__options').removeClass('selected');
-              $(this).addClass('selected');
-              
-              var $currentSel = $(this).closest('.sel');
-              $currentSel.children('.sel__placeholder').text(txt);
-              $currentSel.children('select').prop('selectedIndex', index + 1);
-            });
-          });          
-        }
-    });
-    // -----
-    result['cours'].forEach(elem=>{
-    console.log(elem['NomCours'])
-  
-  });
-    },
-    error: function(error){
-      alert(error);
+                $('.sel__box__options').click(function() {
+                var txt = $(this).text();
+                var index = $(this).index();
+                
+                $(this).siblings('.sel__box__options').removeClass('selected');
+                $(this).addClass('selected');
+                
+                var $currentSel = $(this).closest('.sel');
+                $currentSel.children('.sel__placeholder').text(txt);
+                $currentSel.children('select').prop('selectedIndex', index + 1);
+                });
+            });          
+            }
+        });
     }
 });
 }
@@ -236,7 +228,7 @@ function SupprimerPlage()
     {
         if(list[i] && list[i].parentElement)
         {
-                list[i].parentElement.removeChild(list[i]); 
+            list[i].parentElement.removeChild(list[i]); 
         }            
     }
 
@@ -305,6 +297,21 @@ function ClickSection(n) // Je clique sur une section (modification de sa classe
                 x[i].className = "inputGroup";
             else
                 x[i].className = "inputGroup clique";            
+        }
+    }
+}
+
+function ClickJournee(n) // Je clique sur une journee (modification de sa classe)
+{
+    var i, x = document.getElementsByClassName("inputJournee");
+    for (i = 0; i < x.length; i++) 
+    {
+        if (n == i)
+        {
+            if (x[i].className == "inputJournee clique") 
+                x[i].className = "inputJournee";
+            else
+                x[i].className = "inputJournee clique";            
         }
     }
 }

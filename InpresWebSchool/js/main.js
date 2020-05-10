@@ -1,13 +1,9 @@
-var currentTab = 0; // Current tab is set to be the first tab (0)
+var currentTab = 0; // 0 car premiere page du formulaire
 
 (function($) 
 {
-  showTab(currentTab); // Display the current tab
+  showTab(currentTab); // Affiche la premiere page du formulaire
   "use strict";
-
-
-
-
 })(jQuery);
 
 function TranformSelect()
@@ -80,19 +76,9 @@ function TranformSelect()
       });
 }
 
-function AjoutCoursPlages()
+function AjoutCoursPlages(journeechoisie)
 {
-    // JE RECUPERE L'ID/LES NOMS DE LA JOURNEE ICI
-    var journees = [];
-    var j = 0;
-    var journee = document.getElementsByClassName("inputJournee clique");
-    $.each(journee, function() // Récupère les différentes journées choisies
-    {
-        journees.push($(journee[j]).children().first().prop("name")); 
-        j++;
-    });
-    // JE RECUPERE LES SECTIONS QUE L'ETUDIANT A CHOISI
-
+    console.log("Je passe dans AjoutCoursPlages");
     var sections = [];
     var i = 0;
     var section2 = document.getElementsByClassName("inputGroup clique");
@@ -108,7 +94,7 @@ function AjoutCoursPlages()
     dataType : "JSON",
     data : {
         sectionss : sections,
-        journeess : journees
+        journee : journeechoisie
     },
     success : function(result)
     {
@@ -120,103 +106,111 @@ function AjoutCoursPlages()
         {
             if (elem['HeureFin'] <= '11:00:00') // PLAGE 1
             {
-            $('.sel--Plage01').each(function() 
-            {
-                
-                var $current = $(this);
-                
-                $current.children('div').append($('<span>', {
-                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                text: elem['NomCours']// FULL NOM
-                }));
+                let string = ".sel--Plage01Jour0";
+                let result = string.concat (journeechoisie);
+                $(result).each(function() 
+                {
+                    
+                    var $current = $(this);
+                    
+                    $current.children('div').append($('<span>', {
+                    class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                    text: elem['NomCours']// FULL NOM
+                    }));
 
-                $('.sel__box__options').click(function() {
-                var txt = $(this).text();
-                var index = $(this).index();
-                
-                $(this).siblings('.sel__box__options').removeClass('selected');
-                $(this).addClass('selected');
-                
-                var $currentSel = $(this).closest('.sel');
-                $currentSel.children('.sel__placeholder').text(txt);
-                $currentSel.children('select').prop('selectedIndex', index + 1);
-                });
-            });          
+                    $('.sel__box__options').click(function() {
+                    var txt = $(this).text();
+                    var index = $(this).index();
+                    
+                    $(this).siblings('.sel__box__options').removeClass('selected');
+                    $(this).addClass('selected');
+                    
+                    var $currentSel = $(this).closest('.sel');
+                    $currentSel.children('.sel__placeholder').text(txt);
+                    $currentSel.children('select').prop('selectedIndex', index + 1);
+                    });
+                });          
             }
             else if (elem['HeureFin'] <= '13:00:00') // PLAGE 2
             {
-            $('.sel--Plage02').each(function() 
-            {
-                
-                var $current = $(this);
-                
-                $current.children('div').append($('<span>', {
-                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                text: elem['NomCours']
-                }));
+                let string = ".sel--Plage02Jour0";
+                let result = string.concat (journeechoisie);
+                $(result).each(function() 
+                {
+                    
+                    var $current = $(this);
+                    
+                    $current.children('div').append($('<span>', {
+                    class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                    text: elem['NomCours']
+                    }));
 
-                $('.sel__box__options').click(function() {
-                var txt = $(this).text();
-                var index = $(this).index();
-                
-                $(this).siblings('.sel__box__options').removeClass('selected');
-                $(this).addClass('selected');
-                
-                var $currentSel = $(this).closest('.sel');
-                $currentSel.children('.sel__placeholder').text(txt);
-                $currentSel.children('select').prop('selectedIndex', index + 1);
-                });
-            });          
+                    $('.sel__box__options').click(function() {
+                    var txt = $(this).text();
+                    var index = $(this).index();
+                    
+                    $(this).siblings('.sel__box__options').removeClass('selected');
+                    $(this).addClass('selected');
+                    
+                    var $currentSel = $(this).closest('.sel');
+                    $currentSel.children('.sel__placeholder').text(txt);
+                    $currentSel.children('select').prop('selectedIndex', index + 1);
+                    });
+                });          
             }
             else if (elem['HeureFin'] <= '16:00:00') // PLAGE 3
             {
-            $('.sel--Plage03').each(function() 
-            {
-                
-                var $current = $(this);
-                
-                $current.children('div').append($('<span>', {
-                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                text: elem['NomCours']
-                }));
+                let string = ".sel--Plage03Jour0";
+                let result = string.concat (journeechoisie);
+                $(result).each(function() 
+                {
+                    
+                    var $current = $(this);
+                    
+                    $current.children('div').append($('<span>', {
+                    class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                    text: elem['NomCours']
+                    }));
 
-                $('.sel__box__options').click(function() {
-                var txt = $(this).text();
-                var index = $(this).index();
-                
-                $(this).siblings('.sel__box__options').removeClass('selected');
-                $(this).addClass('selected');
-                
-                var $currentSel = $(this).closest('.sel');
-                $currentSel.children('.sel__placeholder').text(txt);
-                $currentSel.children('select').prop('selectedIndex', index + 1);
-                });
-            });          
+                    $('.sel__box__options').click(function() {
+                    var txt = $(this).text();
+                    var index = $(this).index();
+                    
+                    $(this).siblings('.sel__box__options').removeClass('selected');
+                    $(this).addClass('selected');
+                    
+                    var $currentSel = $(this).closest('.sel');
+                    $currentSel.children('.sel__placeholder').text(txt);
+                    $currentSel.children('select').prop('selectedIndex', index + 1);
+                    });
+                });          
             }
             else if (elem['HeureFin'] <= '18:00:00') // DERNIERE PLAGE
             {
-            $('.sel--Plage04').each(function() 
-            {
-                
-                var $current = $(this);
-                
-                $current.children('div').append($('<span>', {
-                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                text: elem['NomCours']
-                }));
+                let string = ".sel--Plage04Jour0";
+                let result = string.concat (journeechoisie);
+                $(result).each(function() 
+                {
+                    
+                    var $current = $(this);
+                    
+                    $current.children('div').append($('<span>', {
+                    class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                    text: elem['NomCours']
+                    }));
 
-                $('.sel__box__options').click(function() {
-                var txt = $(this).text();
-                var index = $(this).index();
-                
-                $(this).siblings('.sel__box__options').removeClass('selected');
-                $(this).addClass('selected');
-                
-                var $currentSel = $(this).closest('.sel');
-                $currentSel.children('.sel__placeholder').text(txt);
-                $currentSel.children('select').prop('selectedIndex', index + 1);
-                });
-            });          
+                    $('.sel__box__options').click(function() {
+                    var txt = $(this).text();
+                    var index = $(this).index();
+                    
+                    $(this).siblings('.sel__box__options').removeClass('selected');
+                    $(this).addClass('selected');
+                    
+                    var $currentSel = $(this).closest('.sel');
+                    $currentSel.children('.sel__placeholder').text(txt);
+                    $currentSel.children('select').prop('selectedIndex', index + 1);
+                    });
+                });          
             }
         });
     }
@@ -226,14 +220,58 @@ function AjoutCoursPlages()
 function SupprimerPlage()
 {
     console.log("Je tente de supprimer");
-    var list = document.getElementsByClassName("sel__box__options sel__box__options--Plage01");
-    for(var i = list.length - 1; i > 0; i--)
+    let input = document.getElementsByClassName("inputJournee clique");
+    for(let i = 0; i < input.length ; i++)
     {
-        if(list[i] && list[i].parentElement)
+        let chaine1 = "sel__box__options sel__box__options--Plage01";
+        let final = chaine1.concat("Jour0" + i);
+        var list = document.getElementsByClassName(final);
+        for(let i = list.length - 1; i > 0; i--)
         {
-            list[i].parentElement.removeChild(list[i]); 
-        }            
+            if(list[i] && list[i].parentElement)
+            {
+                console.log("Suppression plage 1");
+                list[i].parentElement.removeChild(list[i]); 
+            }            
+        }
+
+        chaine1 = "sel__box__options sel__box__options--Plage02";
+        final = chaine1.concat("Jour0" + i);
+        list = document.getElementsByClassName(final);
+        for(let i = list.length - 1; i > 0; i--)
+        {
+            if(list[i] && list[i].parentElement)
+            {
+                console.log("Suppression plage 2");
+                list[i].parentElement.removeChild(list[i]); 
+            }            
+        }
+
+        chaine1 = "sel__box__options sel__box__options--Plage03";
+        final = chaine1.concat("Jour0" + i);
+        list = document.getElementsByClassName(final);
+        for(let i = list.length - 1; i > 0; i--)
+        {
+            if(list[i] && list[i].parentElement)
+            {
+                console.log("Suppression plage 3");
+                list[i].parentElement.removeChild(list[i]); 
+            }            
+        }
+
+        chaine1 = "sel__box__options sel__box__options--Plage04";
+        final = chaine1.concat("Jour0" + i);
+        list = document.getElementsByClassName(final);
+        for(let i = list.length - 1; i > 0; i--)
+        {
+            if(list[i] && list[i].parentElement)
+            {
+                console.log("Suppression plage 4");
+                list[i].parentElement.removeChild(list[i]); 
+            }            
+        }
     }
+    
 }
 
 function AjouterEtudiant()
@@ -314,24 +352,54 @@ function ClickJournee(n) // Je clique sur une journee (modification de sa classe
 
 function showTab(n)
 {
-  // This function will display the specified tab of the form ...
-  var x = document.getElementsByClassName("etape");
-  x[n].style.display = "block";
-  // ... and fix the Previous/Next buttons:
+    var x = document.getElementsByClassName("etape");
+    x[n].style.display = "block";
+
     if (n == 0)
         document.getElementById("prevBtn").style.display = "none";
     else 
-    document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("prevBtn").style.display = "inline";
 
     if (n == (x.length - 1) && n != 2) 
         document.getElementById("nextBtn").innerHTML = "ENVOYER";
     else 
         document.getElementById("nextBtn").innerHTML = "CONTINUER";
 
-    if (n == (x.length - 1))
+    if (n == 3)
     {
         SupprimerPlage();
-        AjoutCoursPlages();
+        let journeechoisie = 0;
+        let journee = document.getElementsByClassName("inputJournee clique");
+        let fullplages = document.getElementsByClassName("login100-form validate-form p-b-33 p-t-5 PlageForm");
+        for (let i = 0; i < journee.length; i++)
+        {
+            tableaujourneechoisie = [];
+            for (let j = 0; j < 4; j++)
+            {
+                if (fullplages[i].children[j].className.includes("Jour01"))
+                {
+                    journeechoisie = 1;
+                    break;                  
+                }
+                else if (fullplages[i].children[j].className.includes("Jour02"))
+                {
+                    journeechoisie = 2;
+                    break;                  
+                }
+                else if (fullplages[i].children[j].className.includes("Jour03"))
+                {
+                    journeechoisie = 3; 
+                    break;                  
+                }
+                else if (fullplages[i].children[j].className.includes("Jour04"))
+                {
+                    journeechoisie = 4; 
+                    break;                  
+                }
+            }
+            console.log(journeechoisie);
+            AjoutCoursPlages(journeechoisie);
+        }
     }
     AffichageStepFormulaire(n)
 }
@@ -354,10 +422,10 @@ function ClickBoutonFormulaire(n)
 
             let span1 = document.createElement("span");
             span1.className = "login100-form-title p-b-41";
-            span1.textContent = compteurjour[i].textContent; // A MODIFIER
+            span1.textContent = compteurjour[i].textContent;
 
             let div2 = document.createElement("div");
-            div2.className = "login100-form validate-form p-b-33 p-t-5";
+            div2.className = "login100-form validate-form p-b-33 p-t-5 PlageForm";
             div2.id = "Form_Plages";
 
             let div3 = document.createElement("div");
@@ -442,12 +510,12 @@ function ClickBoutonFormulaire(n)
         
     x[currentTab].style.display = "none";
     currentTab += n;
-    /*if (currentTab == x.length)
+    if (currentTab == x.length)
     {
       AjouterEtudiant();
       document.getElementById("regForm").submit();
       return false;
-    }*/
+    }
     
     showTab(currentTab);
   }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 10 Mai 2020 à 00:33
+-- Généré le :  Dim 10 Mai 2020 à 22:22
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -108,16 +108,60 @@ CREATE TABLE IF NOT EXISTS `composer` (
 --
 
 INSERT INTO `composer` (`IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
-(1, 'Analyse et gestion des données', '08:50:00', '10:20:00', 6),
-(1, 'Anglais technique', '08:50:00', '10:20:00', 14),
+(1, 'Administration réseaux', '13:30:00', '15:30:00', 10),
+(1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
+(1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
+(1, 'Anglais technique', '09:20:00', '10:20:00', 14),
+(1, 'Anglais technique', '10:30:00', '11:30:00', 16),
+(1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+(1, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 1),
+(1, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 8),
+(1, 'Mathématiques appliquées au traitement d''images', '10:30:00', '12:30:00', 4),
+(1, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 5),
+(1, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 5),
+(1, 'Présentation Stage - TFE par les étudiants de 3ème', '10:30:00', '12:00:00', 18),
+(1, 'Programmation web 2', '15:30:00', '17:30:00', 3),
+(2, 'Analyse et gestion de données', '13:30:00', '15:00:00', 6),
+(2, 'Anglais technique', '09:20:00', '10:20:00', 11),
 (2, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 7),
+(2, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 7),
+(2, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 1),
+(2, 'Logiciel de contrôle', '10:30:00', '13:00:00', 19),
 (2, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 4),
-(3, 'Analyse et gestion des données', '10:30:00', '12:00:00', 8),
+(2, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 17),
+(2, 'Présentation Stage - TFE par les étudiants de 3ème', '08:50:00', '10:20:00', 18),
+(2, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 10),
+(2, 'Sécurité réseau', '13:30:00', '15:30:00', 16),
+(3, 'Analyse et gestion de données', '10:30:00', '12:00:00', 8),
+(3, 'Analyse et gestion de données', '10:30:00', '12:00:00', 12),
 (3, 'Anglais technique', '10:30:00', '11:30:00', 11),
+(3, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+(3, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 9),
+(3, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 9),
+(3, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 15),
+(3, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 2),
+(4, 'Analyse et gestion de données', '10:30:00', '12:00:00', 6),
+(4, 'Analyse et gestion de données', '13:30:00', '15:00:00', 17),
+(4, 'Anglais technique', '09:20:00', '10:20:00', 13),
 (4, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+(4, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
+(4, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 1),
 (4, 'Logiciel de contrôle', '10:30:00', '13:00:00', 10),
-(5, 'Analyse et gestion des données', '13:30:00', '15:00:00', 12),
-(5, 'Réseaux TCP/IP', '10:30:00', '12:30:00', 12);
+(4, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:30:00', 19),
+(4, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 2),
+(4, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 24),
+(4, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 16),
+(5, 'Analyse et gestion de données', '08:50:00', '10:20:00', 8),
+(5, 'Analyse et gestion de données', '13:30:00', '15:00:00', 12),
+(5, 'Anglais technique', '10:30:00', '11:30:00', 14),
+(5, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 9),
+(5, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 3),
+(5, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 19),
+(5, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 23),
+(5, 'Réseau TCP/IP', '10:30:00', '12:30:00', 12),
+(5, 'Réseau TCP/IP', '10:30:00', '12:30:00', 23),
+(5, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 10),
+(7, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 24);
 
 -- --------------------------------------------------------
 
@@ -445,6 +489,67 @@ CREATE TABLE IF NOT EXISTS `prevoir` (
   KEY `HeureFin` (`HeureFin`),
   KEY `IdProfesseur` (`IdProfesseur`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `prevoir`
+--
+
+INSERT INTO `prevoir` (`IdGroupe`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
+(2202, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
+(2202, 'Analyse et gestion de données', '10:30:00', '12:00:00', 8),
+(2202, 'Analyse et gestion de données', '13:30:00', '15:00:00', 12),
+(2202, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
+(2202, 'Anglais technique', '09:20:00', '10:20:00', 14),
+(2202, 'Anglais technique', '10:30:00', '11:30:00', 11),
+(2202, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+(2202, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
+(2202, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 7),
+(2202, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 7),
+(2202, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 8),
+(2202, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 4),
+(2202, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 5),
+(2202, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 5),
+(2202, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 2),
+(2202, 'Programmation web 2', '15:30:00', '17:30:00', 3),
+(2221, 'Analyse et gestion de données', '08:50:00', '10:20:00', 8),
+(2221, 'Analyse et gestion de données', '10:30:00', '12:00:00', 12),
+(2221, 'Analyse et gestion de données', '13:30:00', '15:00:00', 6),
+(2221, 'Anglais technique', '09:20:00', '10:20:00', 11),
+(2221, 'Anglais technique', '10:30:00', '11:30:00', 16),
+(2221, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
+(2221, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 1),
+(2221, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 1),
+(2221, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 1),
+(2221, 'Logiciel de contrôle', '10:30:00', '13:00:00', 10),
+(2221, 'Mathématiques appliquées au traitement d''images', '10:30:00', '12:30:00', 4),
+(2221, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 15),
+(2221, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 17),
+(2221, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 2),
+(2221, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 24),
+(2221, 'Réseau TCP/IP', '10:30:00', '12:30:00', 12),
+(2221, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 10),
+(2221, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 16),
+(2225, 'Administration réseaux', '13:30:00', '15:30:00', 10),
+(2225, 'Analyse et gestion de données', '08:50:00', '10:20:00', 12),
+(2225, 'Analyse et gestion de données', '10:30:00', '12:00:00', 6),
+(2225, 'Analyse et gestion de données', '13:30:00', '15:00:00', 17),
+(2225, 'Anglais technique', '09:20:00', '10:20:00', 13),
+(2225, 'Anglais technique', '10:30:00', '11:30:00', 14),
+(2225, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
+(2225, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 9),
+(2225, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 9),
+(2225, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 9),
+(2225, 'Logiciel de contrôle', '10:30:00', '13:00:00', 19),
+(2225, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 19),
+(2225, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 3),
+(2225, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 19),
+(2225, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 23),
+(2225, 'Réseau TCP/IP', '10:30:00', '12:30:00', 23),
+(2225, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 24),
+(2225, 'Sécurité réseau', '13:30:00', '15:30:00', 16),
+(2225, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 10),
+(2301, 'Présentation Stage - TFE par les étudiants de 3ème', '08:50:00', '10:20:00', 18),
+(2301, 'Présentation Stage - TFE par les étudiants de 3ème', '10:30:00', '12:00:00', 18);
 
 -- --------------------------------------------------------
 

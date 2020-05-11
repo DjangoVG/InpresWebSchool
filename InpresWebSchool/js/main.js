@@ -88,7 +88,7 @@ function AjoutCoursPlages(journeechoisie)
         sections.push($(section2[i]).children().first().prop("name")); 
         i++;
     });
-
+    console.log(journeechoisie);
   $.ajax({
     url : "php/AjoutCoursPlage.php",
     method : "POST",
@@ -99,14 +99,16 @@ function AjoutCoursPlages(journeechoisie)
     },
     success : function(result)
     {
-        console.log("SUCCES : " + result);
+        //console.log("SUCCES : " + result);
         if (result['erreur']) return;
 
-        console.log("cours : " + result['cours']);
+        
         result['cours'].forEach(elem=>
         {
+            console.log("cours : " + elem['NomCours']);
             if (elem['HeureFin'] <= '11:00:00') // PLAGE 1
             {
+                console.log("cours 8h : " + elem['NomCours']);
                 let string = ".sel--Plage01Jour0";
                 let result = string.concat (journeechoisie);
                 $(result).each(function() 
@@ -445,35 +447,23 @@ function showTab(n)
         let journeechoisie = 0;
         let journee = document.getElementsByClassName("inputJournee clique");
         let fullplages = document.getElementsByClassName("login100-form validate-form p-b-33 p-t-5 PlageForm");
+        console.log(journee[0].children[0]);
         for (let i = 0; i < journee.length; i++)
         {
-            tableaujourneechoisie = [];
-            for (let j = 0; j < 4; j++)
-            {
-                if (fullplages[i].children[j].className.includes("Jour01"))
-                {
-                    journeechoisie = 1;
-                    break;                  
-                }
-                else if (fullplages[i].children[j].className.includes("Jour02"))
-                {
-                    journeechoisie = 2;
-                    break;                  
-                }
-                else if (fullplages[i].children[j].className.includes("Jour03"))
-                {
-                    journeechoisie = 3; 
-                    break;                  
-                }
-                else if (fullplages[i].children[j].className.includes("Jour04"))
-                {
-                    journeechoisie = 4; 
-                    break;                  
-                }
-            }
+            if ($(journee[i]).children().first().prop("name") == "Lundi 15 juin 2020")
+                journeechoisie = 1;   
+            else if ($(journee[i]).children().first().prop("name") == "Mardi 16 juin 2020")
+                journeechoisie = 2; 
+            else if ($(journee[i]).children().first().prop("name") == "Mercredi 17 juin 2020")
+                journeechoisie = 3;      
+            else if ($(journee[i]).children().first().prop("name") == "Jeudi 18 juin 2020")
+                journeechoisie = 4;            
+            else if ($(journee[i]).children().first().prop("name") == "Vendredi 19 juin 2020")
+                journeechoisie = 5;
+            
             console.log(journeechoisie);
             AjoutCoursPlages(journeechoisie);
-        }
+        }            
     }
     AffichageStepFormulaire(n)
 }
@@ -483,9 +473,22 @@ function ClickBoutonFormulaire(n)
     if (currentTab == 2 && n == 1) // J'AVANCE DANS LE FORMULAIRE
     {
         SupprimerAllJournee();
-        let compteurjour = document.getElementsByClassName("inputJournee clique");
+        var compteurjour = document.getElementsByClassName("inputJournee clique");
         for (let i = 0; i < compteurjour.length; i++) // JE RECUPERE LE NOMBRE DE JOURS ET JE CREE LE NOMBRE DE FORMULAIRE
         {
+            let journeechoisie = 0;
+
+            if ($(compteurjour[i]).children().first().prop("name") == "Lundi 15 juin 2020")
+                journeechoisie = 1;   
+            else if ($(compteurjour[i]).children().first().prop("name") == "Mardi 16 juin 2020")
+                journeechoisie = 2; 
+            else if ($(compteurjour[i]).children().first().prop("name") == "Mercredi 17 juin 2020")
+                journeechoisie = 3;      
+            else if ($(compteurjour[i]).children().first().prop("name") == "Jeudi 18 juin 2020")
+                journeechoisie = 4;            
+            else if ($(compteurjour[i]).children().first().prop("name") == "Vendredi 19 juin 2020")
+                journeechoisie = 5;
+
             let ContainerJournee = document.getElementById("ContainerJournees");
 
             var etape = document.createElement("div");
@@ -502,7 +505,7 @@ function ClickBoutonFormulaire(n)
 
             let div3 = document.createElement("div");
             let jourclass = "sel sel--Plage01";
-            let result = jourclass.concat("Jour0", i+1);
+            let result = jourclass.concat("Jour0", journeechoisie);
             div3.className = result;
             let select = document.createElement("select");
             select.name = "Plage1"; select.id = "CoursPlage1";
@@ -516,7 +519,7 @@ function ClickBoutonFormulaire(n)
 
             let div4 = document.createElement("div");
             jourclass = "sel sel--Plage02";
-            result = jourclass.concat("Jour0", i+1);
+            result = jourclass.concat("Jour0", journeechoisie);
             div4.className = result;
             let select2 = document.createElement("select");
             select2.name = "Plage2"; select2.id = "CoursPlage2";
@@ -527,7 +530,7 @@ function ClickBoutonFormulaire(n)
 
             let div5 = document.createElement("div");
             jourclass = "sel sel--Plage03";
-            result = jourclass.concat("Jour0", i+1);
+            result = jourclass.concat("Jour0", journeechoisie);
             div5.className = result;
             let select3 = document.createElement("select");
             select3.name = "Plage3"; select3.id = "CoursPlage3";
@@ -539,7 +542,7 @@ function ClickBoutonFormulaire(n)
             
             let div6 = document.createElement("div");
             jourclass = "sel sel--Plage04";
-            result = jourclass.concat("Jour0", i+1);
+            result = jourclass.concat("Jour0", journeechoisie);
             div6.className = result;
             let select4 = document.createElement("select");
             select4.name = "Plage4"; select4.id = "CoursPlage4";

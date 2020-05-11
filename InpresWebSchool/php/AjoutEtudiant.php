@@ -67,6 +67,7 @@
                 $recup = explode(" ", $plageschoisies[$cpt]);
                 $nomcours = "";
                 $nomcoursnotyet = "";
+
                 for ($k = 0; $k < sizeof($recup); $k++)
                 {
                     if ($recup[$k] != '|')
@@ -129,12 +130,12 @@
                 {
                     $return['erreur'] = true;
                     $return['message'] = "1/ Problème d'ajout dans la table assister";
-                }
+                }  
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,1)");
-            $stmt->bind_param("s",$mail);
+            $stmt->bind_param("s",$_POST ['mailetudiant']);
             if($stmt->execute())
-            $return['erreur'] = false;
+                $return['erreur'] = false;
             else
             {
                 $return['erreur'] = true;
@@ -214,7 +215,7 @@
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,2)");
-            $stmt->bind_param("s",$mail);
+            $stmt->bind_param("s",$_POST ['mailetudiant']);
             if($stmt->execute())
             $return['erreur'] = false;
             else
@@ -296,7 +297,7 @@
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,3)");
-            $stmt->bind_param("s",$mail);
+            $stmt->bind_param("s",$_POST ['mailetudiant']);
             if($stmt->execute())
             $return['erreur'] = false;
             else
@@ -378,7 +379,7 @@
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,4)");
-            $stmt->bind_param("s",$mail);
+            $stmt->bind_param("s",$_POST ['mailetudiant']);
             if($stmt->execute())
             $return['erreur'] = false;
             else
@@ -460,7 +461,7 @@
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,5)");
-            $stmt->bind_param("s",$mail);
+            $stmt->bind_param("s",$_POST ['mailetudiant']);
             if($stmt->execute())
             $return['erreur'] = false;
             else
@@ -470,9 +471,5 @@
             }               
         }
     }
-
-    // J'AJOUTE DANS ASSISTER (ETUDIANT->COURS->JOURNEE)
-
-
     echo json_encode($return);
 ?>

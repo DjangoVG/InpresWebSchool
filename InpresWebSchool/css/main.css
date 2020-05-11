@@ -758,7 +758,6 @@ iframe {
 }
 
 .alert-validate::before {
-  content: attr(data-validate);
   position: absolute;
   max-width: 70%;
   background-color: #fff;
@@ -787,6 +786,14 @@ iframe {
   -o-transition: opacity 0.4s;
   -moz-transition: opacity 0.4s;
   transition: opacity 0.4s;
+}
+
+.faux::before {
+    content: attr(datavalidate);
+}
+
+.notunique::before {
+    content: attr(mailnotunique);
 }
 
 .alert-validate::after {

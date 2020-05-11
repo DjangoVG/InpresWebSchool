@@ -1,7 +1,5 @@
 var currentTab = 0; // 0 car premiere page du formulaire
-
-var prenomprof = null;
-
+var boolean = true;
 (function($) 
 {
   showTab(currentTab); // Affiche la premiere page du formulaire
@@ -483,8 +481,6 @@ function showTab(n)
 
 function ClickBoutonFormulaire(n) 
 {
-  if (CheckChampFormulaire())
-  {
     if (currentTab == 2 && n == 1) // J'AVANCE DANS LE FORMULAIRE
     {
         SupprimerAllJournee();
@@ -582,21 +578,43 @@ function ClickBoutonFormulaire(n)
         }
         TranformSelect();
         AjoutStepDocument();
+        showTab(currentTab); 
     }
-    var x = document.getElementsByClassName("etape");
-        
-    x[currentTab].style.display = "none";
-    currentTab += n;
 
-    if (currentTab == x.length) // JE VALIDE LE DOCUMENT
+    if (n == 1 && currentTab == 0) // JE SUIS PREMIERE PAGE DONC JE VERIFIE LES CHAMPS
     {
-      AjouterEtudiant();
-      document.getElementById("regForm").submit();
-      return false;
+        if (CheckChampFormulaire())
+        {
+            var x = document.getElementsByClassName("etape");
+            
+            x[currentTab].style.display = "none";
+            currentTab += n;
+    
+            if (currentTab == x.length) // JE VALIDE LE DOCUMENT
+            {
+                AjouterEtudiant();
+                document.getElementById("regForm").submit();
+                return false;
+            }  
+            showTab(currentTab); 
+        }
+    }
+    else
+    {
+        var x = document.getElementsByClassName("etape");
+            
+        x[currentTab].style.display = "none";
+        currentTab += n;
+
+        if (currentTab == x.length) // JE VALIDE LE DOCUMENT
+        {
+            AjouterEtudiant();
+            document.getElementById("regForm").submit();
+            return false;
+        }
+        showTab(currentTab);        
     }
     
-    showTab(currentTab);
-  }
 }
 
 function SupprimerAllJournee()
@@ -639,59 +657,133 @@ function AjoutStepDocument()
 
 function CheckChampFormulaire()
 {
-  var input = $('.validate-input .input100');
-  var check = true;
+    var input = $('.validate-input .input100');
+    var check = true;
 
-  for(var i=0; i<input.length; i++)
-   {
-      if(!ValidationPattern(input[i]))
-      {
-          if ( i<input.length-1) // Je suis l'établissement scolaire
-          {
-            showValidate(input[i]);
-            check=false;              
-          }
-      }
-      else
-      {
-        hideValidate(input[i]);
-      }
-  }
+    for(var i=0; i<input.length; i++)
+    {
+        if(!ValidationPattern(input[i]))
+        {
+            if ( i<input.length-1) // Je suis pas l'établissement scolaire
+            {
+                hideValidateNotUnique(input[i]);
+                showAll(input[i]);
+                showValidate(input[i]);
+                check=false;      
+            }
+        }
+        else
+        {
+            if (i == 0)
+            {
+                ValidationUnique(input[i]);
+                if (boolean)
+                    check = false;
+            }
+            else
+            {
+                hideAll(input[i]);
+                hideValidate(input[i]);
+            }
+        }
+        
+    }
 
-  if (check)
-    document.getElementsByClassName("step")[currentTab].className += " finish";
-  return check;
+    if (check)
+        document.getElementsByClassName("step")[currentTab].className += " finish";
+
+    return check;
 }
 
 
 
 function ValidationPattern (input)
 {
-  if($(input).attr('type') == 'email') 
-  {
-    if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
-        return false;
-    }
-  }
-  else 
-  {
-    if($(input).val().trim() == '')
+    if($(input).attr('type') == 'email') 
     {
+    if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null)
         return false;
     }
-  }
-  return true;
+    else 
+    {
+        if($(input).val().trim() == '')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+function ValidationUnique(input)
+{
+    $.ajax({
+        url : "php/RechercheEtudiant.php",
+        method : "POST",
+        dataType : "JSON",
+        data : {
+            mailetudiant : $(input).val()
+        },
+        success : function(result)
+        {
+            let input = $('.validate-input .input100');
+            if (result['erreur'])
+            {
+                NotUnique();
+                showAll(input[0]);
+                showValidateNotUnique(input[0]);  
+               
+            }
+            else
+            {
+                Unique();
+                hideAll(input[0]);
+                hideValidateNotUnique(input[0]);               
+            }
+
+        }
+    });
+}
+
+function NotUnique()
+{
+    boolean = false;
+}
+function Unique()
+{
+    boolean = true;
+}
+
+function showAll (input)
+{
+    var thisAlert = $(input).parent();
+    $(thisAlert).addClass('alert-validate');
 }
 
 function showValidate(input) {
     var thisAlert = $(input).parent();
 
-    $(thisAlert).addClass('alert-validate');
+    $(thisAlert).addClass('faux');
+}
+
+function showValidateNotUnique(input) {
+    var thisAlert = $(input).parent();
+
+    $(thisAlert).addClass('notunique');
+}
+
+function hideValidateNotUnique(input) {
+    var thisAlert = $(input).parent();
+    $(thisAlert).removeClass('notunique');
 }
 
 function hideValidate(input) {
     var thisAlert = $(input).parent();
+    $(thisAlert).removeClass('faux');
+}
 
+function hideAll(input)
+{
+    var thisAlert = $(input).parent();
     $(thisAlert).removeClass('alert-validate');
 }
 

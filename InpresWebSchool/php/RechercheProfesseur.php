@@ -12,8 +12,8 @@
         $i = 0;
         while($row = $stmt->fetch_assoc()) 
         {
-          $results[$i]=$row;
-          $i++;
+            $results[$i]=$row;
+            $i++;
         }
         $return['professeur'] = $results;
         echo json_encode($return);

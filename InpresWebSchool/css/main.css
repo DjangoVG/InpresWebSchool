@@ -533,26 +533,107 @@ iframe {
   border-bottom: 4px solid rgba(121, 0, 151, 0.3);
 }
 
-.sel--Plage01 {
+.sel--Plage01Jour01 {
   z-index: 5;
   
 }
 
-.sel--Plage02 {
+.sel--Plage02Jour01 {
   z-index: 4;
 }
 
-.sel--Plage03 {
+.sel--Plage03Jour01 {
   z-index: 3;
 }
 
-.sel--Plage04 {
+.sel--Plage04Jour01 {
   z-index: 2;
 }
 
-.sel--Journee {
+.sel--JourneeJour01 {
     z-index: 2;
-  }
+}
+
+.sel--Plage01Jour02 {
+    z-index: 5; 
+}
+
+.sel--Plage02Jour02 {
+    z-index: 4;
+}
+
+.sel--Plage03Jour02 {
+    z-index: 3;
+}
+
+.sel--Plage04Jour02 {
+    z-index: 2;
+}
+
+.sel--JourneeJour02 {
+    z-index: 2;
+}
+
+.sel--Plage01Jour03 {
+    z-index: 5; 
+}
+
+.sel--Plage02Jour03 {
+    z-index: 4;
+}
+
+.sel--Plage03Jour03 {
+    z-index: 3;
+}
+
+.sel--Plage04Jour03 {
+    z-index: 2;
+}
+
+.sel--JourneeJour03 {
+    z-index: 2;
+}
+
+.sel--Plage01Jour04 {
+    z-index: 5; 
+}
+
+.sel--Plage02Jour04 {
+    z-index: 4;
+}
+
+.sel--Plage03Jour04 {
+    z-index: 3;
+}
+
+.sel--Plage04Jour04 {
+    z-index: 2;
+}
+
+.sel--JourneeJour04 {
+    z-index: 2;
+}
+
+.sel--Plage01Jour05 {
+    z-index: 5; 
+}
+
+.sel--Plage02Jour05 {
+    z-index: 4;
+}
+
+.sel--Plage03Jour05 {
+    z-index: 3;
+}
+
+.sel--Plage04Jour05 {
+    z-index: 2;
+}
+
+.sel--JourneeJour05 {
+    z-index: 2;
+}
+
 
 /* ===== Keyframes ===== */
 @keyframes fadeInUp {

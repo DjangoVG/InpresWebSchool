@@ -367,10 +367,8 @@ function AjouterEtudiant()
         {
             tableauplagechoisie.push(fullplages[i].children[j].children[0].textContent);
         }
-        console.log(tableauplagechoisie);
     }
 
-    console.log(tableaujourneechoisie);
     $.ajax({
         url : "php/AjoutEtudiant.php",
         method : "POST",
@@ -384,21 +382,17 @@ function AjouterEtudiant()
             journeeschoisies : tableaujourneechoisie,
             plagechoisies : tableauplagechoisie
         },
-        success : function(result){
+        success : function(result)
+        {
             if(result['erreur']){
                 alert(result['message']);
             }
             else
             {
-                alert(result);
-                //location.reload();
+                location.reload();
             }
                 
-        },
-        error : function(result) {
-            alert (result['message']);
         }
-        
     });
 }
 

@@ -132,7 +132,7 @@ function AjoutCoursPlages(journeechoisie)
 
                             $current.children('div').append($('<span>', {
                             class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + nomprof + " " + prenomprof
+                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + prenomprof + " " + nomprof
                             }));
 
                             $('.sel__box__options').click(function() {
@@ -176,7 +176,7 @@ function AjoutCoursPlages(journeechoisie)
 
                             $current.children('div').append($('<span>', {
                             class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + nomprof + " " + prenomprof
+                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + prenomprof + " " + nomprof
                             }));
 
                             $('.sel__box__options').click(function() {
@@ -220,7 +220,7 @@ function AjoutCoursPlages(journeechoisie)
 
                             $current.children('div').append($('<span>', {
                             class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + nomprof + " " + prenomprof
+                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + prenomprof + " " + nomprof
                             }));
 
                             $('.sel__box__options').click(function() {
@@ -264,7 +264,7 @@ function AjoutCoursPlages(journeechoisie)
 
                             $current.children('div').append($('<span>', {
                             class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + nomprof + " " + prenomprof
+                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + prenomprof + " " + nomprof
                             }));
 
                             $('.sel__box__options').click(function() {
@@ -676,9 +676,8 @@ function CheckChampFormulaire()
         {
             if (i == 0)
             {
-                ValidationUnique(input[i]);
-                if (boolean)
-                    check = false;
+                if (!ValidationUnique(input[i]))
+                    check = false; 
             }
             else
             {
@@ -686,7 +685,7 @@ function CheckChampFormulaire()
                 hideValidate(input[i]);
             }
         }
-        
+
     }
 
     if (check)
@@ -694,8 +693,6 @@ function CheckChampFormulaire()
 
     return check;
 }
-
-
 
 function ValidationPattern (input)
 {
@@ -720,6 +717,7 @@ function ValidationUnique(input)
         url : "php/RechercheEtudiant.php",
         method : "POST",
         dataType : "JSON",
+        async : false,
         data : {
             mailetudiant : $(input).val()
         },
@@ -739,9 +737,9 @@ function ValidationUnique(input)
                 hideAll(input[0]);
                 hideValidateNotUnique(input[0]);               
             }
-
         }
     });
+    return boolean;
 }
 
 function NotUnique()

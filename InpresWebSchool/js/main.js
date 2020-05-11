@@ -127,7 +127,6 @@ function AjoutCoursPlages(journeechoisie)
                                 
                                 nomprof = prof['Nom'];
                                 prenomprof = prof['Prenom'];
-                                console.log("check : " + prof['Nom']);
                             });
 
                             $current.children('div').append($('<span>', {
@@ -585,36 +584,85 @@ function ClickBoutonFormulaire(n)
     {
         if (CheckChampFormulaire())
         {
-            var x = document.getElementsByClassName("etape");
-            
-            x[currentTab].style.display = "none";
-            currentTab += n;
-    
-            if (currentTab == x.length) // JE VALIDE LE DOCUMENT
-            {
-                AjouterEtudiant();
-                document.getElementById("regForm").submit();
-                return false;
-            }  
-            showTab(currentTab); 
+            AffichageNextStep(n);
         }
     }
     else
     {
-        var x = document.getElementsByClassName("etape");
-            
-        x[currentTab].style.display = "none";
-        currentTab += n;
-
-        if (currentTab == x.length) // JE VALIDE LE DOCUMENT
+        if (n == 1 && currentTab == 1) // JE CHECK SI MINIMUM UNE JOURNEE COCHEE
         {
-            AjouterEtudiant();
-            document.getElementById("regForm").submit();
-            return false;
+            let journee = document.getElementsByClassName("inputGroup clique");
+            if (journee.length == 0)
+            {
+                let Form = document.getElementsByClassName("login100-form validate-form");
+                Form[n].classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);
+            }
+            else
+                AffichageNextStep(n);
+        } 
+        else if (n == 1 && currentTab == 2) // JE CHECK SI MINIMUM UNE JOURNEE COCHEE
+        {
+            let journee = document.getElementsByClassName("inputJournee clique");
+            if (journee.length == 0)
+            {
+                let Form = document.getElementById("Form_Journee");
+                Form.classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);
+            }
+            else
+            {
+                AffichageNextStep(n);
+            }
         }
-        showTab(currentTab);        
+        else if (n == 1 && currentTab >= 3) // JE CHECK LES PLAGES
+        {
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }  
+        else
+        {
+            AffichageNextStep(n);
+        }
+            
+    }
+}
+
+function RemoveErrorForm()
+{
+    let Form = document.getElementsByClassName("login100-form validate-form");
+    for (let p = 0 ; p < Form.length;p++)
+        Form[p].classList.remove("ErrorForm");
+}
+
+function AffichageNextStep(n)
+{
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+    var x = document.getElementsByClassName("etape");
+            
+    x[currentTab].style.display = "none";
+    currentTab += n;
+
+    if (currentTab == x.length) // JE VALIDE LE DOCUMENT
+    {
+        AjouterEtudiant();
+        document.getElementById("regForm").submit();
+        return false;
     }
     
+    showTab(currentTab); 
 }
 
 function SupprimerAllJournee()
@@ -687,9 +735,6 @@ function CheckChampFormulaire()
         }
 
     }
-
-    if (check)
-        document.getElementsByClassName("step")[currentTab].className += " finish";
 
     return check;
 }

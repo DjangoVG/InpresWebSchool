@@ -65,72 +65,74 @@
             {
                 // JE VAIS RECHERCHER LE COURS DANS LA BDD EN FONCTION DU COURS
                 $recup = explode(" ", $plageschoisies[$cpt]);
-                $nomcours = "";
-                $nomcoursnotyet = "";
-
-                for ($k = 0; $k < sizeof($recup); $k++)
+                if ($recup[0] != "Aucun" && $recup[1] != "cours")
                 {
-                    if ($recup[$k] != '|')
+                    $nomcours = "";
+                    $nomcoursnotyet = "";
+
+                    for ($k = 0; $k < sizeof($recup); $k++)
                     {
-                        $nomcoursnotyet .= $recup[$k];
-                        if ($k < sizeof($recup) - 1)
+                        if ($recup[$k] != '|')
                         {
-                            if ($recup[$k+1] != "|")
-                                $nomcoursnotyet .= ' ';                     
+                            $nomcoursnotyet .= $recup[$k];
+                            if ($k < sizeof($recup) - 1)
+                            {
+                                if ($recup[$k+1] != "|")
+                                    $nomcoursnotyet .= ' ';                     
+                            }
                         }
-                            
+                        else
+                        {
+                            $nomcours = $nomcoursnotyet;
+
+                            $heuredebut = $recup[$k+1];
+                            $heuredebut = substr($heuredebut,1, -1);
+                            $heurefin = $recup[$k+3];
+                            $heurefin = substr($heurefin,0, -1);
+                        }
+                        
+                        if ($recup[$k] == "->")
+                        {
+                            $nomprof = $recup[$k+1];
+                            $prenomprof = $recup[$k+2];
+                            // JE RECUPERE LE PROF GRACE A SON NOM ET PRENOM
+                            $select = 'SELECT IdProfesseur FROM professeur WHERE Prenom = \'';
+                            $select .= $nomprof;
+                            $select .= '\' AND Nom = \'';
+                            $select .= $prenomprof;
+                            $select .= '\'';
+                            echo $select;
+                            $stmt = $bdd->query($select);
+                            if ($stmt->num_rows > 0)
+                            {
+                                $results = array();
+                                $i = 0;
+                                while($row = $stmt->fetch_assoc()) 
+                                {
+                                    $idprof = $row['IdProfesseur'];
+                                    $i++;
+                                }
+                            } 
+                            else 
+                            {
+                                $return['erreur'] = true;
+                                echo json_encode($return);
+                            }
+                        }
+                    }
+                    $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,1,?,?,?,?)");
+                    $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
+                    if($stmt->execute())
+                    {
+                        $return['erreur'] = true;
+                        $return['message'] = "1/ Problème d'ajout dans la table assister";
                     }
                     else
                     {
-                        $nomcours = $nomcoursnotyet;
-
-                        $heuredebut = $recup[$k+1];
-                        $heuredebut = substr($heuredebut,1, -1);
-                        $heurefin = $recup[$k+3];
-                        $heurefin = substr($heurefin,1, -1);
-                    }
-                    
-                    if ($recup[$k] == "->")
-                    {
-                        $nomprof = $recup[$k+1];
-                        $prenomprof = $recup[$k+2];
-                        // JE RECUPERE LE PROF GRACE A SON NOM ET PRENOM
-                        $select = 'SELECT IdProfesseur FROM professeur WHERE Nom = \'';
-                        $select .= $nomprof;
-                        $select .= '\' AND Prenom = \'';
-                        $select .= $prenomprof;
-                        $select .= '\'';
-                        echo $select;
-                        $stmt = $bdd->query($select);
-                        if ($stmt->num_rows > 0)
-                        {
-                            $results = array();
-                            $i = 0;
-                            while($row = $stmt->fetch_assoc()) 
-                            {
-                                $idprof = $row['IdProfesseur'];
-                                $i++;
-                            }
-                        } 
-                        else 
-                        {
-                            $return['erreur'] = true;
-                            echo json_encode($return);
-                        }
+                        $return['erreur'] = true;
+                        $return['message'] = "1/ Problème d'ajout dans la table assister";
                     }
                 }
-                $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,1,?,?,?,?)");
-                $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
-                if($stmt->execute())
-                {
-                    $return['erreur'] = true;
-                    $return['message'] = "1/ Problème d'ajout dans la table assister";
-                }
-                else
-                {
-                    $return['erreur'] = true;
-                    $return['message'] = "1/ Problème d'ajout dans la table assister";
-                }  
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,1)");
             $stmt->bind_param("s",$_POST ['mailetudiant']);
@@ -148,70 +150,73 @@
             {
                 // JE VAIS RECHERCHER LE COURS DANS LA BDD EN FONCTION DU COURS
                 $recup = explode(" ", $plageschoisies[$cpt]);
-                $nomcours = "";
-                $nomcoursnotyet = "";
-                for ($k = 0; $k < sizeof($recup); $k++)
+                if ($recup[0] != "Aucun" && $recup[1] != "cours")
                 {
-                    if ($recup[$k] != '|')
+                    $nomcours = "";
+                    $nomcoursnotyet = "";
+                    for ($k = 0; $k < sizeof($recup); $k++)
                     {
-                        $nomcoursnotyet .= $recup[$k];
-                        if ($k < sizeof($recup) - 1)
+                        if ($recup[$k] != '|')
                         {
-                            if ($recup[$k+1] != "|")
-                                $nomcoursnotyet .= ' ';                     
+                            $nomcoursnotyet .= $recup[$k];
+                            if ($k < sizeof($recup) - 1)
+                            {
+                                if ($recup[$k+1] != "|")
+                                    $nomcoursnotyet .= ' ';                     
+                            }
+                                
                         }
-                            
+                        else
+                        {
+                            $nomcours = $nomcoursnotyet;
+
+                            $heuredebut = $recup[$k+1];
+                            $heuredebut = substr($heuredebut,1, -1);
+                            $heurefin = $recup[$k+3];
+                            $heurefin = substr($heurefin,0, -1);
+                        }
+                        
+                        if ($recup[$k] == "->")
+                        {
+                            $nomprof = $recup[$k+1];
+                            $prenomprof = $recup[$k+2];
+                            // JE RECUPERE LE PROF GRACE A SON NOM ET PRENOM
+                            $select = 'SELECT IdProfesseur FROM professeur WHERE Prenom = \'';
+                            $select .= $nomprof;
+                            $select .= '\' AND Nom = \'';
+                            $select .= $prenomprof;
+                            $select .= '\'';
+                            echo $select;
+                            $stmt = $bdd->query($select);
+                            if ($stmt->num_rows > 0)
+                            {
+                                $results = array();
+                                $i = 0;
+                                while($row = $stmt->fetch_assoc()) 
+                                {
+                                    $idprof = $row['IdProfesseur'];
+                                    $i++;
+                                }
+                            } 
+                            else 
+                            {
+                                $return['erreur'] = true;
+                                echo json_encode($return);
+                            }
+                        }
+                    }
+                    $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,2,?,?,?,?)");
+                    $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
+                    if($stmt->execute())
+                    {
+                        $return['erreur'] = true;
+                        $return['message'] = "1/ Problème d'ajout dans la table assister";
                     }
                     else
                     {
-                        $nomcours = $nomcoursnotyet;
-
-                        $heuredebut = $recup[$k+1];
-                        $heuredebut = substr($heuredebut,1, -1);
-                        $heurefin = $recup[$k+3];
-                        $heurefin = substr($heurefin,1, -1);
+                        $return['erreur'] = true;
+                        $return['message'] = "1/ Problème d'ajout dans la table assister";
                     }
-                    
-                    if ($recup[$k] == "->")
-                    {
-                        $nomprof = $recup[$k+1];
-                        $prenomprof = $recup[$k+2];
-                        // JE RECUPERE LE PROF GRACE A SON NOM ET PRENOM
-                        $select = 'SELECT IdProfesseur FROM professeur WHERE Nom = \'';
-                        $select .= $nomprof;
-                        $select .= '\' AND Prenom = \'';
-                        $select .= $prenomprof;
-                        $select .= '\'';
-                        echo $select;
-                        $stmt = $bdd->query($select);
-                        if ($stmt->num_rows > 0)
-                        {
-                            $results = array();
-                            $i = 0;
-                            while($row = $stmt->fetch_assoc()) 
-                            {
-                                $idprof = $row['IdProfesseur'];
-                                $i++;
-                            }
-                        } 
-                        else 
-                        {
-                            $return['erreur'] = true;
-                            echo json_encode($return);
-                        }
-                    }
-                }
-                $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,2,?,?,?,?)");
-                $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
-                if($stmt->execute())
-                {
-                    $return['erreur'] = true;
-                    $return['message'] = "1/ Problème d'ajout dans la table assister";
-                }
-                else
-                {
-                    $return['erreur'] = true;
-                    $return['message'] = "1/ Problème d'ajout dans la table assister";
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,2)");
@@ -230,70 +235,73 @@
             {
                 // JE VAIS RECHERCHER LE COURS DANS LA BDD EN FONCTION DU COURS
                 $recup = explode(" ", $plageschoisies[$cpt]);
-                $nomcours = "";
-                $nomcoursnotyet = "";
-                for ($k = 0; $k < sizeof($recup); $k++)
+                if ($recup[0] != "Aucun" && $recup[1] != "cours")
                 {
-                    if ($recup[$k] != '|')
+                    $nomcours = "";
+                    $nomcoursnotyet = "";
+                    for ($k = 0; $k < sizeof($recup); $k++)
                     {
-                        $nomcoursnotyet .= $recup[$k];
-                        if ($k < sizeof($recup) - 1)
+                        if ($recup[$k] != '|')
                         {
-                            if ($recup[$k+1] != "|")
-                                $nomcoursnotyet .= ' ';                     
+                            $nomcoursnotyet .= $recup[$k];
+                            if ($k < sizeof($recup) - 1)
+                            {
+                                if ($recup[$k+1] != "|")
+                                    $nomcoursnotyet .= ' ';                     
+                            }
+                                
                         }
-                            
+                        else
+                        {
+                            $nomcours = $nomcoursnotyet;
+
+                            $heuredebut = $recup[$k+1];
+                            $heuredebut = substr($heuredebut,1, -1);
+                            $heurefin = $recup[$k+3];
+                            $heurefin = substr($heurefin,0, -1);
+                        }
+                        
+                        if ($recup[$k] == "->")
+                        {
+                            $nomprof = $recup[$k+1];
+                            $prenomprof = $recup[$k+2];
+                            // JE RECUPERE LE PROF GRACE A SON NOM ET PRENOM
+                            $select = 'SELECT IdProfesseur FROM professeur WHERE Prenom = \'';
+                            $select .= $nomprof;
+                            $select .= '\' AND Nom = \'';
+                            $select .= $prenomprof;
+                            $select .= '\'';
+                            echo $select;
+                            $stmt = $bdd->query($select);
+                            if ($stmt->num_rows > 0)
+                            {
+                                $results = array();
+                                $i = 0;
+                                while($row = $stmt->fetch_assoc()) 
+                                {
+                                    $idprof = $row['IdProfesseur'];
+                                    $i++;
+                                }
+                            } 
+                            else 
+                            {
+                                $return['erreur'] = true;
+                                echo json_encode($return);
+                            }
+                        }
+                    }
+                    $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,3,?,?,?,?)");
+                    $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
+                    if($stmt->execute())
+                    {
+                        $return['erreur'] = true;
+                        $return['message'] = "3/ Problème d'ajout dans la table assister";
                     }
                     else
                     {
-                        $nomcours = $nomcoursnotyet;
-
-                        $heuredebut = $recup[$k+1];
-                        $heuredebut = substr($heuredebut,1, -1);
-                        $heurefin = $recup[$k+3];
-                        $heurefin = substr($heurefin,1, -1);
+                        $return['erreur'] = true;
+                        $return['message'] = "3/ Problème d'ajout dans la table assister";
                     }
-                    
-                    if ($recup[$k] == "->")
-                    {
-                        $nomprof = $recup[$k+1];
-                        $prenomprof = $recup[$k+2];
-                        // JE RECUPERE LE PROF GRACE A SON NOM ET PRENOM
-                        $select = 'SELECT IdProfesseur FROM professeur WHERE Nom = \'';
-                        $select .= $nomprof;
-                        $select .= '\' AND Prenom = \'';
-                        $select .= $prenomprof;
-                        $select .= '\'';
-                        echo $select;
-                        $stmt = $bdd->query($select);
-                        if ($stmt->num_rows > 0)
-                        {
-                            $results = array();
-                            $i = 0;
-                            while($row = $stmt->fetch_assoc()) 
-                            {
-                                $idprof = $row['IdProfesseur'];
-                                $i++;
-                            }
-                        } 
-                        else 
-                        {
-                            $return['erreur'] = true;
-                            echo json_encode($return);
-                        }
-                    }
-                }
-                $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,3,?,?,?,?)");
-                $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
-                if($stmt->execute())
-                {
-                    $return['erreur'] = true;
-                    $return['message'] = "3/ Problème d'ajout dans la table assister";
-                }
-                else
-                {
-                    $return['erreur'] = true;
-                    $return['message'] = "3/ Problème d'ajout dans la table assister";
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,3)");
@@ -312,70 +320,73 @@
             {
                 // JE VAIS RECHERCHER LE COURS DANS LA BDD EN FONCTION DU COURS
                 $recup = explode(" ", $plageschoisies[$cpt]);
-                $nomcours = "";
-                $nomcoursnotyet = "";
-                for ($k = 0; $k < sizeof($recup); $k++)
+                if ($recup[0] != "Aucun" && $recup[1] != "cours")
                 {
-                    if ($recup[$k] != '|')
+                    $nomcours = "";
+                    $nomcoursnotyet = "";
+                    for ($k = 0; $k < sizeof($recup); $k++)
                     {
-                        $nomcoursnotyet .= $recup[$k];
-                        if ($k < sizeof($recup) - 1)
+                        if ($recup[$k] != '|')
                         {
-                            if ($recup[$k+1] != "|")
-                                $nomcoursnotyet .= ' ';                     
+                            $nomcoursnotyet .= $recup[$k];
+                            if ($k < sizeof($recup) - 1)
+                            {
+                                if ($recup[$k+1] != "|")
+                                    $nomcoursnotyet .= ' ';                     
+                            }
+                                
                         }
-                            
+                        else
+                        {
+                            $nomcours = $nomcoursnotyet;
+
+                            $heuredebut = $recup[$k+1];
+                            $heuredebut = substr($heuredebut,1, -1);
+                            $heurefin = $recup[$k+3];
+                            $heurefin = substr($heurefin,0, -1);
+                        }
+                        
+                        if ($recup[$k] == "->")
+                        {
+                            $nomprof = $recup[$k+1];
+                            $prenomprof = $recup[$k+2];
+                            // JE RECUPERE LE PROF GRACE A SON NOM ET PRENOM
+                            $select = 'SELECT IdProfesseur FROM professeur WHERE Prenom = \'';
+                            $select .= $nomprof;
+                            $select .= '\' AND Nom = \'';
+                            $select .= $prenomprof;
+                            $select .= '\'';
+                            echo $select;
+                            $stmt = $bdd->query($select);
+                            if ($stmt->num_rows > 0)
+                            {
+                                $results = array();
+                                $i = 0;
+                                while($row = $stmt->fetch_assoc()) 
+                                {
+                                    $idprof = $row['IdProfesseur'];
+                                    $i++;
+                                }
+                            } 
+                            else 
+                            {
+                                $return['erreur'] = true;
+                                echo json_encode($return);
+                            }
+                        }
+                    }
+                    $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,4,?,?,?,?)");
+                    $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
+                    if($stmt->execute())
+                    {
+                        $return['erreur'] = true;
+                        $return['message'] = "4/ Problème d'ajout dans la table assister";
                     }
                     else
                     {
-                        $nomcours = $nomcoursnotyet;
-
-                        $heuredebut = $recup[$k+1];
-                        $heuredebut = substr($heuredebut,1, -1);
-                        $heurefin = $recup[$k+3];
-                        $heurefin = substr($heurefin,1, -1);
+                        $return['erreur'] = true;
+                        $return['message'] = "4/ Problème d'ajout dans la table assister";
                     }
-                    
-                    if ($recup[$k] == "->")
-                    {
-                        $nomprof = $recup[$k+1];
-                        $prenomprof = $recup[$k+2];
-                        // JE RECUPERE LE PROF GRACE A SON NOM ET PRENOM
-                        $select = 'SELECT IdProfesseur FROM professeur WHERE Nom = \'';
-                        $select .= $nomprof;
-                        $select .= '\' AND Prenom = \'';
-                        $select .= $prenomprof;
-                        $select .= '\'';
-                        echo $select;
-                        $stmt = $bdd->query($select);
-                        if ($stmt->num_rows > 0)
-                        {
-                            $results = array();
-                            $i = 0;
-                            while($row = $stmt->fetch_assoc()) 
-                            {
-                                $idprof = $row['IdProfesseur'];
-                                $i++;
-                            }
-                        } 
-                        else 
-                        {
-                            $return['erreur'] = true;
-                            echo json_encode($return);
-                        }
-                    }
-                }
-                $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,4,?,?,?,?)");
-                $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
-                if($stmt->execute())
-                {
-                    $return['erreur'] = true;
-                    $return['message'] = "4/ Problème d'ajout dans la table assister";
-                }
-                else
-                {
-                    $return['erreur'] = true;
-                    $return['message'] = "4/ Problème d'ajout dans la table assister";
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,4)");
@@ -394,70 +405,73 @@
             {
                 // JE VAIS RECHERCHER LE COURS DANS LA BDD EN FONCTION DU COURS
                 $recup = explode(" ", $plageschoisies[$cpt]);
-                $nomcours = "";
-                $nomcoursnotyet = "";
-                for ($k = 0; $k < sizeof($recup); $k++)
+                if ($recup[0] != "Aucun" && $recup[1] != "cours")
                 {
-                    if ($recup[$k] != '|')
+                    $nomcours = "";
+                    $nomcoursnotyet = "";
+                    for ($k = 0; $k < sizeof($recup); $k++)
                     {
-                        $nomcoursnotyet .= $recup[$k];
-                        if ($k < sizeof($recup) - 1)
+                        if ($recup[$k] != '|')
                         {
-                            if ($recup[$k+1] != "|")
-                                $nomcoursnotyet .= ' ';                     
+                            $nomcoursnotyet .= $recup[$k];
+                            if ($k < sizeof($recup) - 1)
+                            {
+                                if ($recup[$k+1] != "|")
+                                    $nomcoursnotyet .= ' ';                     
+                            }
+                                
                         }
-                            
+                        else
+                        {
+                            $nomcours = $nomcoursnotyet;
+
+                            $heuredebut = $recup[$k+1];
+                            $heuredebut = substr($heuredebut,1, -1);
+                            $heurefin = $recup[$k+3];
+                            $heurefin = substr($heurefin,0, -1);
+                        }
+                        
+                        if ($recup[$k] == "->")
+                        {
+                            $nomprof = $recup[$k+1];
+                            $prenomprof = $recup[$k+2];
+                            // JE RECUPERE LE PROF GRACE A SON NOM ET PRENOM
+                            $select = 'SELECT IdProfesseur FROM professeur WHERE Prenom = \'';
+                            $select .= $nomprof;
+                            $select .= '\' AND Nom = \'';
+                            $select .= $prenomprof;
+                            $select .= '\'';
+                            echo $select;
+                            $stmt = $bdd->query($select);
+                            if ($stmt->num_rows > 0)
+                            {
+                                $results = array();
+                                $i = 0;
+                                while($row = $stmt->fetch_assoc()) 
+                                {
+                                    $idprof = $row['IdProfesseur'];
+                                    $i++;
+                                }
+                            } 
+                            else 
+                            {
+                                $return['erreur'] = true;
+                                echo json_encode($return);
+                            }
+                        }
+                    }
+                    $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,5,?,?,?,?)");
+                    $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
+                    if($stmt->execute())
+                    {
+                        $return['erreur'] = true;
+                        $return['message'] = "5/ Problème d'ajout dans la table assister";
                     }
                     else
                     {
-                        $nomcours = $nomcoursnotyet;
-
-                        $heuredebut = $recup[$k+1];
-                        $heuredebut = substr($heuredebut,1, -1);
-                        $heurefin = $recup[$k+3];
-                        $heurefin = substr($heurefin,1, -1);
+                        $return['erreur'] = true;
+                        $return['message'] = "5/ Problème d'ajout dans la table assister";
                     }
-                    
-                    if ($recup[$k] == "->")
-                    {
-                        $nomprof = $recup[$k+1];
-                        $prenomprof = $recup[$k+2];
-                        // JE RECUPERE LE PROF GRACE A SON NOM ET PRENOM
-                        $select = 'SELECT IdProfesseur FROM professeur WHERE Nom = \'';
-                        $select .= $nomprof;
-                        $select .= '\' AND Prenom = \'';
-                        $select .= $prenomprof;
-                        $select .= '\'';
-                        echo $select;
-                        $stmt = $bdd->query($select);
-                        if ($stmt->num_rows > 0)
-                        {
-                            $results = array();
-                            $i = 0;
-                            while($row = $stmt->fetch_assoc()) 
-                            {
-                                $idprof = $row['IdProfesseur'];
-                                $i++;
-                            }
-                        } 
-                        else 
-                        {
-                            $return['erreur'] = true;
-                            echo json_encode($return);
-                        }
-                    }
-                }
-                $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,5,?,?,?,?)");
-                $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
-                if($stmt->execute())
-                {
-                    $return['erreur'] = true;
-                    $return['message'] = "5/ Problème d'ajout dans la table assister";
-                }
-                else
-                {
-                    $return['erreur'] = true;
-                    $return['message'] = "5/ Problème d'ajout dans la table assister";
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,5)");

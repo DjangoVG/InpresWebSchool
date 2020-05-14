@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
-		<title>Mes informations</title>
+		<title>Page d'administration</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->	
@@ -20,6 +20,134 @@
 	</head>
 	<body>
 		<div class="limiter">
+            <div class="limiter">
+                <div class="container-login100" style="background-image: url('images/Fond_InpresWebSchool.jpeg');">
+                    <div class="wrap-login100 p-t-30 p-b-50">
+                        <form id="FormAdmin" action="">
+
+                            <div class="etape"> <!-- LOGIN DE L'ADMINISTRATEUR -->
+                                <span class="login100-form-title p-b-41">
+                                    PAGE DE CONNEXION ADMINISTRATEUR
+                                </span>
+                                <div class="login100-form validate-form p-b-33 p-t-5" id="FormmLogin">
+                                    <div class="wrap-input100 validate-input" datavalidate = "Entrer votre adresse mail" mailunknown="Cette adresse mail est inconnu !">
+                                        <input class="input100 AdresseMailAdmin" type="email" name="AdresseMail" placeholder="Mon adresse mail" id="AdresseMailAdmin" for="AdresseMail">
+                                        <span class="focus-input100 Mail"></span>
+                                    </div>
+                                    <div class="wrap-input100 validate-input" datavalidate = "Entrer votre mot de passe" password="Mot de passe eronné">
+                                        <input class="input100" type="password" name="mdp" placeholder="Mon mot de passe" id="mdpAdmin" for="mdp">
+                                        <span class="focus-input100 NomPrenom"></span>
+                                    </div>
+                                </div>                 
+                            </div>
+
+                            <div class=""> <!-- A RETIRER -->
+                                <div class="container-login100-form-btn m-t-32"> <!-- CHOIX POUR LE CONSULTATION -->
+                                    <span class="login100-form-title p-b-41">
+                                        JE VOUDRAI CONSULTER...
+                                    </span>
+                                    <div class="login100-form validate-form p-b-5 p-t-5">
+                                        <div class="inputGroup" name="1">
+                                            <input id="option1" name="Les cours" type="checkbox" onclick="ClickSection(0)"/>
+                                            <label for="option1">Les cours</label>
+                                        </div>
+                                        
+                                        <div class="inputGroup" name="2">
+                                        <input id="option2" name="Les étudiants" type="checkbox" onclick="ClickSection(1)"/>
+                                        <label for="option2">Les étudiants</label>
+                                        </div>
+        
+                                        <div class="inputGroup" name="3">
+                                            <input id="option4" name="Les groupes" type="checkbox" onclick="ClickSection(2)"/>
+                                            <label for="option4">Les groupes</label>
+                                        </div>
+
+                                        <div class="inputGroup" name="4">
+                                            <input id="option5" name="Les journées" type="checkbox" onclick="ClickSection(2)"/>
+                                            <label for="option5">Les journées</label>
+                                        </div>
+
+                                        <div class="inputGroup" name="5">
+                                            <input id="option6" name="Les locaux" type="checkbox" onclick="ClickSection(2)"/>
+                                            <label for="option6">Les locaux</label>
+                                        </div>
+
+                                        <div class="inputGroup" name="6">
+                                            <input id="option7" name="Les professeurs" type="checkbox" onclick="ClickSection(2)"/>
+                                            <label for="option7">Les professeurs</label>
+                                        </div>
+
+                                        <div class="inputGroup" name="7">
+                                            <input id="option8" name="Les sections" type="checkbox" onclick="ClickSection(2)"/>
+                                            <label for="option8">Les sections</label>
+                                        </div>
+                                    </div>
+                                    <div class="m-t-15">
+                                        <button type="button" id="" class="login100-form-btn" onclick="BoutonConsulter()">
+                                            CONSULTER
+                                        </button>                                        
+                                    </div>
+                                </div>   
+                            </div>
+
+                            <div class=""> <!-- A RETIRER -->
+                                <div class="container-login100-form-btn m-t-32"> <!-- CHOIX POUR L'AJOUT -->
+                                    <span class="login100-form-title p-b-41">
+                                        JE VOUDRAI AJOUTER...
+                                    </span>
+                                    <div class="login100-form validate-form p-b-5 p-t-5">
+                                        <div class="inputGroup" name="1">
+                                            <input id="option9" name="Un cours" type="checkbox" onclick="ClickSection(0)"/>
+                                            <label for="option9">Un cours</label>
+                                        </div>
+                                        <div class="inputGroup" name="2">
+                                            <input id="option10" name="Un local" type="checkbox" onclick="ClickSection(2)"/>
+                                            <label for="option10">Un local</label>
+                                        </div>
+                                        <div class="inputGroup" name="3">
+                                            <input id="option11" name="Un professeur" type="checkbox" onclick="ClickSection(2)"/>
+                                            <label for="option11">Un professeur</label>
+                                        </div>
+                                        <div class="inputGroup" name="4">
+                                            <input id="option12" name="Un étudiant" type="checkbox" onclick="ClickSection(0)"/>
+                                            <label for="option12">Un étudiant</label>
+                                        </div>
+                                    </div>
+                                    <div class="m-t-15">
+                                        <button type="button" id="" class="login100-form-btn" onclick="BoutonConsulter()">
+                                            AJOUTER
+                                        </button>                                        
+                                    </div>
+                                </div>   
+                            </div>
+                        </form>
+
+                        <div class="container-login100-form-btn m-t-32">
+                            <button type="button" id="" class="login100-form-btn SameSize" onclick="ConnexionAdmin()">
+                                CONSULTER LA LISTE DES ETUDIANTS INSCRITS
+                            </button>
+                            <button type="button" id="" class="login100-form-btn SameSize" onclick="document.location.href='index.html'">
+                                GÉNÉRER LE PROGRAMME INDIVIDUEL DE CHAQUE ÉTUDIANT
+                            </button>
+                            <button type="button" id="" class="login100-form-btn SameSize" onclick="document.location.href='index.html'">
+                                EXPORTER LE LISTING DE LA BASE DE DONNÉES
+                            </button>
+                            <button type="button" id="" class="login100-form-btn SameSize" onclick="document.location.href='index.html'">
+                                GÉNÉRER LES ATTESTATIONS DE PRÉSENCE DES ÉTUDIANTS
+                            </button>
+                        </div>
+
+                        <div class="container-login100-form-btn m-t-32">
+                            <button type="button" id="" class="login100-form-btn" onclick="ConnexionAdmin()">
+                                SE CONNECTER
+                            </button>
+                            <button type="button" id="" class="login100-form-btn" onclick="document.location.href='index.html'">
+                                ACCEUIL
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 		
@@ -34,6 +162,5 @@
 		<script src="vendor/countdowntime/countdowntime.js"></script>
 	<!--===============================================================================================-->
 		<script src="js/main.js"></script>
-
 	</body>
 </html>

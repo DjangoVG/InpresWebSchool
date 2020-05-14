@@ -17,31 +17,108 @@
     
     if ($Gestion == 1 && $Indus == 1 && $Reseau == 1) // GESTION INDUS RESEAUX
     {
-        $select = 'SELECT * FROM composer WHERE EXISTS (SELECT * from cours WHERE EXISTS (SELECT * from concerner where IdSection IN (1,2,3))) AND IdJournee = ';
+        $select =  'SELECT cours.* FROM composer, cours, concerner 
+                    WHERE composer.NomCours = cours.NomCours 
+                    AND composer.HeureDebut = cours.HeureDebut 
+                    AND composer.HeureFin = cours.HeureFin 
+                    AND composer.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.NomCours = cours.NomCours 
+                    AND concerner.HeureDebut = cours.HeureDebut 
+                    AND concerner.HeureFin = cours.HeureFin 
+                    AND concerner.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.IdSection IN (1,2,3) 
+                    AND cours.ReprisDansListe = 1
+                    AND composer.IdJournee = ';
     }
     else if ($Gestion == 1 && $Indus == 0 && $Reseau == 0) // ONLY GESTION
     {
-        $select = 'SELECT * FROM composer WHERE EXISTS (SELECT * from cours WHERE EXISTS (SELECT * from concerner where IdSection = 1)) AND IdJournee = ';
+        $select =  'SELECT cours.* FROM composer, cours, concerner 
+                    WHERE composer.NomCours = cours.NomCours 
+                    AND composer.HeureDebut = cours.HeureDebut 
+                    AND composer.HeureFin = cours.HeureFin 
+                    AND composer.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.NomCours = cours.NomCours 
+                    AND concerner.HeureDebut = cours.HeureDebut 
+                    AND concerner.HeureFin = cours.HeureFin 
+                    AND concerner.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.IdSection = 1
+                    AND cours.ReprisDansListe = 1
+                    AND composer.IdJournee = ';
     }
     else if ($Gestion == 1 && $Indus == 1 && $Reseau == 0) // ONLY GESTION ET INDUS
     {
-        $select = 'SELECT * FROM composer WHERE EXISTS (SELECT * from cours WHERE EXISTS (SELECT * from concerner where IdSection IN (1,2))) AND IdJournee = ';
+        $select =  'SELECT cours.* FROM composer, cours, concerner 
+                    WHERE composer.NomCours = cours.NomCours 
+                    AND composer.HeureDebut = cours.HeureDebut 
+                    AND composer.HeureFin = cours.HeureFin 
+                    AND composer.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.NomCours = cours.NomCours 
+                    AND concerner.HeureDebut = cours.HeureDebut 
+                    AND concerner.HeureFin = cours.HeureFin 
+                    AND concerner.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.IdSection IN (1,2)
+                    AND cours.ReprisDansListe = 1
+                    AND composer.IdJournee = ';
     }
     else if ($Gestion == 1 && $Indus == 0 && $Reseau == 1) // ONLY GESTION ET RESEAU
     {
-        $select = 'SELECT * FROM composer WHERE EXISTS (SELECT * from cours WHERE EXISTS (SELECT * from concerner where IdSection IN (1,3))) AND IdJournee = ';
+        $select =  'SELECT cours.* FROM composer, cours, concerner 
+                    WHERE composer.NomCours = cours.NomCours 
+                    AND composer.HeureDebut = cours.HeureDebut 
+                    AND composer.HeureFin = cours.HeureFin 
+                    AND composer.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.NomCours = cours.NomCours 
+                    AND concerner.HeureDebut = cours.HeureDebut 
+                    AND concerner.HeureFin = cours.HeureFin 
+                    AND concerner.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.IdSection IN (1,3)
+                    AND cours.ReprisDansListe = 1
+                    AND composer.IdJournee = ';
     }
     else if ($Gestion == 0 && $Indus == 1 && $Reseau == 0) // ONLY INDUS
     {
-        $select = 'SELECT * FROM composer WHERE EXISTS (SELECT * from cours WHERE EXISTS (SELECT * from concerner where IdSection = 2)) AND IdJournee = ';
+        $select =  'SELECT cours.* FROM composer, cours, concerner 
+                    WHERE composer.NomCours = cours.NomCours 
+                    AND composer.HeureDebut = cours.HeureDebut 
+                    AND composer.HeureFin = cours.HeureFin 
+                    AND composer.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.NomCours = cours.NomCours 
+                    AND concerner.HeureDebut = cours.HeureDebut 
+                    AND concerner.HeureFin = cours.HeureFin 
+                    AND concerner.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.IdSection = 2
+                    AND cours.ReprisDansListe = 1
+                    AND composer.IdJournee = ';
     }
     else if ($Gestion == 0 && $Indus == 1 && $Reseau == 1) // ONLY INDUS ET RESEAU
     {
-        $select = 'SELECT * FROM composer WHERE EXISTS (SELECT * from cours WHERE EXISTS (SELECT * from concerner where IdSection IN (2,3))) AND IdJournee = ';
+        $select =  'SELECT cours.* FROM composer, cours, concerner 
+                    WHERE composer.NomCours = cours.NomCours 
+                    AND composer.HeureDebut = cours.HeureDebut 
+                    AND composer.HeureFin = cours.HeureFin 
+                    AND composer.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.NomCours = cours.NomCours 
+                    AND concerner.HeureDebut = cours.HeureDebut 
+                    AND concerner.HeureFin = cours.HeureFin 
+                    AND concerner.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.IdSection IN (2,3)
+                    AND cours.ReprisDansListe = 1
+                    AND composer.IdJournee = ';
     }
     else if ($Gestion == 0 && $Indus == 0 && $Reseau == 1) // ONLY RESEAU
     {
-        $select = 'SELECT * FROM composer WHERE EXISTS (SELECT * from cours WHERE EXISTS (SELECT * from concerner where IdSection = 3 )) AND IdJournee = ';
+        $select =  'SELECT cours.* FROM composer, cours, concerner 
+                    WHERE composer.NomCours = cours.NomCours 
+                    AND composer.HeureDebut = cours.HeureDebut 
+                    AND composer.HeureFin = cours.HeureFin 
+                    AND composer.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.NomCours = cours.NomCours 
+                    AND concerner.HeureDebut = cours.HeureDebut 
+                    AND concerner.HeureFin = cours.HeureFin 
+                    AND concerner.IdProfesseur = cours.IdProfesseur 
+                    AND concerner.IdSection = 3
+                    AND cours.ReprisDansListe = 1
+                    AND composer.IdJournee = ';
     }
 
     $select .= $_POST['journee'];

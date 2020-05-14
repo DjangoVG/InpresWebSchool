@@ -174,7 +174,6 @@ iframe {
   width: 900px;
   border-radius: 10px;
   overflow: hidden;
-
   background: transparent;
 }
 
@@ -750,6 +749,10 @@ iframe {
 
 .login100-form-btn:hover:before {
   opacity: 1;
+}
+
+.SameSize {
+    width: 700px;
 }
 
 /* CSS DE LA VALIDATION DU FORMULAIRE D'INSCRIPTION */

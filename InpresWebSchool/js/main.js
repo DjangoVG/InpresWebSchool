@@ -890,3 +890,32 @@ function Administrateur()
 {
     
 }
+
+
+/* PARTIE ADMINISTRATEUR */
+
+function ConnexionAdmin()
+{
+    let addr = $('#AdresseMailAdmin');
+    let mdp = $('#mdpAdmin');
+
+    $.ajax({
+        url : "php/LavementMotDePasse.php",
+        method : "POST",
+        dataType : "JSON",
+        data : {
+            username : $(addr).val(),
+            mdp : $(mdp).val()
+        },
+        success : function(result)
+        {
+            document.getElementById("FormAdmin").submit();
+        },
+        error : function (result)
+        {
+            let Form = document.getElementById("FormmLogin");
+            Form.classList.add("ErrorForm");
+            setTimeout(RemoveErrorForm, 1300);
+        }
+    });
+}

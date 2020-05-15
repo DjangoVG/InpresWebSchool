@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<title>Ajouter un cours</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->	
+		<link rel="icon" type="image/png" href="images/icons/Icone.ico"/>
+		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+		<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+	<!--===============================================================================================-->
+	</head>
+	<body>
+		<div class="limiter">
+			<div class="container-login100" style="background-image: url('images/Fond_InpresWebSchool.jpeg');">
+				<div class="wrap-login100 p-t-30 p-b-50">
+                    <form id="regForm" action="">
+
+                        <!-- QUELQUES INFORMATIONS... -->
+                        <div class="etape">
+                            <span class="login100-form-title p-b-41">
+                                INFORMATIONS DU NOUVEAU COURS...
+                            </span>
+                            <div class="login100-form validate-form p-b-33 p-t-5" >
+                                <div class="wrap-input100 validate-input" datavalidate = "Entrer un nom de cours valide !">
+                                    <input class="input100" type="text" name="NomCours" placeholder="Nom du cours" id="NomCours" for="NomCours">
+                                    <span class="focus-input100 Mail"></span>
+                                </div>
+                                <div class="wrap-input100 validate-input" datavalidate = "Entrer une heure valide !">
+                                    <input class="input100" type="text" name="HeureDebut" placeholder="Heure de début" id="HeureDébut" for="HeureDebut">
+                                    <span class="focus-input100 NomPrenom"></span>
+                                </div>
+                                <div class="wrap-input100 validate-input" datavalidate = "Entrer une heure valide !">
+                                    <input class="input100" type="text" name="Prenom" placeholder="Heure de fin" id="HeureFin" for="HeureFin">
+                                    <span class="focus-input100 NomPrenom"></span>
+                                </div>
+                                <div class="wrap-input100 validate-input" datavalidate = "1 - 0 ">
+                                    <input class="input100" type="text" name="ReprisListe" placeholder="Ce cours est repris dans la liste" id="ReprisListe" for="ReprisListe">
+                                    <span class="focus-input100 Etablissement"></span>
+                                </div>
+                            </div>                        
+                        </div>
+
+                        <div class="etape">
+                            <span class="login100-form-title p-b-20">
+                                TYPE DE COURS
+                            </span>
+                            <div class="login100-form validate-form p-b-5 p-t-5">
+                                <div class="inputType" name="1">
+                                    <input id="option1" name="Theorie" type="checkbox"/>
+                                    <label for="option1">Théorie</label>
+                                </div>
+                                
+                                <div class="inputType" name="2">
+                                <input id="option2" name="Laboratoire" type="checkbox"/>
+                                <label for="option2">Laboratoire</label>
+                                </div>
+
+                                <div class="inputType" name="3">
+                                    <input id="option3" name="TFE" type="checkbox"/>
+                                    <label for="option3">TFE</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="ContainerProfesseur"></div> <!-- LISTE DES PROFESSEURS -->
+
+                        <div id="ContainerLocaux"></div> <!-- LISTE DES LOCAUX -->
+
+
+                        <div class="container-login100-form-btn m-t-32">
+                            <button type="button" id="nextBtn" class="login100-form-btn" onclick="AjouterCours()">
+                                AJOUTER CE COURS
+                            </button>
+                            <button type="button" id="prevBtn" class="login100-form-btn" onclick="RetourMenu()">
+                                ANNULER
+                            </button>
+                        </div>
+
+                        <div id="idstep" style="text-align:center;margin-top:40px;">
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+					    </div>	
+                    </form>
+				</div>
+			</div>
+		</div>
+		
+	<!--===============================================================================================-->
+		<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+		<script src="vendor/animsition/js/animsition.min.js"></script>
+		<script src="vendor/bootstrap/js/popper.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="vendor/select2/select2.min.js"></script>
+		<script src="vendor/daterangepicker/moment.min.js"></script>
+		<script src="vendor/daterangepicker/daterangepicker.js"></script>
+		<script src="vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+		<script src="js/main.js"></script>
+
+	</body>
+</html>

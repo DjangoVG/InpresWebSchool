@@ -37,16 +37,13 @@
             $Vendredi = 1;
     }
 
-    $select =  'SELECT DISTINCT cours.NomCours, cours.HeureDebut, cours.HeureFin, cours.ReprisDansListe, professeur.Nom, professeur.Prenom, cours.IdType, cours.NomLocal FROM composer, cours, concerner, professeur 
-    WHERE composer.NomCours = cours.NomCours 
-    AND composer.HeureDebut = cours.HeureDebut 
-    AND composer.HeureFin = cours.HeureFin 
-    AND composer.IdProfesseur = cours.IdProfesseur 
-    AND concerner.NomCours = cours.NomCours 
-    AND concerner.HeureDebut = cours.HeureDebut 
-    AND concerner.HeureFin = cours.HeureFin 
-    AND cours.IdProfesseur = professeur.IdProfesseur
-    AND concerner.IdProfesseur = cours.IdProfesseur ';
+    $select =  'SELECT DISTINCT etudiant.AdresseMail, etudiant.Nom, etudiant.Prenom, etudiant.EtablissementScolaire, section.NomSection, journee.Jour
+    FROM etudiant, choisir, inscrire, assister, journee, section
+    WHERE etudiant.AdresseMail = choisir.AdresseMail
+    AND etudiant.AdresseMail = assister.AdresseMail 
+    AND etudiant.AdresseMail = inscrire.AdresseMail
+    AND inscrire.IdJournee = journee.IdJournee
+    AND choisir.IdSection = section.IdSection ';
 
     $section = [];
     if ($Gestion == 1)
@@ -64,7 +61,7 @@
         {
             if ($Gestion == 1 && $i == 0) 
             {
-                $select .= 'concerner.IdSection = ';
+                $select .= 'choisir.IdSection = ';
                 $select .= 1; 
                 $boo = true;
             }
@@ -72,12 +69,12 @@
             {
                 if ($boo)
                 {
-                    $select .= ' OR concerner.IdSection = ';
+                    $select .= ' OR choisir.IdSection = ';
                     $select .= 2;          
                 }
                 else
                 {
-                    $select .= 'concerner.IdSection = ';
+                    $select .= 'choisir.IdSection = ';
                     $select .= 2; 
                     $boo = true;
                 }
@@ -86,12 +83,12 @@
             {
                 if ($boo)
                 {
-                    $select .= ' OR concerner.IdSection = ';
+                    $select .= ' OR choisir.IdSection = ';
                     $select .= 3;          
                 }
                 else
                 {
-                    $select .= 'concerner.IdSection = ';
+                    $select .= 'choisir.IdSection = ';
                     $select .= 3; 
                     $boo = true;
                 }
@@ -104,17 +101,17 @@
     {
         if ($Gestion == 1) 
         {
-            $select .= ' AND concerner.IdSection = ';
+            $select .= ' AND choisir.IdSection = ';
             $select .= 1;        
         }
         if ($Indus == 1)
         {
-            $select .= ' AND concerner.IdSection = ';
+            $select .= ' AND choisir.IdSection = ';
             $select .= 2;  
         }
         if ($Reseau == 1)
         {
-            $select .= ' AND concerner.IdSection = ';
+            $select .= ' AND choisir.IdSection = ';
             $select .= 3;  
         }
     }
@@ -139,7 +136,7 @@
         {
             if ($Lundi == 1 && $i == 0) 
             {
-                $select .= 'composer.IdJournee = ';
+                $select .= 'inscrire.IdJournee = ';
                 $select .= 1; 
                 $boo = true;
             }
@@ -147,12 +144,12 @@
             {
                 if ($boo)
                 {
-                    $select .= ' OR composer.IdJournee = ';
+                    $select .= ' OR inscrire.IdJournee = ';
                     $select .= 2;          
                 }
                 else
                 {
-                    $select .= 'composer.IdJournee = ';
+                    $select .= 'inscrire.IdJournee = ';
                     $select .= 1; 
                     $boo = true;
                 }
@@ -161,12 +158,12 @@
             {
                 if ($boo)
                 {
-                    $select .= ' OR composer.IdJournee = ';
+                    $select .= ' OR inscrire.IdJournee = ';
                     $select .= 3;          
                 }
                 else
                 {
-                    $select .= 'composer.IdJournee = ';
+                    $select .= 'inscrire.IdJournee = ';
                     $select .= 3; 
                     $boo = true;
                 } 
@@ -175,12 +172,12 @@
             {
                 if ($boo)
                 {
-                    $select .= ' OR composer.IdJournee = ';
+                    $select .= ' OR inscrire.IdJournee = ';
                     $select .= 4;          
                 }
                 else
                 {
-                    $select .= 'composer.IdJournee = ';
+                    $select .= 'inscrire.IdJournee = ';
                     $select .= 4; 
                     $boo = true;
                 } 
@@ -189,12 +186,12 @@
             {
                 if ($boo)
                 {
-                    $select .= ' OR composer.IdJournee = ';
+                    $select .= ' OR inscrire.IdJournee = ';
                     $select .= 5;          
                 }
                 else
                 {
-                    $select .= 'composer.IdJournee = ';
+                    $select .= 'inscrire.IdJournee = ';
                     $select .= 5;
                 }
             }  
@@ -206,27 +203,27 @@
     {
         if ($Lundi == 1) 
         {
-            $select .= ' AND composer.IdJournee = ';
+            $select .= ' AND inscrire.IdJournee = ';
             $select .= 1;        
         }
         if ($Mardi == 1)
         {
-            $select .= ' AND composer.IdJournee = ';
+            $select .= ' AND inscrire.IdJournee = ';
             $select .= 2;  
         }
         if ($Mercredi == 1)
         {
-            $select .= ' AND composer.IdJournee = ';
+            $select .= ' AND inscrire.IdJournee = ';
             $select .= 3;  
         }
         if ($Jeudi == 1)
         {
-            $select .= ' AND composer.IdJournee = ';
+            $select .= ' AND inscrire.IdJournee = ';
             $select .= 4;  
         }
         if ($Vendredi == 1)
         {
-            $select .= ' AND composer.IdJournee = ';
+            $select .= ' AND inscrire.IdJournee = ';
             $select .= 5;  
         }        
     }
@@ -244,7 +241,7 @@
           $results[$i]=$row;
           $i++;
         }
-        $return['cours'] = $results;
+        $return['etudiant'] = $results;
         echo json_encode($return);
     } 
     else 

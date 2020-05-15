@@ -37,7 +37,7 @@
             $Vendredi = 1;
     }
 
-    $select =  'SELECT cours.* FROM composer, cours, concerner 
+    $select =  'SELECT DISTINCT cours.* FROM composer, cours, concerner 
     WHERE composer.NomCours = cours.NomCours 
     AND composer.HeureDebut = cours.HeureDebut 
     AND composer.HeureFin = cours.HeureFin 
@@ -47,47 +47,189 @@
     AND concerner.HeureFin = cours.HeureFin 
     AND concerner.IdProfesseur = cours.IdProfesseur ';
 
-    if ($Gestion == 1) 
-    {
-        $select .= ' AND composer.IdJournee = ';
-        $select .= 1;        
-    }
+    $section = [];
+    if ($Gestion == 1)
+        array_push($section, 1);
     if ($Indus == 1)
-    {
-        $select .= ' AND composer.IdJournee = ';
-        $select .= 2;  
-    }
+        array_push($section, 1);
     if ($Reseau == 1)
+        array_push($section, 1);
+
+    if (count($section) > 1)
     {
-        $select .= ' AND composer.IdJournee = ';
-        $select .= 3;  
+        $boo = false;
+        $select .= " AND (";
+        for ($i = 0; $i < 3; $i++)
+        {
+            if ($Gestion == 1 && $i == 0) 
+            {
+                $select .= 'concerner.IdSection = ';
+                $select .= 1; 
+                $boo = true;
+            }
+            else if ($Indus == 1  && $i == 1)
+            {
+                if ($boo)
+                {
+                    $select .= ' OR concerner.IdSection = ';
+                    $select .= 2;          
+                }
+                else
+                {
+                    $select .= 'concerner.IdSection = ';
+                    $select .= 2; 
+                    $boo = true;
+                }
+            }
+            else if ($Reseau == 1  && $i == 2)
+            {
+                if ($boo)
+                {
+                    $select .= ' OR concerner.IdSection = ';
+                    $select .= 3;          
+                }
+                else
+                {
+                    $select .= 'concerner.IdSection = ';
+                    $select .= 3; 
+                    $boo = true;
+                }
+            }
+        }
+        if ($boo)
+        $select .= ")";
+    }
+    else
+    {
+        if ($Gestion == 1) 
+        {
+            $select .= ' AND concerner.IdSection = ';
+            $select .= 1;        
+        }
+        if ($Indus == 1)
+        {
+            $select .= ' AND concerner.IdSection = ';
+            $select .= 2;  
+        }
+        if ($Reseau == 1)
+        {
+            $select .= ' AND concerner.IdSection = ';
+            $select .= 3;  
+        }
     }
 
-    if ($Lundi == 1) 
-    {
-        $select .= ' AND concerner.IdSection = ';
-        $select .= 1;        
-    }
+    $check = [];
+    if ($Lundi == 1)
+        array_push($check, 1);
     if ($Mardi == 1)
-    {
-        $select .= ' AND concerner.IdSection = ';
-        $select .= 2;  
-    }
+        array_push($check, 1);
     if ($Mercredi == 1)
-    {
-        $select .= ' AND concerner.IdSection = ';
-        $select .= 3;  
-    }
+        array_push($check, 1);
     if ($Jeudi == 1)
-    {
-        $select .= ' AND concerner.IdSection = ';
-        $select .= 4;  
-    }
+        array_push($check, 1);
     if ($Vendredi == 1)
+        array_push($check, 1);
+
+    if (count($check) > 1)
     {
-        $select .= ' AND concerner.IdSection = ';
-        $select .= 5;  
+        $boo = false;
+        $select .= " AND (";
+        for ($i = 0; $i < 5; $i++)
+        {
+            if ($Lundi == 1 && $i == 0) 
+            {
+                $select .= 'composer.IdJournee = ';
+                $select .= 1; 
+                $boo = true;
+            }
+            else if ($Mardi == 1  && $i == 1)
+            {
+                if ($boo)
+                {
+                    $select .= ' OR composer.IdJournee = ';
+                    $select .= 2;          
+                }
+                else
+                {
+                    $select .= 'composer.IdJournee = ';
+                    $select .= 1; 
+                    $boo = true;
+                }
+            }
+            else if ($Mercredi == 1 && $i == 2)
+            {
+                if ($boo)
+                {
+                    $select .= ' OR composer.IdJournee = ';
+                    $select .= 3;          
+                }
+                else
+                {
+                    $select .= 'composer.IdJournee = ';
+                    $select .= 3; 
+                    $boo = true;
+                } 
+            }
+            else if ($Jeudi == 1 && $i == 3)
+            {
+                if ($boo)
+                {
+                    $select .= ' OR composer.IdJournee = ';
+                    $select .= 4;          
+                }
+                else
+                {
+                    $select .= 'composer.IdJournee = ';
+                    $select .= 4; 
+                    $boo = true;
+                } 
+            }
+            else if ($Vendredi == 1 && $i == 4)
+            {
+                if ($boo)
+                {
+                    $select .= ' OR composer.IdJournee = ';
+                    $select .= 5;          
+                }
+                else
+                {
+                    $select .= 'composer.IdJournee = ';
+                    $select .= 5;
+                }
+            }  
+        }
+        if ($boo)
+            $select .= ")";
     }
+    else
+    {
+        if ($Lundi == 1) 
+        {
+            $select .= ' AND composer.IdJournee = ';
+            $select .= 1;        
+        }
+        if ($Mardi == 1)
+        {
+            $select .= ' AND composer.IdJournee = ';
+            $select .= 2;  
+        }
+        if ($Mercredi == 1)
+        {
+            $select .= ' AND composer.IdJournee = ';
+            $select .= 3;  
+        }
+        if ($Jeudi == 1)
+        {
+            $select .= ' AND composer.IdJournee = ';
+            $select .= 4;  
+        }
+        if ($Vendredi == 1)
+        {
+            $select .= ' AND composer.IdJournee = ';
+            $select .= 5;  
+        }        
+    }
+
 
     $stmt = $bdd->query($select);
     

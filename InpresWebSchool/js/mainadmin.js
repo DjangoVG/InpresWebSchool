@@ -156,31 +156,42 @@ function ValidationPattern (input)
 
 function ConnexionAdmin()
 {
-    admin = true;
-    let addr = $('#AdresseMailAdmin');
-    let mdp = $('#mdpAdmin');
+    if ($("#AdresseMailAdmin").val().length == 0)
+    {
+        let Form = document.getElementById("FormmLogin");
+        Form.classList.add("ErrorForm");
+        setTimeout(RemoveErrorForm, 1300);
+        MauvaisAdmin();      
+    }
+    else
+    {
+        admin = true;
+        let addr = $('#AdresseMailAdmin');
+        let mdp = $('#mdpAdmin');
 
-    $.ajax({
-        url : "php/LavementMotDePasse.php",
-        method : "POST",
-        dataType : "JSON",
-        async : false,
-        data : {
-            username : $(addr).val(),
-            mdp : $(mdp).val()
-        },
-        success : function(result)
-        {
-            return true;
-        },
-        error : function (result)
-        {
-            let Form = document.getElementById("FormmLogin");
-            Form.classList.add("ErrorForm");
-            setTimeout(RemoveErrorForm, 1300);
-            MauvaisAdmin();
-        }
-    });
+        $.ajax({
+            url : "php/LavementMotDePasse.php",
+            method : "POST",
+            dataType : "JSON",
+            async : false,
+            data : {
+                username : $(addr).val(),
+                mdp : $(mdp).val()
+            },
+            success : function(result)
+            {
+                return true;
+            },
+            error : function (result)
+            {
+                let Form = document.getElementById("FormmLogin");
+                Form.classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);
+                MauvaisAdmin();
+            }
+        });        
+    }
+
 
     if (!admin)
         return false;
@@ -197,6 +208,7 @@ function nextStep(n)
 {
     if (n == 1) // J'avance dans le formulaire
     {
+        console.log(currentTabAdmin);
         if (currentTabAdmin == 0) // Je suis sur a page de l'admin
             if(!ConnexionAdmin())
                 return 0;
@@ -209,12 +221,11 @@ function nextStep(n)
     {
         if (currentTabAdmin == 0 || currentTabAdmin == 1)
         {
-            document.location.href='index.html';   
-            return 0;         
+            n = 1;
+            document.location.href='admin.html';
         }
     }
     AffichageNextStepAdmin(n);
-
 }
 
 function showTabAdmin(current)
@@ -247,11 +258,6 @@ function AffichageNextStepAdmin(n)
     currentTabAdmin += n;
     
     showTabAdmin(currentTabAdmin); 
-}
-
-function RetourMenu()
-{
-    document.location.href='admin.html';
 }
 
 function ConsultationCours()
@@ -293,7 +299,7 @@ function ClickJournee(n) // Je clique sur une journee (modification de sa classe
 
 function RechercheCours()
 {
-
+    SupprimerCours();
     var journeechoisie = []; // JE RECUPERE LES SECTIONS
     let i = 0;
     var journee = document.getElementsByClassName("inputJournee clique");
@@ -321,7 +327,64 @@ function RechercheCours()
             journees : journeechoisie
         },
         success : function(result)
-        {   
+        {
+            let TableauCours = document.getElementById("TableCours");
+            result['cours'].forEach(elem=>
+            {
+                let tr = document.createElement("tr");
+                tr.className = "row100 body";
+                TableauCours.children[0].appendChild(tr);
 
-    }});
+                let tdNomCours = document.createElement("td");
+                tdNomCours.className = "cell100 column1";
+                tdNomCours.textContent = elem['NomCours']; 
+                tr.appendChild(tdNomCours);
+
+                let tdHeureDebut = document.createElement("td");
+                tdHeureDebut.className = "cell100 column2";
+                tdHeureDebut.textContent = elem['HeureDebut'];
+                tr.appendChild(tdHeureDebut);
+
+                let tdHeureFin = document.createElement("td");
+                tdHeureFin.className = "cell100 column3";
+                tdHeureFin.textContent = elem['HeureFin'];
+                tr.appendChild(tdHeureFin);
+
+                let tdReprisDansListe = document.createElement("td");
+                tdReprisDansListe.className = "cell100 column4";
+                tdReprisDansListe.textContent = elem['ReprisDansListe'];
+                tr.appendChild(tdReprisDansListe);
+                
+                let tdProfesseur = document.createElement("td");
+                tdProfesseur.className = "cell100 column5";
+                tdProfesseur.textContent = elem['IdProfesseur'];
+                tr.appendChild(tdProfesseur);
+
+                let tdType = document.createElement("td");
+                tdType.className = "cell100 column6";
+                tdType.textContent = elem['IdType'];
+                tr.appendChild(tdType);
+
+                let tdLocal = document.createElement("td");
+                tdLocal.className = "cell100 column7";
+                tdLocal.textContent = elem['NomLocal'];
+                tr.appendChild(tdLocal);
+            });
+        }
+    });
+}
+
+function SupprimerCours()
+{
+    let TableauCours = document.getElementById("TableCours");
+    let Tbody = TableauCours.children[0];
+    let NbLignes = Tbody.childNodes.length;
+    if (NbLignes > 1)
+    {
+        for (let i = 0; i < NbLignes; i++)
+        {
+            Tbody.removeChild(Tbody.firstChild); 
+        }        
+    }
+
 }

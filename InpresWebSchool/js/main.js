@@ -433,9 +433,9 @@ function showTab(n)
     x[n].style.display = "block";
 
     if (n == 0)
-        document.getElementById("prevBtn").style.display = "none";
+        document.getElementById("prevBtn").innerHTML = "ACCEUIL";
     else 
-        document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("prevBtn").innerHTML = "RETOUR";
 
     if (n == (x.length - 1) && n != 2) 
         document.getElementById("nextBtn").innerHTML = "ENVOYER";
@@ -461,8 +461,7 @@ function showTab(n)
                 journeechoisie = 4;            
             else if ($(journee[i]).children().first().prop("name") == "Vendredi 19 juin 2020")
                 journeechoisie = 5;
-            
-            console.log(journeechoisie);
+
             AjoutCoursPlages(journeechoisie);
         }            
     }
@@ -473,7 +472,10 @@ function ClickBoutonFormulaire(n)
 {
     if (n == -1)
     {
-        AffichageNextStep(n);
+        if (currentTab == 0)
+            document.location.href='index.html'; 
+        else
+            AffichageNextStep(n);
     }
     else
     {

@@ -1,4 +1,5 @@
 var currentTab = 0; // 0 car premiere page du formulaire
+var currentTabAdmin = 0;
 var boolean = true;
 (function($) 
 {
@@ -879,43 +880,4 @@ function hideAll(input)
 {
     var thisAlert = $(input).parent();
     $(thisAlert).removeClass('alert-validate');
-}
-
-function InscriptionBouton()
-{
-
-}
-
-function Administrateur()
-{
-    
-}
-
-
-/* PARTIE ADMINISTRATEUR */
-
-function ConnexionAdmin()
-{
-    let addr = $('#AdresseMailAdmin');
-    let mdp = $('#mdpAdmin');
-
-    $.ajax({
-        url : "php/LavementMotDePasse.php",
-        method : "POST",
-        dataType : "JSON",
-        data : {
-            username : $(addr).val(),
-            mdp : $(mdp).val()
-        },
-        success : function(result)
-        {
-            document.getElementById("FormAdmin").submit();
-        },
-        error : function (result)
-        {
-            let Form = document.getElementById("FormmLogin");
-            Form.classList.add("ErrorForm");
-            setTimeout(RemoveErrorForm, 1300);
-        }
-    });
 }

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<title>Page d'administration</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->	
+		<link rel="icon" type="image/png" href="images/icons/Icone.ico"/>
+		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+		<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+	<!--===============================================================================================-->
+	</head>
+	<body>	
+        <div class="limiter">
+            <div class="container-login100" style="background-image: url('images/Fond_InpresWebSchool.jpeg');">
+                <div class="container-login100-form-btn m-t-32">
+                    <div class="wrap-login100 p-t-30 p-b-50">
+                     <span class="login100-form-title p-b-41">
+                        LA SECTION
+                    </span>
+                    <div class="login100-form validate-form p-b-5 p-t-5">
+                        <div class="inputGroup" name="1">
+                            <input id="option1" name="Informatique de Gestion" type="checkbox" onclick="ClickSection(0)"/>
+                            <label for="option1">Informatique de Gestion</label>
+                        </div>
+                        
+                        <div class="inputGroup" name="2" >
+                        <input id="option2" name="Informatique finalité : Industrielle" type="checkbox" onclick="ClickSection(1)"/>
+                        <label for="option2">Informatique finalité : Industrielle</label>
+                        </div>
+
+                        <div class="inputGroup" name="3" >
+                            <input id="option3" name="Informatique finalité : Réseau et télécom" type="checkbox" onclick="ClickSection(2)"/>
+                            <label for="option3">Informatique finalité : Réseau et télécom</label>
+                        </div>
+                    </div>
+
+                    <span class="login100-form-title p-b-41 p-t-40">
+                        LA JOURNÉE
+                    </span>
+                    <div class="login100-form validate-form p-b-5 p-t-5" id="Form_Journee">
+                        <div class="inputJournee" name="1" >
+                            <input id="jour1" name="Lundi 15 juin 2020" type="checkbox" onclick="ClickJournee(0)"/>
+                            <label for="jour1">Lundi 15 juin 2020</label>
+                        </div>
+                        <div class="inputJournee" name="2" >
+                            <input id="jour2" name="Mardi 16 juin 2020" type="checkbox" onclick="ClickJournee(1)"/>
+                            <label for="jour2">Mardi 16 juin 2020</label>
+                        </div>
+                        <div class="inputJournee" name="3" >
+                            <input id="jour3" name="Mercredi 17 juin 2020" type="checkbox" onclick="ClickJournee(2)"/>
+                            <label for="jour3">Mercredi 17 juin 2020</label>
+                        </div>
+                        <div class="inputJournee" name="4" >
+                            <input id="jour4" name="Jeudi 18 juin 2020" type="checkbox" onclick="ClickJournee(3)"/>
+                            <label for="jour4">Jeudi 18 juin 2020</label>
+                        </div>
+                        <div class="inputJournee" name="5">
+                            <input id="jour5" name="Vendredi 19 juin 2020" type="checkbox" onclick="ClickJournee(4)" />
+                            <label for="jour5">Vendredi 19 juin 2020</label>
+                        </div>
+                    </form>   
+                    </div>
+                </div>
+
+                <div class="wrap-table100">
+                    <div class="table100 ver1 m-b-50">
+                        <div class="table100-head">
+                            <table>
+                                <thead>
+                                    <tr class="row100 head">
+                                        <th class="cell100 column1">Nom du cours</th>
+                                        <th class="cell100 column2">Heure de début</th>
+                                        <th class="cell100 column3">Heure de fin</th>
+                                        <th class="cell100 column4">Repris dans la liste</th>
+                                        <th class="cell100 column5">Professeur</th>
+                                        <th class="cell100 column6">Type de cours</th>
+                                        <th class="cell100 column7">Local</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+    
+                        <div class="table100-body js-pscroll">
+                            <table id="TableCours">
+                                <tbody>
+                                    <tr class="row100 body">
+                                        <td class="cell100 column1">Analyse et gestion des données</td>
+                                        <td class="cell100 column2">08:20:00</td>
+                                        <td class="cell100 column3">08:50:00</td>
+                                        <td class="cell100 column4">1</td>
+                                        <td class="cell100 column5">Souad Serrihni</td>
+                                        <td class="cell100 column6">Laboratoire</td>
+                                        <td class="cell100 column7">B22</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button type="button" id="nextBtn" class="login100-form-btn" onclick="RetourMenu()">
+                        RETOUR À L'ACCEUIL
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+    <!--===============================================================================================-->
+		<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+		<script src="vendor/animsition/js/animsition.min.js"></script>
+		<script src="vendor/bootstrap/js/popper.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="vendor/select2/select2.min.js"></script>
+		<script src="vendor/daterangepicker/moment.min.js"></script>
+		<script src="vendor/daterangepicker/daterangepicker.js"></script>
+		<script src="vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+		<script src="js/mainadmin.js"></script>
+	</body>
+</html>

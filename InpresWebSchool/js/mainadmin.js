@@ -96,38 +96,6 @@ function TranformSelect()
       });
 }
 
-function ClickSection(n) // Je clique sur une section (modification de sa classe)
-{
-    var i, x = document.getElementsByClassName("inputGroup");
-    for (i = 0; i < x.length; i++) 
-    {
-        if (n == i)
-        {
-            if (x[i].className == "inputGroup clique") 
-                x[i].className = "inputGroup";
-            else
-                x[i].className = "inputGroup clique";            
-        }
-    }
-}
-
-function ClickJournee(n) // Je clique sur une journee (modification de sa classe)
-{
-    var i, x = document.getElementsByClassName("inputJournee");
-    for (i = 0; i < x.length; i++) 
-    {
-        if (n == i)
-        {
-            if (x[i].className == "inputJournee clique") 
-                x[i].className = "inputJournee";
-            else
-                x[i].className = "inputJournee clique";            
-        }
-    }
-}
-
-
-
 function RemoveErrorForm()
 {
     let Form = document.getElementsByClassName("login100-form validate-form");
@@ -205,39 +173,18 @@ function MauvaisAdmin()
     admin = false;
 }
 
-function nextStep(n)
-{
-    if (n == 1) // J'avance dans le formulaire
-    {
-        console.log(currentTabAdmin);
-        if (currentTabAdmin == 0) // Je suis sur a page de l'admin
-            if(!ConnexionAdmin())
-                return 0;
-        else
-        {
-            
-        }
-    }
-    else // je recule dans le formulaire
-    {
-        if (currentTabAdmin == 0 || currentTabAdmin == 1)
-        {
-            n = 1;
-            document.location.href='admin.html';
-        }
-    }
-    AffichageNextStepAdmin(n);
-}
-
 function showTabAdmin(current)
 {
+    if (current == -1)
+        current = 0;
+
     let page = document.getElementsByTagName("title");
     if (page[0].textContent == "Consultation des professeurs")
         RechercheProfesseurs();
     else if (page[0].textContent == "Consultation des sections")
         RechercheSections();
     else if (page[0].textContent == "Consultation des locaux")
-        RechercheLocaux();
+        RechercheLocal();
     else
     {
         var x = document.getElementsByClassName("etape");
@@ -253,7 +200,7 @@ function showTabAdmin(current)
             {
                 let ContainerProfesseur = document.getElementById("ContainerProfesseur");
 
-                var etape = document.createElement("div");
+                let etape = document.createElement("div");
                 etape.style = "display: none";
                 etape.className = "etape";
 
@@ -280,12 +227,42 @@ function showTabAdmin(current)
                 div2.appendChild(div3);
                 div3.appendChild(select);
                 select.appendChild(option1);
+
+                let ContainerLocaux = document.getElementById("ContainerLocaux");
+
+                etape = document.createElement("div");
+                etape.style = "display: none";
+                etape.className = "etape";
+
+                span1 = document.createElement("span");
+                span1.className = "login100-form-title p-b-41";
+                span1.textContent = "LISTE DES LOCAUX";
+
+                div2 = document.createElement("div");
+                div2.className = "login100-form validate-form p-b-33 p-t-5 ProfForm";
+                div2.id = "Form_Locaux";
+
+                div3 = document.createElement("div");
+                div3.className = "sel";
+                div3.id = "ListLocaux";
+                select = document.createElement("select");
+                select.name = "Plage1"; select.id = "CoursPlage1";
+                option1 = document.createElement("option");
+                option1.value = "Plage1"; option1.disabled = true; option1.textContent = "Selectionner un local"; 
+                
+                
+                ContainerLocaux.appendChild(etape);
+                etape.appendChild(span1);
+                etape.appendChild(div2);
+                div2.appendChild(div3);
+                div3.appendChild(select);
+                select.appendChild(option1);
                 TranformSelect();  
+                RechercheProf();  
+                RechercheLocaux(); 
             }
-            else if (current == 2)
-            {
-                RechercheProf(); 
-            }
+            else if (current == 3)
+                document.getElementById("nextBtn").innerHTML = "ENVOYER";
         }
         else
         {
@@ -294,7 +271,7 @@ function showTabAdmin(current)
                 document.getElementById("nextBtn").innerHTML = "SE CONNECTER";
                 document.getElementById("prevBtn").innerHTML = "ACCEUIL";        
             }
-            else if (current == 1)
+            else if (current == 1 || current == 2)
             {
                 document.getElementById("nextBtn").innerHTML = "CONTINUER";
                 document.getElementById("prevBtn").innerHTML = "SE DECONNECTER";     
@@ -306,7 +283,6 @@ function showTabAdmin(current)
             }   
         }
     }
-    
 }
 
 function RechercheProf()
@@ -324,11 +300,6 @@ function RechercheProf()
             var $current = $("#ListProf");
             result['professeur'].forEach(elem=>
             {
-                console.log("professeur : " + elem['Nom']);
-
-                
-                Affiche($current);
-
                 $current.children('div').append($('<span>', {
                 class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
                 text: elem['IdProfesseur'] + " | " + elem['Prenom'] + " " + elem['Nom']
@@ -350,8 +321,40 @@ function RechercheProf()
     });
 }
 
-function Affiche(current) {
-    console.log("current " + current.id);
+function RechercheLocaux()
+{
+    console.log("Je passe dans RechercheLocaux");
+    
+    $.ajax({
+        url : "php/RechercheLocaux.php",
+        method : "POST",
+        dataType : "JSON",
+        success : function(result)
+        {
+            if (result['erreur']) return;
+
+            var $current = $("#ListLocaux");
+            result['locaux'].forEach(elem=>
+            {
+                $current.children('div').append($('<span>', {
+                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                text: elem['NomLocal']
+                }));
+
+                $('.sel__box__options').click(function() {
+                    var txt = $(this).text();
+                    var index = $(this).index();
+                    
+                    $(this).siblings('.sel__box__options').removeClass('selected');
+                    $(this).addClass('selected');
+                    
+                    var $currentSel = $(this).closest('.sel');
+                    $currentSel.children('.sel__placeholder').text(txt);
+                    $currentSel.children('select').prop('selectedIndex', index + 1);
+                });
+            });
+        }
+    });
 }
 
 function AffichageNextStepAdmin(n)
@@ -361,13 +364,18 @@ function AffichageNextStepAdmin(n)
         document.getElementById("nextBtn").style.display = "none";
         document.getElementById("prevBtn").style.display = "inline";
     } 
-    
-    var x = document.getElementsByClassName("etape");
-            
-    x[currentTabAdmin].style.display = "none";
-    currentTabAdmin += n;
-    
-    showTabAdmin(currentTabAdmin); 
+    if (n == -1 && currentTabAdmin == 0)
+        document.location.href = "index.html";
+    else
+    {
+        var x = document.getElementsByClassName("etape");
+                
+        x[currentTabAdmin].style.display = "none";
+        currentTabAdmin += n;
+        
+        showTabAdmin(currentTabAdmin);         
+    }
+
 }
 
 function ClickSection(n) // Je clique sur une section (modification de sa classe)
@@ -409,21 +417,6 @@ function ClickJournee(n) // Je clique sur une journee (modification de sa classe
         RechercheCours();
     else if (page[0].textContent == "Consultation des étudiants")
         RechercheEtudiant();
-}
-
-function ClickType(n)
-{
-    var i, x = document.getElementsByClassName("inputType");
-    for (i = 0; i < x.length; i++) 
-    {
-        if (n == i)
-        {
-            if (x[i].className == "inputType clique") 
-                x[i].className = "inputType";
-            else
-                x[i].className = "inputType clique";            
-        }
-    }
 }
 
 function RechercheCours()
@@ -631,7 +624,7 @@ function RechercheSections()
     });
 }
 
-function RechercheLocaux()
+function RechercheLocal()
 {
     $.ajax({
         url : "php/RechercheLocaux.php",
@@ -688,6 +681,10 @@ function NextStepCours(n)
         document.getElementById("regForm").submit();
         return false;
     }
+
+    console.log(currentTabAdmin);
+    if (currentTabAdmin == -1 && n == -1)
+        document.location.href = "admin.html";
     
     showTabAdmin(currentTabAdmin); 
 
@@ -791,9 +788,29 @@ function ConsultationLocaux()
     document.location.href='locaux.html';
 }
 
+function RefAjouterCours()
+{
+    document.location.href = 'ajoutcours.html';
+}
+
 function AjouterCours()
 {
-    document.location.href='ajoutcours.html';
+    console.log("J'ajoute un cours");
+
+    var typecours = [];
+    var i = 0;
+    var type2 = document.getElementsByClassName("inputGroup clique");
+    $.each(type2, function() // Récupère les différentes sections choisies
+    {
+        typecours.push($(type2[i]).children().first().prop("name")); 
+        i++;
+    });
+
+    // TO DO
+
+
+
+
 }
 
 function AjouterLocal()
@@ -824,4 +841,8 @@ function ExporterBD()
 function GenererAttestation()
 {
     document.location.href='genererattestation.html';
+}
+
+function RetourMenu() {
+    document.location.href = 'admin.html';
 }

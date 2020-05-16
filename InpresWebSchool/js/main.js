@@ -89,7 +89,6 @@ function AjoutCoursPlages(journeechoisie)
         sections.push($(section2[i]).children().first().prop("name")); 
         i++;
     });
-    console.log(journeechoisie);
   $.ajax({
     url : "php/AjoutCoursPlage.php",
     method : "POST",
@@ -100,9 +99,7 @@ function AjoutCoursPlages(journeechoisie)
     },
     success : function(result)
     {
-        //console.log("SUCCES : " + result);
         if (result['erreur']) return;
-
         
         result['cours'].forEach(elem=>
         {
@@ -115,6 +112,7 @@ function AjoutCoursPlages(journeechoisie)
                 $(result).each(function() 
                 {
                     var $current = $(this);
+                    Affiche($current);
                     // JE RECHERCHE L'ID DU PROFESSEUR
                     $.ajax({
                         url : "php/RechercheProfesseur.php",
@@ -147,8 +145,8 @@ function AjoutCoursPlages(journeechoisie)
                                 var $currentSel = $(this).closest('.sel');
                                 $currentSel.children('.sel__placeholder').text(txt);
                                 $currentSel.children('select').prop('selectedIndex', index + 1);
-                            });
-                        }});
+                        });
+                    }});
                 });   
             }
             else if (elem['HeureFin'] <= '13:00:00') // PLAGE 2
@@ -286,6 +284,10 @@ function AjoutCoursPlages(journeechoisie)
         });
     }
 });
+}
+
+function Affiche(current) {
+    console.log("current " + current.id);
 }
 
 function SupprimerPlage()
@@ -481,7 +483,6 @@ function ClickBoutonFormulaire(n)
     {
         if (currentTab == 2) // J'AVANCE DANS LE FORMULAIRE
         {
-            console.log("here");
             SupprimerAllJournee();
             var compteurjour = document.getElementsByClassName("inputJournee clique");
             for (let i = 0; i < compteurjour.length; i++) // JE RECUPERE LE NOMBRE DE JOURS ET JE CREE LE NOMBRE DE FORMULAIRE

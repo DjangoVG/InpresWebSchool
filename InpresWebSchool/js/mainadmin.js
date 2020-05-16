@@ -242,17 +242,116 @@ function showTabAdmin(current)
     {
         var x = document.getElementsByClassName("etape");
         x[current].style.display = "block";
-
-        if (current == 0) 
+        if (page[0].textContent == "Ajouter un cours")
         {
-            document.getElementById("nextBtn").innerHTML = "SE CONNECTER";
-            document.getElementById("prevBtn").innerHTML = "ACCEUIL";        
+            document.getElementById("nextBtn").innerHTML = "CONTINUER";
+            if (current == 0) 
+                document.getElementById("prevBtn").innerHTML = "ACCEUIL";
+            else
+                document.getElementById("prevBtn").innerHTML = "RETOUR";
+            if (current == 1)
+            {
+                let ContainerProfesseur = document.getElementById("ContainerProfesseur");
+
+                var etape = document.createElement("div");
+                etape.style = "display: none";
+                etape.className = "etape";
+
+                let span1 = document.createElement("span");
+                span1.className = "login100-form-title p-b-41";
+                span1.textContent = "LISTE DES PROFESSEURS";
+
+                let div2 = document.createElement("div");
+                div2.className = "login100-form validate-form p-b-33 p-t-5 ProfForm";
+                div2.id = "Form_Prof";
+
+                let div3 = document.createElement("div");
+                div3.className = "sel";
+                div3.id = "ListProf";
+                let select = document.createElement("select");
+                select.name = "Plage1"; select.id = "CoursPlage1";
+                let option1 = document.createElement("option");
+                option1.value = "Plage1"; option1.disabled = true; option1.textContent = "Selectionner un professeur"; 
+                
+                
+                ContainerProfesseur.appendChild(etape);
+                etape.appendChild(span1);
+                etape.appendChild(div2);
+                div2.appendChild(div3);
+                div3.appendChild(select);
+                select.appendChild(option1);
+                TranformSelect();  
+            }
+            else if (current == 2)
+            {
+                RechercheProf(); 
+            }
         }
         else
         {
-            
-        }     
+            if (current == 0) 
+            {
+                document.getElementById("nextBtn").innerHTML = "SE CONNECTER";
+                document.getElementById("prevBtn").innerHTML = "ACCEUIL";        
+            }
+            else if (current == 1)
+            {
+                document.getElementById("nextBtn").innerHTML = "CONTINUER";
+                document.getElementById("prevBtn").innerHTML = "SE DECONNECTER";     
+            }    
+            else
+            {
+                document.getElementById("nextBtn").innerHTML = "CONTINUER";
+                document.getElementById("prevBtn").innerHTML = "RETOUR";     
+            }   
+        }
     }
+    
+}
+
+function RechercheProf()
+{
+    console.log("Je passe dans RechercheProf");
+    
+    $.ajax({
+        url : "php/RechercheProfesseurs.php",
+        method : "POST",
+        dataType : "JSON",
+        success : function(result)
+        {
+            if (result['erreur']) return;
+
+            var $current = $("#ListProf");
+            result['professeur'].forEach(elem=>
+            {
+                console.log("professeur : " + elem['Nom']);
+
+                
+                Affiche($current);
+
+                $current.children('div').append($('<span>', {
+                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                text: elem['IdProfesseur'] + " | " + elem['Prenom'] + " " + elem['Nom']
+                }));
+
+                $('.sel__box__options').click(function() {
+                    var txt = $(this).text();
+                    var index = $(this).index();
+                    
+                    $(this).siblings('.sel__box__options').removeClass('selected');
+                    $(this).addClass('selected');
+                    
+                    var $currentSel = $(this).closest('.sel');
+                    $currentSel.children('.sel__placeholder').text(txt);
+                    $currentSel.children('select').prop('selectedIndex', index + 1);
+                });
+            });
+        }
+    });
+}
+
+function Affiche(current) {
+    console.log("current " + current.id);
 }
 
 function AffichageNextStepAdmin(n)
@@ -415,21 +514,11 @@ function RechercheEtudiant() {
         i++;
     });
 
-    i= 0;
-    var sections = []; // JE RECUPERE LES SECTIONS
-    var section2 = document.getElementsByClassName("inputGroup clique");
-    $.each(section2, function() // Récupère les différentes sections choisies
-    {
-        sections.push($(section2[i]).children().first().prop("name")); 
-        i++;
-    });
-
     $.ajax({
         url : "php/RechercheEtudiants.php",
         method : "POST",
         dataType : "JSON",
         data : {
-            sections : sections,
             journees : journeechoisie
         },
         success : function(result)
@@ -441,35 +530,39 @@ function RechercheEtudiant() {
                 tr.className = "row100 body";
                 TableEtudiant.children[0].appendChild(tr);
 
-                let tdNomCours = document.createElement("td");
-                tdNomCours.className = "cell100 column1";
-                tdNomCours.textContent = elem['AdresseMail']; 
-                tr.appendChild(tdNomCours);
+                let tdAdresseMail = document.createElement("td");
+                tdAdresseMail.className = "cell100 column1";
+                tdAdresseMail.textContent = elem['AdresseMail']; 
+                tr.appendChild(tdAdresseMail);
 
-                let tdHeureDebut = document.createElement("td");
-                tdHeureDebut.className = "cell100 column2";
-                tdHeureDebut.textContent = elem['Nom'];
-                tr.appendChild(tdHeureDebut);
+                let tdNom = document.createElement("td");
+                tdNom.className = "cell100 column2";
+                tdNom.textContent = elem['Nom'];
+                tr.appendChild(tdNom);
 
-                let tdHeureFin = document.createElement("td");
-                tdHeureFin.className = "cell100 column3";
-                tdHeureFin.textContent = elem['Prenom'];
-                tr.appendChild(tdHeureFin);
+                let tdPrenom = document.createElement("td");
+                tdPrenom.className = "cell100 column3";
+                tdPrenom.textContent = elem['Prenom'];
+                tr.appendChild(tdPrenom);
 
-                let tdReprisDansListe = document.createElement("td");
-                tdReprisDansListe.className = "cell100 column4";
-                tdReprisDansListe.textContent = elem['EtablissementScolaire'];
-                tr.appendChild(tdReprisDansListe);
+                let Etablissement = document.createElement("td");
+                Etablissement.className = "cell100 column4";
+                
+                if (elem['EtablissementScolaire'].length == 0)
+                Etablissement.textContent = "Inconnu";
+                else
+                Etablissement.textContent = elem['EtablissementScolaire'];
+                tr.appendChild(Etablissement);
 
-                let tdProfesseur = document.createElement("td");
-                tdProfesseur.className = "cell100 column5";
-                tdProfesseur.textContent = elem['NomSection'];
-                tr.appendChild(tdProfesseur);
+                let tdJour = document.createElement("td");
+                tdJour.className = "cell100 column5";
+                tdJour.textContent = elem['Jour'];
+                tr.appendChild(tdJour);
 
-                let tdType = document.createElement("td");
-                tdType.className = "cell100 column6";
-                tdType.textContent = elem['Jour'];
-                tr.appendChild(tdType);
+                let tdNombreCours = document.createElement("td");
+                tdNombreCours.className = "cell100 column6";
+                tdNombreCours.textContent = elem['NombreJour'];
+                tr.appendChild(tdNombreCours);
             });
         }
     });
@@ -580,6 +673,98 @@ function SupprimerLignes(bool)
         }        
     }
 }
+
+function NextStepCours(n)
+{
+    document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
+    var x = document.getElementsByClassName("etape");
+            
+    x[currentTabAdmin].style.display = "none";
+    currentTabAdmin += n;
+
+    if (currentTabAdmin == x.length) // JE VALIDE LE DOCUMENT
+    {
+        AjouterCours();
+        document.getElementById("regForm").submit();
+        return false;
+    }
+    
+    showTabAdmin(currentTabAdmin); 
+
+}
+
+function TranformSelect()
+{
+    console.log("Transformation des selects");
+    $('.sel').each(function() 
+    {
+        $(this).children('select').css('display', 'none');
+        
+        var $current = $(this);
+        
+        $(this).find('option').each(function(i) 
+        {
+          if (i == 0) 
+          {
+            $current.prepend($('<div>', {
+              class: $current.attr('class').replace(/sel/g, 'sel__box')
+            }));
+            
+            var placeholder = $(this).text();
+            $current.prepend($('<span>', {
+              class: $current.attr('class').replace(/sel/g, 'sel__placeholder'),
+              text: placeholder,
+              'data-placeholder': placeholder
+            }));
+            
+            return;
+          }
+          
+          $current.children('div').append($('<span>', {
+            class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+            text: $(this).text()
+          }));
+        });
+      });
+      
+      // Toggling the `.active` state on the `.sel`.
+      $('.sel').click(function() {
+        $(this).toggleClass('active');
+      });
+      
+      // Toggling the `.selected` state on the options.
+      $('.sel__box__options').click(function() {
+        var txt = $(this).text();
+        var index = $(this).index();
+        
+        $(this).siblings('.sel__box__options').removeClass('selected');
+        $(this).addClass('selected');
+        
+        var $currentSel = $(this).closest('.sel');
+        $currentSel.children('.sel__placeholder').text(txt);
+        $currentSel.children('select').prop('selectedIndex', index + 1);
+      });
+
+      var showPass = 0;
+      $('.btn-show-pass').on('click', function()
+      {
+          if(showPass == 0) 
+          {
+              $(this).next('input').attr('type','text');
+              $(this).addClass('active');
+              showPass = 1;
+          }
+          else 
+          {
+              $(this).next('input').attr('type','password');
+              $(this).removeClass('active');
+              showPass = 0;
+          }
+          
+      });
+}
+
+/* ---------------------------------------------- */
 
 function ConsultationCours()
 {

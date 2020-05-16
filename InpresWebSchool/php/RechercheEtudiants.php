@@ -1,27 +1,13 @@
 <?php 
 
     include('ConnexionBD.php');
-    $sections = $_POST['sections'];
     $journees = $_POST['journees'];
 
-    $Gestion = 0;
-    $Indus = 0;
-    $Reseau = 0;
     $Lundi = 0;
     $Mardi = 0;
     $Mercredi = 0;
     $Jeudi = 0;
     $Vendredi = 0;
-
-    for ($i = 0; $i < sizeof($sections); $i++)
-    {
-        if ($sections[$i] == "Informatique de Gestion")
-            $Gestion = 1;
-        else if ($sections[$i] == "Informatique finalité : Industrielle")
-            $Indus = 1;
-        else if ($sections[$i] == "Informatique finalité : Réseau et télécom")
-            $Reseau = 1;
-    }
 
     for ($i = 0; $i < sizeof($journees); $i++)
     {
@@ -37,84 +23,14 @@
             $Vendredi = 1;
     }
 
-    $select =  'SELECT DISTINCT etudiant.AdresseMail, etudiant.Nom, etudiant.Prenom, etudiant.EtablissementScolaire, section.NomSection, journee.Jour
-    FROM etudiant, choisir, inscrire, assister, journee, section
-    WHERE etudiant.AdresseMail = choisir.AdresseMail
-    AND etudiant.AdresseMail = assister.AdresseMail 
-    AND etudiant.AdresseMail = inscrire.AdresseMail
-    AND inscrire.IdJournee = journee.IdJournee
-    AND choisir.IdSection = section.IdSection ';
+    $select =   'SELECT etudiant.*, journee.Jour, count(etudiant.AdresseMail) as NombreJour
+                FROM etudiant 
+                INNER JOIN assister 
+                ON assister.AdresseMail = etudiant.AdresseMail 
+                LEFT JOIN journee 
+                ON assister.IdJournee = journee.IdJournee ';
+                
 
-    $section = [];
-    if ($Gestion == 1)
-        array_push($section, 1);
-    if ($Indus == 1)
-        array_push($section, 1);
-    if ($Reseau == 1)
-        array_push($section, 1);
-
-    if (count($section) > 1)
-    {
-        $boo = false;
-        $select .= " AND (";
-        for ($i = 0; $i < 3; $i++)
-        {
-            if ($Gestion == 1 && $i == 0) 
-            {
-                $select .= 'choisir.IdSection = ';
-                $select .= 1; 
-                $boo = true;
-            }
-            else if ($Indus == 1  && $i == 1)
-            {
-                if ($boo)
-                {
-                    $select .= ' OR choisir.IdSection = ';
-                    $select .= 2;          
-                }
-                else
-                {
-                    $select .= 'choisir.IdSection = ';
-                    $select .= 2; 
-                    $boo = true;
-                }
-            }
-            else if ($Reseau == 1  && $i == 2)
-            {
-                if ($boo)
-                {
-                    $select .= ' OR choisir.IdSection = ';
-                    $select .= 3;          
-                }
-                else
-                {
-                    $select .= 'choisir.IdSection = ';
-                    $select .= 3; 
-                    $boo = true;
-                }
-            }
-        }
-        if ($boo)
-        $select .= ")";
-    }
-    else
-    {
-        if ($Gestion == 1) 
-        {
-            $select .= ' AND choisir.IdSection = ';
-            $select .= 1;        
-        }
-        if ($Indus == 1)
-        {
-            $select .= ' AND choisir.IdSection = ';
-            $select .= 2;  
-        }
-        if ($Reseau == 1)
-        {
-            $select .= ' AND choisir.IdSection = ';
-            $select .= 3;  
-        }
-    }
 
     $check = [];
     if ($Lundi == 1)
@@ -131,12 +47,12 @@
     if (count($check) > 1)
     {
         $boo = false;
-        $select .= " AND (";
+        $select .= " WHERE (";
         for ($i = 0; $i < 5; $i++)
         {
             if ($Lundi == 1 && $i == 0) 
             {
-                $select .= 'inscrire.IdJournee = ';
+                $select .= 'assister.IdJournee = ';
                 $select .= 1; 
                 $boo = true;
             }
@@ -144,13 +60,13 @@
             {
                 if ($boo)
                 {
-                    $select .= ' OR inscrire.IdJournee = ';
+                    $select .= ' OR assister.IdJournee = ';
                     $select .= 2;          
                 }
                 else
                 {
-                    $select .= 'inscrire.IdJournee = ';
-                    $select .= 1; 
+                    $select .= 'assister.IdJournee = ';
+                    $select .= 2; 
                     $boo = true;
                 }
             }
@@ -158,12 +74,12 @@
             {
                 if ($boo)
                 {
-                    $select .= ' OR inscrire.IdJournee = ';
+                    $select .= ' OR assister.IdJournee = ';
                     $select .= 3;          
                 }
                 else
                 {
-                    $select .= 'inscrire.IdJournee = ';
+                    $select .= 'assister.IdJournee = ';
                     $select .= 3; 
                     $boo = true;
                 } 
@@ -172,12 +88,12 @@
             {
                 if ($boo)
                 {
-                    $select .= ' OR inscrire.IdJournee = ';
+                    $select .= ' OR assister.IdJournee = ';
                     $select .= 4;          
                 }
                 else
                 {
-                    $select .= 'inscrire.IdJournee = ';
+                    $select .= 'assister.IdJournee = ';
                     $select .= 4; 
                     $boo = true;
                 } 
@@ -186,12 +102,12 @@
             {
                 if ($boo)
                 {
-                    $select .= ' OR inscrire.IdJournee = ';
+                    $select .= ' OR assister.IdJournee = ';
                     $select .= 5;          
                 }
                 else
                 {
-                    $select .= 'inscrire.IdJournee = ';
+                    $select .= 'assister.IdJournee = ';
                     $select .= 5;
                 }
             }  
@@ -203,32 +119,32 @@
     {
         if ($Lundi == 1) 
         {
-            $select .= ' AND inscrire.IdJournee = ';
+            $select .= ' WHERE assister.IdJournee = ';
             $select .= 1;        
         }
         if ($Mardi == 1)
         {
-            $select .= ' AND inscrire.IdJournee = ';
+            $select .= ' WHERE assister.IdJournee = ';
             $select .= 2;  
         }
         if ($Mercredi == 1)
         {
-            $select .= ' AND inscrire.IdJournee = ';
+            $select .= ' WHERE assister.IdJournee = ';
             $select .= 3;  
         }
         if ($Jeudi == 1)
         {
-            $select .= ' AND inscrire.IdJournee = ';
+            $select .= ' WHERE assister.IdJournee = ';
             $select .= 4;  
         }
         if ($Vendredi == 1)
         {
-            $select .= ' AND inscrire.IdJournee = ';
-            $select .= 5;  
-        }        
+            $select .= ' WHERE assister.IdJournee = ';
+            $select .= 5;
+        }  
     }
-
-
+    
+    $select .= " GROUP BY etudiant.AdresseMail, assister.IdJournee";
     $stmt = $bdd->query($select);
     
     if ($stmt->num_rows > 0)

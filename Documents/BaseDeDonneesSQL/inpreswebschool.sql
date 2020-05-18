@@ -1,20 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
--- Client :  127.0.0.1
--- Généré le :  Dim 10 Mai 2020 à 22:22
--- Version du serveur :  5.6.17
--- Version de PHP :  5.5.12
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  Dim 17 mai 2020 à 21:49
+-- Version du serveur :  5.7.26
+-- Version de PHP :  7.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de données :  `inpreswebschool`
@@ -26,6 +28,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `administrateur`
 --
 
+DROP TABLE IF EXISTS `administrateur`;
 CREATE TABLE IF NOT EXISTS `administrateur` (
   `nomutilisateur` varchar(50) NOT NULL,
   `motdepasse` varchar(100) NOT NULL,
@@ -33,11 +36,11 @@ CREATE TABLE IF NOT EXISTS `administrateur` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `administrateur`
+-- Déchargement des données de la table `administrateur`
 --
 
 INSERT INTO `administrateur` (`nomutilisateur`, `motdepasse`) VALUES
-('admin', '1234');
+('regis4d@hotmail.com', '$2y$10$kUp0MZJN0S2562wN.Y/TeeUSymckQMCuG4ZneWR9VIGrbWUZGUJw6');
 
 -- --------------------------------------------------------
 
@@ -45,6 +48,7 @@ INSERT INTO `administrateur` (`nomutilisateur`, `motdepasse`) VALUES
 -- Structure de la table `assister`
 --
 
+DROP TABLE IF EXISTS `assister`;
 CREATE TABLE IF NOT EXISTS `assister` (
   `AdresseMail` varchar(200) NOT NULL,
   `IdJournee` int(11) NOT NULL,
@@ -60,12 +64,26 @@ CREATE TABLE IF NOT EXISTS `assister` (
   KEY `IdProfesseur` (`IdProfesseur`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `assister`
+--
+
+INSERT INTO `assister` (`AdresseMail`, `IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
+('regis3d@hotmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
+('regis3d@hotmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
+('regis3d@hotmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+('regis3d@hotmail.com', 2, 'Analyse et gestion de données', '13:30:00', '15:00:00', 6),
+('regis3d@hotmail.com', 2, 'Anglais technique', '09:20:00', '10:20:00', 11),
+('regis3d@hotmail.com', 2, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 7),
+('regis4d@hotmail.com', 1, 'Analyse et gestion des données', '08:50:00', '10:20:00', 6);
+
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `choisir`
 --
 
+DROP TABLE IF EXISTS `choisir`;
 CREATE TABLE IF NOT EXISTS `choisir` (
   `AdresseMail` varchar(200) NOT NULL,
   `IdSection` int(11) NOT NULL,
@@ -75,13 +93,15 @@ CREATE TABLE IF NOT EXISTS `choisir` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `choisir`
+-- Déchargement des données de la table `choisir`
 --
 
 INSERT INTO `choisir` (`AdresseMail`, `IdSection`) VALUES
+('redgis4d@hotmail.com', 1),
+('regis3d@hotmail.com', 1),
+('regis3d@hotmail.com', 2),
 ('regis4d@hotmail.com', 1),
-('regisqzd4d@hotmail.com', 1),
-('regisqzd4d@hotmail.com', 2);
+('regis4dsd@hotmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -89,6 +109,7 @@ INSERT INTO `choisir` (`AdresseMail`, `IdSection`) VALUES
 -- Structure de la table `composer`
 --
 
+DROP TABLE IF EXISTS `composer`;
 CREATE TABLE IF NOT EXISTS `composer` (
   `IdJournee` int(11) NOT NULL,
   `NomCours` varchar(100) NOT NULL,
@@ -104,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `composer` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `composer`
+-- Déchargement des données de la table `composer`
 --
 
 INSERT INTO `composer` (`IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
@@ -116,7 +137,7 @@ INSERT INTO `composer` (`IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdPr
 (1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
 (1, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 1),
 (1, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 8),
-(1, 'Mathématiques appliquées au traitement d''images', '10:30:00', '12:30:00', 4),
+(1, 'Mathématiques appliquées au traitement d\'images', '10:30:00', '12:30:00', 4),
 (1, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 5),
 (1, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 5),
 (1, 'Présentation Stage - TFE par les étudiants de 3ème', '10:30:00', '12:00:00', 18),
@@ -169,6 +190,7 @@ INSERT INTO `composer` (`IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdPr
 -- Structure de la table `concerner`
 --
 
+DROP TABLE IF EXISTS `concerner`;
 CREATE TABLE IF NOT EXISTS `concerner` (
   `IdSection` int(11) NOT NULL,
   `NomCours` varchar(100) NOT NULL,
@@ -183,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `concerner` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `concerner`
+-- Déchargement des données de la table `concerner`
 --
 
 INSERT INTO `concerner` (`IdSection`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
@@ -215,7 +237,7 @@ INSERT INTO `concerner` (`IdSection`, `NomCours`, `HeureDebut`, `HeureFin`, `IdP
 (2, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 1),
 (2, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 1),
 (2, 'Logiciel de contrôle', '10:30:00', '13:00:00', 10),
-(2, 'Mathématiques appliquées au traitement d''images', '10:30:00', '12:30:00', 4),
+(2, 'Mathématiques appliquées au traitement d\'images', '10:30:00', '12:30:00', 4),
 (2, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 15),
 (2, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 17),
 (2, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 2),
@@ -253,6 +275,7 @@ INSERT INTO `concerner` (`IdSection`, `NomCours`, `HeureDebut`, `HeureFin`, `IdP
 -- Structure de la table `cours`
 --
 
+DROP TABLE IF EXISTS `cours`;
 CREATE TABLE IF NOT EXISTS `cours` (
   `NomCours` varchar(50) NOT NULL,
   `HeureDebut` time NOT NULL,
@@ -268,12 +291,12 @@ CREATE TABLE IF NOT EXISTS `cours` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `cours`
+-- Déchargement des données de la table `cours`
 --
 
 INSERT INTO `cours` (`NomCours`, `HeureDebut`, `HeureFin`, `ReprisDansListe`, `IdProfesseur`, `IdType`, `NomLocal`) VALUES
 ('Analyse et gestion de données', '08:50:00', '10:20:00', 1, 6, 2, 'B22'),
-('Anglais technique', '09:20:00', '10:20:00', 1, 14, 2, 'LPO7'),
+('Anglais technique', '09:20:00', '10:20:00', 0, 14, 2, 'LPO7'),
 ('Langage et logique de programmation 2', '08:20:00', '10:20:00', 1, 7, 2, 'B14'),
 ('Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 1, 4, 2, 'AN'),
 ('Analyse et gestion de données', '10:30:00', '12:00:00', 1, 8, 2, 'B22'),
@@ -292,7 +315,7 @@ INSERT INTO `cours` (`NomCours`, `HeureDebut`, `HeureFin`, `ReprisDansListe`, `I
 ('Analyse et gestion de données', '08:50:00', '10:20:00', 1, 8, 2, 'B02'),
 ('Présentation Stage - TFE par les étudiants de 3ème', '08:50:00', '10:20:00', 1, 18, 3, 'PV2'),
 ('Langage et logique de programmation 2', '10:30:00', '12:00:00', 1, 7, 2, 'B02'),
-('Mathématiques appliquées au traitement d''images', '10:30:00', '12:30:00', 1, 4, 1, 'B16'),
+('Mathématiques appliquées au traitement d\'images', '10:30:00', '12:30:00', 1, 4, 1, 'B16'),
 ('Présentation Stage - TFE par les étudiants de 3ème', '10:30:00', '12:00:00', 1, 18, 3, 'PV2'),
 ('Sécurité réseau', '13:30:00', '15:30:00', 1, 16, 2, 'BX'),
 ('Langage et logique de programmation 2', '15:30:00', '17:00:00', 1, 8, 2, 'B01'),
@@ -332,25 +355,25 @@ INSERT INTO `cours` (`NomCours`, `HeureDebut`, `HeureFin`, `ReprisDansListe`, `I
 -- Structure de la table `etudiant`
 --
 
+DROP TABLE IF EXISTS `etudiant`;
 CREATE TABLE IF NOT EXISTS `etudiant` (
   `AdresseMail` varchar(100) NOT NULL,
   `Nom` varchar(50) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
   `EtablissementScolaire` varchar(50) DEFAULT NULL,
+  `cle` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`AdresseMail`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `etudiant`
+-- Déchargement des données de la table `etudiant`
 --
 
-INSERT INTO `etudiant` (`AdresseMail`, `Nom`, `Prenom`, `EtablissementScolaire`) VALUES
-('regis4d@hotmail.com', 'Evrard', 'Régis', 'Collège Saint-Louis'),
-('isen.claes@gmail.com', 'Claes', 'Isen', 'Collège du Sartay'),
-('belgianair@gmail.com', 'Belgian', 'Air', 'Institut de Notre-Dames de Paris'),
-('regis4d@hotdmail.com', 'Evrard', 'Régis', 'd'),
-('regisqzdqzdzq4d@hotmail.com', 'Evrard', 'Régis', 'qzd'),
-('regisqzd4d@hotmail.com', 'Evrard', 'Régis', 'qzd');
+INSERT INTO `etudiant` (`AdresseMail`, `Nom`, `Prenom`, `EtablissementScolaire`, `cle`) VALUES
+('regis4d@hotmail.com', 'Evrard', 'Régis', 'Collège Saint-Louis', 0),
+('isen.claes@gmail.com', 'Claes', 'Isen', 'Collège du Sartay', 0),
+('belgianair@gmail.com', 'Belgian', 'Air', 'Institut de Notre-Dames de Paris', 0),
+('regis3d@hotmail.com', 'Dubois', 'Lucas', 'Collège du bois', 0);
 
 -- --------------------------------------------------------
 
@@ -358,6 +381,7 @@ INSERT INTO `etudiant` (`AdresseMail`, `Nom`, `Prenom`, `EtablissementScolaire`)
 -- Structure de la table `groupe`
 --
 
+DROP TABLE IF EXISTS `groupe`;
 CREATE TABLE IF NOT EXISTS `groupe` (
   `IdGroupe` int(11) NOT NULL,
   `BlocGroupe` int(11) NOT NULL,
@@ -367,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `groupe` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `groupe`
+-- Déchargement des données de la table `groupe`
 --
 
 INSERT INTO `groupe` (`IdGroupe`, `BlocGroupe`, `IdSection`) VALUES
@@ -399,6 +423,7 @@ INSERT INTO `groupe` (`IdGroupe`, `BlocGroupe`, `IdSection`) VALUES
 -- Structure de la table `inscrire`
 --
 
+DROP TABLE IF EXISTS `inscrire`;
 CREATE TABLE IF NOT EXISTS `inscrire` (
   `AdresseMail` varchar(200) NOT NULL,
   `IdJournee` int(11) NOT NULL,
@@ -407,21 +432,31 @@ CREATE TABLE IF NOT EXISTS `inscrire` (
   KEY `AdresseMail` (`AdresseMail`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `inscrire`
+--
+
+INSERT INTO `inscrire` (`AdresseMail`, `IdJournee`) VALUES
+('regis3d@hotmail.com', 1),
+('regis3d@hotmail.com', 2),
+('regis4d@hotmail.com', 1);
+
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `journee`
 --
 
+DROP TABLE IF EXISTS `journee`;
 CREATE TABLE IF NOT EXISTS `journee` (
   `IdJournee` int(11) NOT NULL AUTO_INCREMENT,
   `Jour` varchar(10) NOT NULL,
   `Date` date NOT NULL,
   PRIMARY KEY (`IdJournee`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `journee`
+-- Déchargement des données de la table `journee`
 --
 
 INSERT INTO `journee` (`IdJournee`, `Jour`, `Date`) VALUES
@@ -437,13 +472,14 @@ INSERT INTO `journee` (`IdJournee`, `Jour`, `Date`) VALUES
 -- Structure de la table `local`
 --
 
+DROP TABLE IF EXISTS `local`;
 CREATE TABLE IF NOT EXISTS `local` (
   `NomLocal` varchar(10) NOT NULL,
   PRIMARY KEY (`NomLocal`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `local`
+-- Déchargement des données de la table `local`
 --
 
 INSERT INTO `local` (`NomLocal`) VALUES
@@ -477,6 +513,7 @@ INSERT INTO `local` (`NomLocal`) VALUES
 -- Structure de la table `prevoir`
 --
 
+DROP TABLE IF EXISTS `prevoir`;
 CREATE TABLE IF NOT EXISTS `prevoir` (
   `IdGroupe` int(11) NOT NULL,
   `NomCours` varchar(50) NOT NULL,
@@ -491,7 +528,7 @@ CREATE TABLE IF NOT EXISTS `prevoir` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `prevoir`
+-- Déchargement des données de la table `prevoir`
 --
 
 INSERT INTO `prevoir` (`IdGroupe`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
@@ -521,7 +558,7 @@ INSERT INTO `prevoir` (`IdGroupe`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProf
 (2221, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 1),
 (2221, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 1),
 (2221, 'Logiciel de contrôle', '10:30:00', '13:00:00', 10),
-(2221, 'Mathématiques appliquées au traitement d''images', '10:30:00', '12:30:00', 4),
+(2221, 'Mathématiques appliquées au traitement d\'images', '10:30:00', '12:30:00', 4),
 (2221, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 15),
 (2221, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 17),
 (2221, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 2),
@@ -557,15 +594,16 @@ INSERT INTO `prevoir` (`IdGroupe`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProf
 -- Structure de la table `professeur`
 --
 
+DROP TABLE IF EXISTS `professeur`;
 CREATE TABLE IF NOT EXISTS `professeur` (
   `IdProfesseur` int(11) NOT NULL AUTO_INCREMENT,
   `Nom` varchar(50) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
   PRIMARY KEY (`IdProfesseur`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `professeur`
+-- Déchargement des données de la table `professeur`
 --
 
 INSERT INTO `professeur` (`IdProfesseur`, `Nom`, `Prenom`) VALUES
@@ -599,14 +637,15 @@ INSERT INTO `professeur` (`IdProfesseur`, `Nom`, `Prenom`) VALUES
 -- Structure de la table `section`
 --
 
+DROP TABLE IF EXISTS `section`;
 CREATE TABLE IF NOT EXISTS `section` (
   `IdSection` int(11) NOT NULL AUTO_INCREMENT,
   `NomSection` varchar(100) NOT NULL,
   PRIMARY KEY (`IdSection`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `section`
+-- Déchargement des données de la table `section`
 --
 
 INSERT INTO `section` (`IdSection`, `NomSection`) VALUES
@@ -620,21 +659,23 @@ INSERT INTO `section` (`IdSection`, `NomSection`) VALUES
 -- Structure de la table `typecours`
 --
 
+DROP TABLE IF EXISTS `typecours`;
 CREATE TABLE IF NOT EXISTS `typecours` (
   `IdType` int(11) NOT NULL AUTO_INCREMENT,
   `NomType` varchar(15) NOT NULL,
   `NbPlaces` mediumint(9) NOT NULL,
   PRIMARY KEY (`IdType`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `typecours`
+-- Déchargement des données de la table `typecours`
 --
 
 INSERT INTO `typecours` (`IdType`, `NomType`, `NbPlaces`) VALUES
 (1, 'Théorie', 50),
 (2, 'Laboratoire', 10),
 (3, 'TFE', 30);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

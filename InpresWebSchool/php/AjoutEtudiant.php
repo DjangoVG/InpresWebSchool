@@ -1,8 +1,29 @@
 <?php
     include('ConnexionBD.php');
 
-    $stmt = $bdd->prepare("insert into etudiant(AdresseMail,Nom,Prenom,EtablissementScolaire) values(?,?,?,?)"); // J'AJOUTE L'ETUDIANT DANS LA TABLE
-    $stmt->bind_param("ssss",$_POST['mailetudiant'],$_POST['nometudiant'],$_POST['prenometudiant'],$_POST['etablissementetudiant']);
+    $email = $_POST['mailetudiant'];
+
+    $cle = md5(microtime(TRUE)*100000);
+
+    $destinataire = $_POST['mailetudiant'];
+    $sujet = "Validation d'inscription à la semaine d'immersion !" ;
+    $entete = "From: contact@regisevrard.be" ;
+    $message = 'Votre demande d\'inscription est bien validée,
+     
+    Pour visualiser votre horaire, veuillez cliquer sur le lien ci-dessous
+    ou copier/coller ce lien dans votre navigateur Internet.
+     
+    http://localhost/InpresWebSchool/InpresWebSchool/php/horaire.php?email='.urlencode($email).'&cle='.urlencode($cle).'
+     
+    ---------------
+    Ceci est un mail automatique, Merci de ne pas y répondre.';
+     
+     
+    mail($destinataire, $sujet, $message, $entete) ; // Envoi du mail
+
+
+    $stmt = $bdd->prepare("insert into etudiant(AdresseMail,Nom,Prenom,EtablissementScolaire,cle) values(?,?,?,?,?)"); // J'AJOUTE L'ETUDIANT DANS LA TABLE
+    $stmt->bind_param("sssss",$_POST['mailetudiant'],$_POST['nometudiant'],$_POST['prenometudiant'],$_POST['etablissementetudiant'], $cle);
     if($stmt->execute())
         $return['erreur'] = false;
     else

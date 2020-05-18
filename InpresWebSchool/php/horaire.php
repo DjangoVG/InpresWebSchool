@@ -20,25 +20,26 @@
 
     if($cle == $clebdd)
     {
-        $select = 'SELECT etudiant.Nom as NomEtudiant, etudiant.Prenom as PrenomEtudiant, assister.AdresseMail, journee.Jour, assister.NomCours, assister.HeureDebut, assister.HeureFin, professeur.Nom as Nomprof, professeur.Prenom as PrenomProf 
+        $select = 'SELECT etudiant.Nom as NomEtudiant, etudiant.Prenom as PrenomEtudiant, assister.AdresseMail, journee.Jour, assister.NomCours, assister.HeureDebut, assister.HeureFin, professeur.Nom as Nomprof, professeur.Prenom as PrenomProf
         FROM etudiant 
         INNER JOIN assister 
         ON assister.AdresseMail = etudiant.AdresseMail 
-        LEFT JOIN journee 
+        INNER JOIN journee 
         ON assister.IdJournee = journee.IdJournee 
         INNER JOIN composer 
         ON journee.IdJournee = composer.IdJournee 
-        LEFT JOIN cours 
+        INNER JOIN cours 
         ON composer.NomCours = cours.NomCours 
         INNER JOIN professeur 
-        ON cours.IdProfesseur = professeur.IdProfesseur 
+        ON assister.IdProfesseur = professeur.IdProfesseur 
         WHERE etudiant.AdresseMail = \'';
         
         $select .= $email;
-        $select .= '\' AND composer.HeureDebut = cours.HeureDebut 
+        $select .= '\'
+        AND composer.HeureDebut = cours.HeureDebut 
         AND composer.HeureFin = cours.HeureFin 
         AND composer.IdProfesseur = cours.IdProfesseur
-        GROUP BY etudiant.AdresseMail, assister.IdJournee, assister.NomCours, assister.HeureDebut, assister.HeureFin, assister.IdProfesseur ORDER BY assister.IdJournee, assister.HeureDebut ';
+        GROUP BY etudiant.AdresseMail, assister.IdJournee, assister.NomCours, assister.HeureDebut, assister.HeureFin, assister.IdProfesseur ORDER BY assister.IdJournee, assister.HeureDebut';
 
         ?> 
         <!DOCTYPE html>

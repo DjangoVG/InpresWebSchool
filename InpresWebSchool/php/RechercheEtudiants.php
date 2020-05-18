@@ -144,7 +144,7 @@
         }  
     }
     
-    $select .= " GROUP BY etudiant.AdresseMail, assister.IdJournee";
+    $select .= " AND validation = 1 GROUP BY etudiant.AdresseMail, assister.IdJournee";
     $stmt = $bdd->query($select);
     
     if ($stmt->num_rows > 0)

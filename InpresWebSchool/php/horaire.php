@@ -48,6 +48,9 @@
         <div class="container-login100" style="background-image: url('../images/Fond_InpresWebSchool.jpeg');">
 
             <div class="wrap-table100">
+                <span class="login100-form-title m-b-20">
+                    HORAIRE PERSONNEL...
+                </span>
                     <div class="table100 ver1 m-b-50">
                         <div class="table100-head">
                             <table>
@@ -88,6 +91,12 @@
             </div>
         </div>
     </div><?php
+
+
+        $select = "update etudiant set validation = 1 where AdresseMail = ?";
+        $stmt = $bdd->prepare($select);
+        $stmt->bind_param("s",$email);
+        $stmt->execute();
     }
     else
     {

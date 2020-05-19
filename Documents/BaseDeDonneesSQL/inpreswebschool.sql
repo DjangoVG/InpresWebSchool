@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 19 mai 2020 à 10:59
--- Version du serveur :  10.4.10-MariaDB
--- Version de PHP :  7.3.12
+-- Généré le :  mar. 19 mai 2020 à 22:08
+-- Version du serveur :  5.7.19
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -69,9 +69,25 @@ CREATE TABLE IF NOT EXISTS `assister` (
 --
 
 INSERT INTO `assister` (`AdresseMail`, `IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
-('belgianair@gmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
-('belgianair@gmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
-('belgianair@gmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+('isen0607@gmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
+('isen0607@gmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
+('isen0607@gmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+('isen0607@gmail.com', 1, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 8),
+('isen0607@gmail.com', 2, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 7),
+('isen0607@gmail.com', 2, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 7),
+('isen0607@gmail.com', 2, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
+('isen0607@gmail.com', 2, 'Stat C++', '15:30:00', '17:00:00', 20),
+('isen0607@gmail.com', 3, 'Anglais technique', '10:30:00', '11:30:00', 11),
+('isen0607@gmail.com', 3, 'Data mining', '08:20:00', '10:20:00', 20),
+('isen0607@gmail.com', 3, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 2),
+('isen0607@gmail.com', 3, 'Stat C++', '15:30:00', '17:00:00', 20),
+('isen0607@gmail.com', 4, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+('isen0607@gmail.com', 4, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
+('isen0607@gmail.com', 4, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
+('isen0607@gmail.com', 4, 'Stat C++', '15:30:00', '17:00:00', 20),
+('isen0607@gmail.com', 5, 'Analyse et gestion de données', '13:30:00', '15:00:00', 12),
+('isen0607@gmail.com', 5, 'Data mining', '08:20:00', '10:20:00', 20),
+('isen0607@gmail.com', 5, 'Thread', '10:30:00', '12:30:00', 20),
 ('regis3d@hotmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
 ('regis3d@hotmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
 ('regis3d@hotmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
@@ -100,13 +116,12 @@ CREATE TABLE IF NOT EXISTS `choisir` (
 --
 
 INSERT INTO `choisir` (`AdresseMail`, `IdSection`) VALUES
-('belgianair@gmail.com', 1),
-('regids4d@hotmail.com', 1),
+('isen0607@gmail.com', 1),
+('redgis4d@hotmail.com', 1),
 ('regis3d@hotmail.com', 1),
 ('regis3d@hotmail.com', 2),
 ('regis4d@hotmail.com', 1),
-('regis4dd@hotmail.com', 1),
-('regis4dd@hotmail.com', 2);
+('regis4dsd@hotmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -156,16 +171,23 @@ INSERT INTO `composer` (`IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdPr
 (2, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 4),
 (2, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 17),
 (2, 'Présentation Stage - TFE par les étudiants de 3ème', '08:50:00', '10:20:00', 18),
+(2, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
 (2, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 10),
 (2, 'Sécurité réseau', '13:30:00', '15:30:00', 16),
+(2, 'Stat C++', '15:30:00', '17:00:00', 20),
 (3, 'Analyse et gestion de données', '10:30:00', '12:00:00', 8),
 (3, 'Analyse et gestion de données', '10:30:00', '12:00:00', 12),
+(3, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
 (3, 'Anglais technique', '10:30:00', '11:30:00', 11),
 (3, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+(3, 'Data mining', '08:20:00', '10:20:00', 20),
 (3, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 9),
 (3, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 9),
 (3, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 15),
+(3, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 5),
+(3, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
 (3, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 2),
+(3, 'Stat C++', '15:30:00', '17:00:00', 20),
 (4, 'Analyse et gestion de données', '10:30:00', '12:00:00', 6),
 (4, 'Analyse et gestion de données', '13:30:00', '15:00:00', 17),
 (4, 'Anglais technique', '09:20:00', '10:20:00', 13),
@@ -175,18 +197,24 @@ INSERT INTO `composer` (`IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdPr
 (4, 'Logiciel de contrôle', '10:30:00', '13:00:00', 10),
 (4, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:30:00', 19),
 (4, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 2),
+(4, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
 (4, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 24),
+(4, 'Stat C++', '15:30:00', '17:00:00', 20),
 (4, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 16),
 (5, 'Analyse et gestion de données', '08:50:00', '10:20:00', 8),
 (5, 'Analyse et gestion de données', '13:30:00', '15:00:00', 12),
 (5, 'Anglais technique', '10:30:00', '11:30:00', 14),
+(5, 'Data mining', '08:20:00', '10:20:00', 20),
 (5, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 9),
 (5, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 3),
 (5, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 19),
+(5, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
 (5, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 23),
 (5, 'Réseau TCP/IP', '10:30:00', '12:30:00', 12),
 (5, 'Réseau TCP/IP', '10:30:00', '12:30:00', 23),
+(5, 'Stat C++', '15:30:00', '17:00:00', 20),
 (5, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 10),
+(5, 'Thread', '10:30:00', '12:30:00', 20),
 (7, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 24);
 
 -- --------------------------------------------------------
@@ -221,6 +249,7 @@ INSERT INTO `concerner` (`IdSection`, `NomCours`, `HeureDebut`, `HeureFin`, `IdP
 (1, 'Anglais technique', '09:20:00', '10:20:00', 14),
 (1, 'Anglais technique', '10:30:00', '11:30:00', 11),
 (1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+(1, 'Data mining', '08:20:00', '10:20:00', 20),
 (1, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
 (1, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 7),
 (1, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 7),
@@ -230,8 +259,11 @@ INSERT INTO `concerner` (`IdSection`, `NomCours`, `HeureDebut`, `HeureFin`, `IdP
 (1, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 5),
 (1, 'Présentation Stage - TFE par les étudiants de 3ème', '08:50:00', '10:20:00', 18),
 (1, 'Présentation Stage - TFE par les étudiants de 3ème', '10:30:00', '12:00:00', 18),
+(1, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
 (1, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 2),
 (1, 'Programmation web 2', '15:30:00', '17:30:00', 3),
+(1, 'Stat C++', '15:30:00', '17:00:00', 20),
+(1, 'Thread', '10:30:00', '12:30:00', 20),
 (2, 'Analyse et gestion de données', '08:50:00', '10:20:00', 8),
 (2, 'Analyse et gestion de données', '10:30:00', '12:00:00', 12),
 (2, 'Analyse et gestion de données', '13:30:00', '15:00:00', 6),
@@ -353,7 +385,10 @@ INSERT INTO `cours` (`NomCours`, `HeureDebut`, `HeureFin`, `ReprisDansListe`, `I
 ('Développement orientée objet - JAVA', '13:30:00', '15:30:00', 1, 24, 2, 'PV8'),
 ('Développement orientée objet - JAVA', '13:30:00', '15:30:00', 1, 23, 2, 'PV9'),
 ('Réseaux et programmation réseaux', '15:30:00', '17:00:00', 1, 24, 2, 'PV9'),
-('Test', '00:00:00', '00:00:00', 1, 2, 1, 'AX');
+('Programmation orienté objet - C#', '13:30:00', '15:30:00', 1, 20, 2, 'B01'),
+('Stat C++', '15:30:00', '17:00:00', 1, 20, 2, 'B01'),
+('Data mining', '08:20:00', '10:20:00', 1, 20, 2, 'B01'),
+('Thread', '10:30:00', '12:30:00', 1, 20, 2, 'B01');
 
 -- --------------------------------------------------------
 
@@ -367,8 +402,7 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
   `Nom` varchar(50) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
   `EtablissementScolaire` varchar(50) DEFAULT NULL,
-  `cle` varchar(300) NOT NULL DEFAULT '0',
-  `validation` tinyint(4) NOT NULL DEFAULT 0,
+  `cle` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`AdresseMail`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -376,13 +410,11 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
 -- Déchargement des données de la table `etudiant`
 --
 
-INSERT INTO `etudiant` (`AdresseMail`, `Nom`, `Prenom`, `EtablissementScolaire`, `cle`, `validation`) VALUES
-('regis4d@hotmail.com', 'Evrard', 'Régis', 'Collège Saint-Louis', '0', 0),
-('isen.claes@gmail.com', 'Claes', 'Isen', 'Collège du Sartay', '0', 0),
-('regis3d@hotmail.com', 'Dubois', 'Lucas', 'Collège du bois', '0', 1),
-('belgianair@gmail.com', 'Dubois', 'Loic', '', '2b713874bf5861a971fc0bd5ec5cabeb', 1),
-('regids4d@hotmail.com', 'Evrard', 'Régis', '', '32fc18b1d489b97a68904a7f7556b720', 0),
-('regis4dd@hotmail.com', 'Evrard', 'Régis', '', '7944cdba480d68d8752319744c48a716', 0);
+INSERT INTO `etudiant` (`AdresseMail`, `Nom`, `Prenom`, `EtablissementScolaire`, `cle`) VALUES
+('regis4d@hotmail.com', 'Evrard', 'Régis', 'Collège Saint-Louis', 0),
+('isen.claes@gmail.com', 'Claes', 'Isen', 'Collège du Sartay', 0),
+('belgianair@gmail.com', 'Belgian', 'Air', 'Institut de Notre-Dames de Paris', 0),
+('regis3d@hotmail.com', 'Dubois', 'Lucas', 'Collège du bois', 0);
 
 -- --------------------------------------------------------
 
@@ -446,7 +478,11 @@ CREATE TABLE IF NOT EXISTS `inscrire` (
 --
 
 INSERT INTO `inscrire` (`AdresseMail`, `IdJournee`) VALUES
-('belgianair@gmail.com', 1),
+('isen0607@gmail.com', 1),
+('isen0607@gmail.com', 2),
+('isen0607@gmail.com', 3),
+('isen0607@gmail.com', 4),
+('isen0607@gmail.com', 5),
 ('regis3d@hotmail.com', 1),
 ('regis3d@hotmail.com', 2),
 ('regis4d@hotmail.com', 1);
@@ -549,6 +585,7 @@ INSERT INTO `prevoir` (`IdGroupe`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProf
 (2202, 'Anglais technique', '09:20:00', '10:20:00', 14),
 (2202, 'Anglais technique', '10:30:00', '11:30:00', 11),
 (2202, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+(2202, 'Data maning', '08:20:00', '10:20:00', 20),
 (2202, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
 (2202, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 7),
 (2202, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 7),
@@ -556,8 +593,11 @@ INSERT INTO `prevoir` (`IdGroupe`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProf
 (2202, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 4),
 (2202, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 5),
 (2202, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 5),
+(2202, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
 (2202, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 2),
 (2202, 'Programmation web 2', '15:30:00', '17:30:00', 3),
+(2202, 'Stat C++', '15:30:00', '17:00:00', 20),
+(2202, 'Thread', '10:30:00', '12:30:00', 20),
 (2221, 'Analyse et gestion de données', '08:50:00', '10:20:00', 8),
 (2221, 'Analyse et gestion de données', '10:30:00', '12:00:00', 12),
 (2221, 'Analyse et gestion de données', '13:30:00', '15:00:00', 6),

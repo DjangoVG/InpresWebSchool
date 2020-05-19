@@ -640,6 +640,11 @@ iframe {
 #ListLocaux {
     z-index : 2;
 }
+
+#ListGroupes {
+    z-index : 2;
+}
+
 /* ===== Keyframes ===== */
 @keyframes fadeInUp {
   from {
@@ -917,6 +922,81 @@ iframe {
 
 /* ----------------------------------- */
 
+.inputBloc {
+    background-color: #fff;
+    display: block;
+    margin: 10px 0;
+    position: relative;
+}
+
+.inputBloc label {
+    padding: 12px 30px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    color: #3c454c;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 200ms ease-in;
+    overflow: hidden;
+}
+.inputBloc label:before {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    content: '';
+    background-color: #a7007d;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    z-index: -1;
+}
+.inputBloc label:after {
+    width: 32px;
+    height: 32px;
+    content: '';
+    border: 2px solid #d1d7dc;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+    background-repeat: no-repeat;
+    background-position: 2px 3px;
+    border-radius: 50%;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: all 300ms ease-in;
+}
+.inputBloc input:checked ~ label {
+    color: #fff;
+}
+.inputBloc input:checked ~ label:before {
+    transform: translate(-50%, -50%) scale3d(56, 56, 1);
+    opacity: 1;
+}
+.inputBloc input:checked ~ label:after {
+    background-color: #7c0061;
+    border-color: #ffffff;
+}
+.inputBloc input {
+    width: 32px;
+    height: 32px;
+    order: 1;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    visibility: hidden;
+}
+
 .inputJournee {
     background-color: #fff;
     display: block;
@@ -980,6 +1060,383 @@ iframe {
     border-color: #ffffff;
 }
 .inputJournee input {
+    width: 32px;
+    height: 32px;
+    order: 1;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.inputJournee {
+    background-color: #fff;
+    display: block;
+    margin: 10px 0;
+    position: relative;
+}
+
+.inputJournee label {
+    padding: 12px 30px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    color: #3c454c;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 200ms ease-in;
+    overflow: hidden;
+}
+.inputJournee label:before {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    content: '';
+    background-color: #a7007d;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    z-index: -1;
+}
+.inputJournee label:after {
+    width: 32px;
+    height: 32px;
+    content: '';
+    border: 2px solid #d1d7dc;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+    background-repeat: no-repeat;
+    background-position: 2px 3px;
+    border-radius: 50%;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: all 300ms ease-in;
+}
+.inputJournee input:checked ~ label {
+    color: #fff;
+}
+.inputJournee input:checked ~ label:before {
+    transform: translate(-50%, -50%) scale3d(56, 56, 1);
+    opacity: 1;
+}
+.inputJournee input:checked ~ label:after {
+    background-color: #7c0061;
+    border-color: #ffffff;
+}
+.inputJournee input {
+    width: 32px;
+    height: 32px;
+    order: 1;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.inputJournee {
+    background-color: #fff;
+    display: block;
+    margin: 10px 0;
+    position: relative;
+}
+
+.inputJournee label {
+    padding: 12px 30px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    color: #3c454c;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 200ms ease-in;
+    overflow: hidden;
+}
+.inputJournee label:before {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    content: '';
+    background-color: #a7007d;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    z-index: -1;
+}
+.inputJournee label:after {
+    width: 32px;
+    height: 32px;
+    content: '';
+    border: 2px solid #d1d7dc;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+    background-repeat: no-repeat;
+    background-position: 2px 3px;
+    border-radius: 50%;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: all 300ms ease-in;
+}
+.inputJournee input:checked ~ label {
+    color: #fff;
+}
+.inputJournee input:checked ~ label:before {
+    transform: translate(-50%, -50%) scale3d(56, 56, 1);
+    opacity: 1;
+}
+.inputJournee input:checked ~ label:after {
+    background-color: #7c0061;
+    border-color: #ffffff;
+}
+.inputJournee input {
+    width: 32px;
+    height: 32px;
+    order: 1;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    visibility: hidden;
+}
+
+/*-------*/
+
+.inputCollectif {
+    background-color: #fff;
+    display: block;
+    margin: 10px 0;
+    position: relative;
+}
+
+.inputCollectif label {
+    padding: 12px 30px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    color: #3c454c;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 200ms ease-in;
+    overflow: hidden;
+}
+.inputCollectif label:before {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    content: '';
+    background-color: #a7007d;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    z-index: -1;
+}
+.inputCollectif label:after {
+    width: 32px;
+    height: 32px;
+    content: '';
+    border: 2px solid #d1d7dc;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+    background-repeat: no-repeat;
+    background-position: 2px 3px;
+    border-radius: 50%;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: all 300ms ease-in;
+}
+.inputCollectif input:checked ~ label {
+    color: #fff;
+}
+.inputCollectif input:checked ~ label:before {
+    transform: translate(-50%, -50%) scale3d(56, 56, 1);
+    opacity: 1;
+}
+.inputCollectif input:checked ~ label:after {
+    background-color: #7c0061;
+    border-color: #ffffff;
+}
+.inputCollectif input {
+    width: 32px;
+    height: 32px;
+    order: 1;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.inputCollectif {
+    background-color: #fff;
+    display: block;
+    margin: 10px 0;
+    position: relative;
+}
+
+.inputCollectif label {
+    padding: 12px 30px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    color: #3c454c;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 200ms ease-in;
+    overflow: hidden;
+}
+.inputCollectif label:before {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    content: '';
+    background-color: #a7007d;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    z-index: -1;
+}
+.inputCollectif label:after {
+    width: 32px;
+    height: 32px;
+    content: '';
+    border: 2px solid #d1d7dc;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+    background-repeat: no-repeat;
+    background-position: 2px 3px;
+    border-radius: 50%;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: all 300ms ease-in;
+}
+.inputCollectif input:checked ~ label {
+    color: #fff;
+}
+.inputCollectif input:checked ~ label:before {
+    transform: translate(-50%, -50%) scale3d(56, 56, 1);
+    opacity: 1;
+}
+.inputCollectif input:checked ~ label:after {
+    background-color: #7c0061;
+    border-color: #ffffff;
+}
+.inputCollectif input {
+    width: 32px;
+    height: 32px;
+    order: 1;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.inputCollectif {
+    background-color: #fff;
+    display: block;
+    margin: 10px 0;
+    position: relative;
+}
+
+.inputCollectif label {
+    padding: 12px 30px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    color: #3c454c;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 200ms ease-in;
+    overflow: hidden;
+}
+.inputCollectif label:before {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    content: '';
+    background-color: #a7007d;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    z-index: -1;
+}
+.inputCollectif label:after {
+    width: 32px;
+    height: 32px;
+    content: '';
+    border: 2px solid #d1d7dc;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+    background-repeat: no-repeat;
+    background-position: 2px 3px;
+    border-radius: 50%;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: all 300ms ease-in;
+}
+.inputCollectif input:checked ~ label {
+    color: #fff;
+}
+.inputCollectif input:checked ~ label:before {
+    transform: translate(-50%, -50%) scale3d(56, 56, 1);
+    opacity: 1;
+}
+.inputCollectif input:checked ~ label:after {
+    background-color: #7c0061;
+    border-color: #ffffff;
+}
+.inputCollectif input {
     width: 32px;
     height: 32px;
     order: 1;

@@ -29,7 +29,7 @@
                             <span class="login100-form-title p-b-41">
                                 INFORMATIONS DU NOUVEAU COURS...
                             </span>
-                            <div class="login100-form validate-form p-b-33 p-t-5" >
+                            <div class="login100-form validate-form p-b-15 p-t-5" >
                                 <div class="wrap-input100 validate-input" datavalidate = "Entrer un nom de cours valide !">
                                     <input class="input100" type="text" name="NomCours" placeholder="Nom du cours" id="NomCours" for="NomCours">
                                     <span class="focus-input100 Mail"></span>
@@ -39,14 +39,21 @@
                                     <span class="focus-input100 NomPrenom"></span>
                                 </div>
                                 <div class="wrap-input100 validate-input" datavalidate = "Entrer une heure valide !">
-                                    <input class="input100" type="text" name="Prenom" placeholder="Heure de fin" id="HeureFin" for="HeureFin">
+                                    <input class="input100" type="text" name="HeureFin" placeholder="Heure de fin" id="HeureFin" for="HeureFin">
                                     <span class="focus-input100 NomPrenom"></span>
                                 </div>
-                                <div class="wrap-input100 validate-input" datavalidate = "1 - 0 ">
+                                <div class="wrap-input100 validate-input" datavalidate = "1 [Oui] - 0 [Non]">
                                     <input class="input100" type="text" name="ReprisListe" placeholder="Ce cours est repris dans la liste" id="ReprisListe" for="ReprisListe">
                                     <span class="focus-input100 Etablissement"></span>
                                 </div>
-                            </div>                        
+                                <div class="m-t-20">
+                                    <div class="inputCollectif" name="1">
+                                        <input id="option1" name="Collectif" type="checkbox" onclick="ClickCollectif(0)"/>
+                                        <label for="option1">Cours multi-groupes</label>
+                                    </div>                                    
+                                </div>
+
+                            </div>
                         </div>
 
                         <div class="etape">
@@ -55,21 +62,67 @@
                             </span>
                             <div class="login100-form validate-form p-b-5 p-t-5" id="Ajout_Cours">
                                 <div class="inputGroup" name="1">
-                                    <input id="option1" name="Theorie" type="checkbox" onclick="ClickSection(0)"/>
+                                    <input id="option1" name="Theorie" type="checkbox" onclick="ClickOption(0)"/>
                                     <label for="option1">Théorie</label>
                                 </div>
                                 
                                 <div class="inputGroup" name="2">
-                                <input id="option2" name="Laboratoire" type="checkbox" onclick="ClickSection(1)"/>
+                                <input id="option2" name="Laboratoire" type="checkbox" onclick="ClickOption(1)"/>
                                 <label for="option2">Laboratoire</label>
                                 </div>
 
                                 <div class="inputGroup" name="3">
-                                    <input id="option3" name="TFE" type="checkbox" onclick="ClickSection(2)"/>
+                                    <input id="option3" name="TFE" type="checkbox" onclick="ClickOption(2)"/>
                                     <label for="option3">TFE</label>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="etape">
+                            <span class="login100-form-title p-b-20">
+                                SECTION(S) CONCERNÉE(S)
+                            </span>
+                            <div class="login100-form validate-form p-b-5 p-t-5" id="Ajout_SectionAdmin">
+                                <div class="inputJournee" name="1">
+                                    <input id="jour1" name="Informatique de Gestion" type="checkbox" onclick="ClickJournee(0)"/>
+                                    <label for="jour1">Informatique de Gestion</label>
+                                </div>
+                                
+                                <div class="inputJournee" name="2">
+                                <input id="jour2" name="Informatique finalité : Industrielle" type="checkbox" onclick="ClickJournee(1)"/>
+                                <label for="jour2">Informatique finalité : Industrielle</label>
+                                </div>
+
+                                <div class="inputJournee" name="3">
+                                    <input id="jour3" name="Informatique finalité : Réseau et télécom" type="checkbox" onclick="ClickJournee(2)"/>
+                                    <label for="jour3">Informatique finalité : Réseau et télécom</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="etape">
+                            <span class="login100-form-title p-b-20">
+                                BLOC CONCERNÉ
+                            </span>
+                            <div class="login100-form validate-form p-b-5 p-t-5" id="Ajout_Bloc">
+                                <div class="inputBloc" name="1">
+                                    <input id="bloc1" name="Bloc 1" type="checkbox" onclick="ClickBloc(0)"/>
+                                    <label for="bloc1">Bloc 1</label>
+                                </div>
+                                
+                                <div class="inputBloc" name="2">
+                                <input id="bloc2" name="Bloc 2" type="checkbox" onclick="ClickBloc(1)"/>
+                                <label for="bloc2">Bloc 2</label>
+                                </div>
+
+                                <div class="inputBloc" name="3">
+                                    <input id="bloc3" name="Bloc 3" type="checkbox" onclick="ClickBloc(2)"/>
+                                    <label for="bloc3">Bloc 3</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="ContainerGroupes"></div> <!-- LISTE DES GROUPES -->
 
                         <div id="ContainerProfesseur"></div> <!-- LISTE DES PROFESSEURS -->
 
@@ -78,14 +131,14 @@
 
                         <div class="container-login100-form-btn m-t-32">
                             <button type="button" id="nextBtn" class="login100-form-btn" onclick="NextStepCours(1)">
-                                AJOUTER CE COURS
                             </button>
                             <button type="button" id="prevBtn" class="login100-form-btn" onclick="NextStepCours(-1)">
-                                ANNULER
                             </button>
                         </div>
 
                         <div id="idstep" style="text-align:center;margin-top:40px;">
+                            <span class="step"></span>
+                            <span class="step"></span>
                             <span class="step"></span>
                             <span class="step"></span>
                             <span class="step"></span>
@@ -106,7 +159,8 @@
 		<script src="vendor/daterangepicker/daterangepicker.js"></script>
 		<script src="vendor/countdowntime/countdowntime.js"></script>
 	<!--===============================================================================================-->
-		<script src="js/mainadmin.js"></script>
+        <script src="js/mainadmin.js"></script>
+        <script src="js/util.js"></script>
 
 	</body>
 </html>

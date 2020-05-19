@@ -1,3 +1,4 @@
+document.write('<script type="text/javascript" src="js/util.js" ></script>');
 var currentTab = 0; // 0 car premiere page du formulaire
 var currentTabAdmin = 0;
 var boolean = true;
@@ -6,76 +7,6 @@ var boolean = true;
   showTab(currentTab); // Affiche la premiere page du formulaire
   "use strict";
 })(jQuery);
-
-function TranformSelect()
-{
-    $('.sel').each(function() 
-    {
-        $(this).children('select').css('display', 'none');
-        
-        var $current = $(this);
-        
-        $(this).find('option').each(function(i) 
-        {
-          if (i == 0) 
-          {
-            $current.prepend($('<div>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__box')
-            }));
-            
-            var placeholder = $(this).text();
-            $current.prepend($('<span>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__placeholder'),
-              text: placeholder,
-              'data-placeholder': placeholder
-            }));
-            
-            return;
-          }
-          
-          $current.children('div').append($('<span>', {
-            class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-            text: $(this).text()
-          }));
-        });
-      });
-      
-      // Toggling the `.active` state on the `.sel`.
-      $('.sel').click(function() {
-        $(this).toggleClass('active');
-      });
-      
-      // Toggling the `.selected` state on the options.
-      $('.sel__box__options').click(function() {
-        var txt = $(this).text();
-        var index = $(this).index();
-        
-        $(this).siblings('.sel__box__options').removeClass('selected');
-        $(this).addClass('selected');
-        
-        var $currentSel = $(this).closest('.sel');
-        $currentSel.children('.sel__placeholder').text(txt);
-        $currentSel.children('select').prop('selectedIndex', index + 1);
-      });
-
-      var showPass = 0;
-      $('.btn-show-pass').on('click', function()
-      {
-          if(showPass == 0) 
-          {
-              $(this).next('input').attr('type','text');
-              $(this).addClass('active');
-              showPass = 1;
-          }
-          else 
-          {
-              $(this).next('input').attr('type','password');
-              $(this).removeClass('active');
-              showPass = 0;
-          }
-          
-      });
-}
 
 function AjoutCoursPlages(journeechoisie)
 {
@@ -344,7 +275,6 @@ function SupprimerPlage()
             }            
         }
     }
-    
 }
 
 function AjouterEtudiant()
@@ -396,36 +326,6 @@ function AjouterEtudiant()
                 
         }
     });
-}
-
-function ClickSection(n) // Je clique sur une section (modification de sa classe)
-{
-    var i, x = document.getElementsByClassName("inputGroup");
-    for (i = 0; i < x.length; i++) 
-    {
-        if (n == i)
-        {
-            if (x[i].className == "inputGroup clique") 
-                x[i].className = "inputGroup";
-            else
-                x[i].className = "inputGroup clique";            
-        }
-    }
-}
-
-function ClickJournee(n) // Je clique sur une journee (modification de sa classe)
-{
-    var i, x = document.getElementsByClassName("inputJournee");
-    for (i = 0; i < x.length; i++) 
-    {
-        if (n == i)
-        {
-            if (x[i].className == "inputJournee clique") 
-                x[i].className = "inputJournee";
-            else
-                x[i].className = "inputJournee clique";            
-        }
-    }
 }
 
 
@@ -485,113 +385,123 @@ function ClickBoutonFormulaire(n)
         {
             SupprimerAllJournee();
             var compteurjour = document.getElementsByClassName("inputJournee clique");
-            for (let i = 0; i < compteurjour.length; i++) // JE RECUPERE LE NOMBRE DE JOURS ET JE CREE LE NOMBRE DE FORMULAIRE
+            if (compteurjour.length == 0)
             {
-                let journeechoisie = 0;
-
-                if ($(compteurjour[i]).children().first().prop("name") == "Lundi 15 juin 2020")
-                    journeechoisie = 1;   
-                else if ($(compteurjour[i]).children().first().prop("name") == "Mardi 16 juin 2020")
-                    journeechoisie = 2; 
-                else if ($(compteurjour[i]).children().first().prop("name") == "Mercredi 17 juin 2020")
-                    journeechoisie = 3;      
-                else if ($(compteurjour[i]).children().first().prop("name") == "Jeudi 18 juin 2020")
-                    journeechoisie = 4;            
-                else if ($(compteurjour[i]).children().first().prop("name") == "Vendredi 19 juin 2020")
-                    journeechoisie = 5;
-
-                let ContainerJournee = document.getElementById("ContainerJournees");
-
-                var etape = document.createElement("div");
-                etape.style = "display: none";
-                etape.className = "etape";
-
-                let span1 = document.createElement("span");
-                span1.className = "login100-form-title p-b-41";
-                span1.textContent = compteurjour[i].textContent;
-
-                let div2 = document.createElement("div");
-                div2.className = "login100-form validate-form p-b-33 p-t-5 PlageForm";
-                div2.id = "Form_Plages";
-
-                let div3 = document.createElement("div");
-                let jourclass = "sel sel--Plage01";
-                let result = jourclass.concat("Jour0", journeechoisie);
-                div3.className = result;
-                let select = document.createElement("select");
-                select.name = "Plage1"; select.id = "CoursPlage1";
-                let option1 = document.createElement("option");
-                option1.value = "Plage1"; option1.disabled = true; option1.textContent = "Plage 1 [8h20 - 10h20]";
-                let repos = document.createElement("option");
-                repos.value = "Aucun cours ne m'intéresse"; repos.textContent = "Aucun cours ne m'intéresse";
-
-                let separateur = document.createElement("hr");
-                separateur.className = "rule";
-
-                let div4 = document.createElement("div");
-                jourclass = "sel sel--Plage02";
-                result = jourclass.concat("Jour0", journeechoisie);
-                div4.className = result;
-                let select2 = document.createElement("select");
-                select2.name = "Plage2"; select2.id = "CoursPlage2";
-                let option2 = document.createElement("option");
-                option2.value = "Plage2"; option2.disabled = true; option2.textContent = "Plage 2 [10h30 - 12h30]";
-                let repos2 = document.createElement("option");
-                repos2.value = "Aucun cours ne m'intéresse"; repos2.textContent = "Aucun cours ne m'intéresse";
-
-                let div5 = document.createElement("div");
-                jourclass = "sel sel--Plage03";
-                result = jourclass.concat("Jour0", journeechoisie);
-                div5.className = result;
-                let select3 = document.createElement("select");
-                select3.name = "Plage3"; select3.id = "CoursPlage3";
-                let option3= document.createElement("option");
-                option3.value = "Plage3"; option3.disabled = true; option3.textContent = "Plage 3 [13h30 - 15h30]";
-                let repos3 = document.createElement("option");
-                repos3.value = "Aucun cours ne m'intéresse"; repos3.textContent = "Aucun cours ne m'intéresse";
-
-                
-                let div6 = document.createElement("div");
-                jourclass = "sel sel--Plage04";
-                result = jourclass.concat("Jour0", journeechoisie);
-                div6.className = result;
-                let select4 = document.createElement("select");
-                select4.name = "Plage4"; select4.id = "CoursPlage4";
-                let option4= document.createElement("option");
-                option4.value = "Plage4"; option4.disabled = true; option4.textContent = "Plage 4 [15h30 - 17h30]";
-                let repos4 = document.createElement("option");
-                repos4.value = "Aucun cours ne m'intéresse"; repos4.textContent = "Aucun cours ne m'intéresse";
-
-                /* ------------------------------------------------ */
-
-                ContainerJournee.appendChild(etape);
-                etape.appendChild(span1);
-                etape.appendChild(div2);
-                div2.appendChild(div3);
-                div3.appendChild(select);
-                select.appendChild(option1);
-                select.appendChild(repos);
-
-                div2.appendChild(div4);
-                div4.appendChild(select2);
-                select2.appendChild(option2);
-                select2.appendChild(repos2);
-
-                div2.appendChild(div5);
-                div5.appendChild(select3);
-                select3.appendChild(option3);
-                select3.appendChild(repos3);
-
-                div2.appendChild(div6);
-                div6.appendChild(select4);
-                select4.appendChild(option4);
-                select4.appendChild(repos4);
-
-                
+                let Form = document.getElementsByClassName("login100-form validate-form");
+                Form[currentTab].classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);
             }
-            TranformSelect();
-            AjoutStepDocument();
-            AffichageNextStep(n);
+            else
+            {
+                for (let i = 0; i < compteurjour.length; i++) // JE RECUPERE LE NOMBRE DE JOURS ET JE CREE LE NOMBRE DE FORMULAIRE
+                {
+                    let journeechoisie = 0;
+
+                    if ($(compteurjour[i]).children().first().prop("name") == "Lundi 15 juin 2020")
+                        journeechoisie = 1;   
+                    else if ($(compteurjour[i]).children().first().prop("name") == "Mardi 16 juin 2020")
+                        journeechoisie = 2; 
+                    else if ($(compteurjour[i]).children().first().prop("name") == "Mercredi 17 juin 2020")
+                        journeechoisie = 3;      
+                    else if ($(compteurjour[i]).children().first().prop("name") == "Jeudi 18 juin 2020")
+                        journeechoisie = 4;            
+                    else if ($(compteurjour[i]).children().first().prop("name") == "Vendredi 19 juin 2020")
+                        journeechoisie = 5;
+
+                    let ContainerJournee = document.getElementById("ContainerJournees");
+
+                    var etape = document.createElement("div");
+                    etape.style = "display: none";
+                    etape.className = "etape";
+
+                    let span1 = document.createElement("span");
+                    span1.className = "login100-form-title p-b-41";
+                    span1.textContent = compteurjour[i].textContent;
+
+                    let div2 = document.createElement("div");
+                    div2.className = "login100-form validate-form p-b-33 p-t-5 PlageForm";
+                    div2.id = "Form_Plages";
+
+                    let div3 = document.createElement("div");
+                    let jourclass = "sel sel--Plage01";
+                    let result = jourclass.concat("Jour0", journeechoisie);
+                    div3.className = result;
+                    let select = document.createElement("select");
+                    select.name = "Plage1"; select.id = "CoursPlage1";
+                    let option1 = document.createElement("option");
+                    option1.value = "Plage1"; option1.disabled = true; option1.textContent = "Plage 1 [8h20 - 10h20]";
+                    let repos = document.createElement("option");
+                    repos.value = "Aucun cours ne m'intéresse"; repos.textContent = "Aucun cours ne m'intéresse";
+
+                    let separateur = document.createElement("hr");
+                    separateur.className = "rule";
+
+                    let div4 = document.createElement("div");
+                    jourclass = "sel sel--Plage02";
+                    result = jourclass.concat("Jour0", journeechoisie);
+                    div4.className = result;
+                    let select2 = document.createElement("select");
+                    select2.name = "Plage2"; select2.id = "CoursPlage2";
+                    let option2 = document.createElement("option");
+                    option2.value = "Plage2"; option2.disabled = true; option2.textContent = "Plage 2 [10h30 - 12h30]";
+                    let repos2 = document.createElement("option");
+                    repos2.value = "Aucun cours ne m'intéresse"; repos2.textContent = "Aucun cours ne m'intéresse";
+
+                    let div5 = document.createElement("div");
+                    jourclass = "sel sel--Plage03";
+                    result = jourclass.concat("Jour0", journeechoisie);
+                    div5.className = result;
+                    let select3 = document.createElement("select");
+                    select3.name = "Plage3"; select3.id = "CoursPlage3";
+                    let option3= document.createElement("option");
+                    option3.value = "Plage3"; option3.disabled = true; option3.textContent = "Plage 3 [13h30 - 15h30]";
+                    let repos3 = document.createElement("option");
+                    repos3.value = "Aucun cours ne m'intéresse"; repos3.textContent = "Aucun cours ne m'intéresse";
+
+                    
+                    let div6 = document.createElement("div");
+                    jourclass = "sel sel--Plage04";
+                    result = jourclass.concat("Jour0", journeechoisie);
+                    div6.className = result;
+                    let select4 = document.createElement("select");
+                    select4.name = "Plage4"; select4.id = "CoursPlage4";
+                    let option4= document.createElement("option");
+                    option4.value = "Plage4"; option4.disabled = true; option4.textContent = "Plage 4 [15h30 - 17h30]";
+                    let repos4 = document.createElement("option");
+                    repos4.value = "Aucun cours ne m'intéresse"; repos4.textContent = "Aucun cours ne m'intéresse";
+
+                    /* ------------------------------------------------ */
+
+                    ContainerJournee.appendChild(etape);
+                    etape.appendChild(span1);
+                    etape.appendChild(div2);
+                    div2.appendChild(div3);
+                    div3.appendChild(select);
+                    select.appendChild(option1);
+                    select.appendChild(repos);
+
+                    div2.appendChild(div4);
+                    div4.appendChild(select2);
+                    select2.appendChild(option2);
+                    select2.appendChild(repos2);
+
+                    div2.appendChild(div5);
+                    div5.appendChild(select3);
+                    select3.appendChild(option3);
+                    select3.appendChild(repos3);
+
+                    div2.appendChild(div6);
+                    div6.appendChild(select4);
+                    select4.appendChild(option4);
+                    select4.appendChild(repos4);
+
+                    
+                }
+                TranformSelect();
+                AjoutStepDocument();
+                AffichageNextStep(n);    
+            }
+            
         }
         else if (currentTab == 0) // JE SUIS PREMIERE PAGE DONC JE VERIFIE LES CHAMPS
         {
@@ -695,13 +605,6 @@ function ClickBoutonFormulaire(n)
     }
 }
 
-function RemoveErrorForm()
-{
-    let Form = document.getElementsByClassName("login100-form validate-form");
-    for (let p = 0 ; p < Form.length;p++)
-        Form[p].classList.remove("ErrorForm");
-}
-
 function AffichageNextStep(n)
 {
     document.getElementsByClassName("step")[currentTab].className += " finish";
@@ -790,7 +693,6 @@ function CheckChampFormulaire()
         }
 
     }
-
     return check;
 }
 
@@ -849,38 +751,4 @@ function NotUnique()
 function Unique()
 {
     boolean = true;
-}
-
-function showAll (input)
-{
-    var thisAlert = $(input).parent();
-    $(thisAlert).addClass('alert-validate');
-}
-
-function showValidate(input) {
-    var thisAlert = $(input).parent();
-
-    $(thisAlert).addClass('faux');
-}
-
-function showValidateNotUnique(input) {
-    var thisAlert = $(input).parent();
-
-    $(thisAlert).addClass('notunique');
-}
-
-function hideValidateNotUnique(input) {
-    var thisAlert = $(input).parent();
-    $(thisAlert).removeClass('notunique');
-}
-
-function hideValidate(input) {
-    var thisAlert = $(input).parent();
-    $(thisAlert).removeClass('faux');
-}
-
-function hideAll(input)
-{
-    var thisAlert = $(input).parent();
-    $(thisAlert).removeClass('alert-validate');
 }

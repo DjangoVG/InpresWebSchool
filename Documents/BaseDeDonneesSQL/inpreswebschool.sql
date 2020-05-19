@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 17 mai 2020 à 21:49
--- Version du serveur :  5.7.26
--- Version de PHP :  7.2.18
+-- Généré le :  mar. 19 mai 2020 à 10:59
+-- Version du serveur :  10.4.10-MariaDB
+-- Version de PHP :  7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -69,6 +69,9 @@ CREATE TABLE IF NOT EXISTS `assister` (
 --
 
 INSERT INTO `assister` (`AdresseMail`, `IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
+('belgianair@gmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
+('belgianair@gmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
+('belgianair@gmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
 ('regis3d@hotmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
 ('regis3d@hotmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
 ('regis3d@hotmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
@@ -97,11 +100,13 @@ CREATE TABLE IF NOT EXISTS `choisir` (
 --
 
 INSERT INTO `choisir` (`AdresseMail`, `IdSection`) VALUES
-('redgis4d@hotmail.com', 1),
+('belgianair@gmail.com', 1),
+('regids4d@hotmail.com', 1),
 ('regis3d@hotmail.com', 1),
 ('regis3d@hotmail.com', 2),
 ('regis4d@hotmail.com', 1),
-('regis4dsd@hotmail.com', 1);
+('regis4dd@hotmail.com', 1),
+('regis4dd@hotmail.com', 2);
 
 -- --------------------------------------------------------
 
@@ -347,7 +352,8 @@ INSERT INTO `cours` (`NomCours`, `HeureDebut`, `HeureFin`, `ReprisDansListe`, `I
 ('Réseau TCP/IP', '10:30:00', '12:30:00', 1, 23, 2, 'PV8'),
 ('Développement orientée objet - JAVA', '13:30:00', '15:30:00', 1, 24, 2, 'PV8'),
 ('Développement orientée objet - JAVA', '13:30:00', '15:30:00', 1, 23, 2, 'PV9'),
-('Réseaux et programmation réseaux', '15:30:00', '17:00:00', 1, 24, 2, 'PV9');
+('Réseaux et programmation réseaux', '15:30:00', '17:00:00', 1, 24, 2, 'PV9'),
+('Test', '00:00:00', '00:00:00', 1, 2, 1, 'AX');
 
 -- --------------------------------------------------------
 
@@ -361,7 +367,8 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
   `Nom` varchar(50) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
   `EtablissementScolaire` varchar(50) DEFAULT NULL,
-  `cle` tinyint(4) NOT NULL DEFAULT '0',
+  `cle` varchar(300) NOT NULL DEFAULT '0',
+  `validation` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`AdresseMail`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -369,11 +376,13 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
 -- Déchargement des données de la table `etudiant`
 --
 
-INSERT INTO `etudiant` (`AdresseMail`, `Nom`, `Prenom`, `EtablissementScolaire`, `cle`) VALUES
-('regis4d@hotmail.com', 'Evrard', 'Régis', 'Collège Saint-Louis', 0),
-('isen.claes@gmail.com', 'Claes', 'Isen', 'Collège du Sartay', 0),
-('belgianair@gmail.com', 'Belgian', 'Air', 'Institut de Notre-Dames de Paris', 0),
-('regis3d@hotmail.com', 'Dubois', 'Lucas', 'Collège du bois', 0);
+INSERT INTO `etudiant` (`AdresseMail`, `Nom`, `Prenom`, `EtablissementScolaire`, `cle`, `validation`) VALUES
+('regis4d@hotmail.com', 'Evrard', 'Régis', 'Collège Saint-Louis', '0', 0),
+('isen.claes@gmail.com', 'Claes', 'Isen', 'Collège du Sartay', '0', 0),
+('regis3d@hotmail.com', 'Dubois', 'Lucas', 'Collège du bois', '0', 1),
+('belgianair@gmail.com', 'Dubois', 'Loic', '', '2b713874bf5861a971fc0bd5ec5cabeb', 1),
+('regids4d@hotmail.com', 'Evrard', 'Régis', '', '32fc18b1d489b97a68904a7f7556b720', 0),
+('regis4dd@hotmail.com', 'Evrard', 'Régis', '', '7944cdba480d68d8752319744c48a716', 0);
 
 -- --------------------------------------------------------
 
@@ -437,6 +446,7 @@ CREATE TABLE IF NOT EXISTS `inscrire` (
 --
 
 INSERT INTO `inscrire` (`AdresseMail`, `IdJournee`) VALUES
+('belgianair@gmail.com', 1),
 ('regis3d@hotmail.com', 1),
 ('regis3d@hotmail.com', 2),
 ('regis4d@hotmail.com', 1);

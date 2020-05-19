@@ -1,3 +1,4 @@
+document.write('<script type="text/javascript" src="js/util.js" ></script>');
 var currentTabAdmin = 0;
 var admin = true;
 (function($) 
@@ -165,7 +166,7 @@ function ConnexionAdmin()
     if (!admin)
         return false;
     else
-    return true;
+        return true;
 }
 
 function MauvaisAdmin()
@@ -185,10 +186,16 @@ function showTabAdmin(current)
         RechercheSections();
     else if (page[0].textContent == "Consultation des locaux")
         RechercheLocal();
+    else if (page[0].textContent == "Consultation des étudiants")
+    {
+        document.getElementById("nextBtn").innerHTML = "ACCEUIL";
+    }
+    else if (page[0].textContent == "Consultation des cours")
+    {
+        document.getElementById("nextBtn").innerHTML = "ACCEUIL";
+    }
     else
     {
-        var x = document.getElementsByClassName("etape");
-        x[current].style.display = "block";
         if (page[0].textContent == "Ajouter un cours")
         {
             document.getElementById("nextBtn").innerHTML = "CONTINUER";
@@ -196,73 +203,118 @@ function showTabAdmin(current)
                 document.getElementById("prevBtn").innerHTML = "ACCEUIL";
             else
                 document.getElementById("prevBtn").innerHTML = "RETOUR";
-            if (current == 1)
+            if (current == 4)
             {
-                let ContainerProfesseur = document.getElementById("ContainerProfesseur");
+                var u = document.getElementsByClassName("etape");
+                if (u.length > 4)
+                {
+                    SupprimerGroupes();
+                    RechercheGroupes();
+                }
+                else
+                {
+                    let ContainerProfesseur = document.getElementById("ContainerProfesseur");
 
-                let etape = document.createElement("div");
-                etape.style = "display: none";
-                etape.className = "etape";
+                    let etape = document.createElement("div");
+                    etape.style = "display: none";
+                    etape.className = "etape";
 
-                let span1 = document.createElement("span");
-                span1.className = "login100-form-title p-b-41";
-                span1.textContent = "LISTE DES PROFESSEURS";
+                    let span1 = document.createElement("span");
+                    span1.className = "login100-form-title p-b-41";
+                    span1.textContent = "LISTE DES PROFESSEURS";
 
-                let div2 = document.createElement("div");
-                div2.className = "login100-form validate-form p-b-33 p-t-5 ProfForm";
-                div2.id = "Form_Prof";
+                    let div2 = document.createElement("div");
+                    div2.className = "login100-form validate-form p-b-33 p-t-5 ProfForm";
+                    div2.id = "Form_Prof";
 
-                let div3 = document.createElement("div");
-                div3.className = "sel";
-                div3.id = "ListProf";
-                let select = document.createElement("select");
-                select.name = "Plage1"; select.id = "CoursPlage1";
-                let option1 = document.createElement("option");
-                option1.value = "Plage1"; option1.disabled = true; option1.textContent = "Selectionner un professeur"; 
+                    let div3 = document.createElement("div");
+                    div3.className = "sel";
+                    div3.id = "ListProf";
+                    let select = document.createElement("select");
+                    select.name = "Plage1"; select.id = "CoursPlage1";
+                    let option1 = document.createElement("option");
+                    option1.value = "Plage1"; option1.disabled = true; option1.textContent = "Selectionner un professeur"; 
+                    
+                    
+                    ContainerProfesseur.appendChild(etape);
+                    etape.appendChild(span1);
+                    etape.appendChild(div2);
+                    div2.appendChild(div3);
+                    div3.appendChild(select);
+                    select.appendChild(option1);
+
+                    let ContainerLocaux = document.getElementById("ContainerLocaux");
+
+                    etape = document.createElement("div");
+                    etape.style = "display: none";
+                    etape.className = "etape";
+
+                    span1 = document.createElement("span");
+                    span1.className = "login100-form-title p-b-41";
+                    span1.textContent = "LISTE DES LOCAUX";
+
+                    div2 = document.createElement("div");
+                    div2.className = "login100-form validate-form p-b-33 p-t-5 LocauxForm";
+                    div2.id = "Form_Locaux";
+
+                    div3 = document.createElement("div");
+                    div3.className = "sel";
+                    div3.id = "ListLocaux";
+                    select = document.createElement("select");
+                    select.name = "Plage1"; select.id = "CoursPlage1";
+                    option1 = document.createElement("option");
+                    option1.value = "Plage1"; option1.disabled = true; option1.textContent = "Selectionner un local"; 
+                    
+                    
+                    ContainerLocaux.appendChild(etape);
+                    etape.appendChild(span1);
+                    etape.appendChild(div2);
+                    div2.appendChild(div3);
+                    div3.appendChild(select);
+                    select.appendChild(option1);
+
+                    let ContainerGroupes = document.getElementById("ContainerGroupes");
+
+                    etape = document.createElement("div");
+                    etape.style = "display: none";
+                    etape.className = "etape";
+
+                    span1 = document.createElement("span");
+                    span1.className = "login100-form-title p-b-41";
+                    span1.textContent = "LISTE DES GROUPES CORRESPONDANT A LA SECTION";
+
+                    div2 = document.createElement("div");
+                    div2.className = "login100-form validate-form p-b-33 p-t-5 LocauxForm";
+                    div2.id = "Form_Groupes";
+
+                    div3 = document.createElement("div");
+                    div3.className = "sel";
+                    div3.id = "ListGroupes";
+                    select = document.createElement("select");
+                    select.name = "Plage1"; select.id = "CoursPlage1";
+                    option1 = document.createElement("option");
+                    option1.value = "Plage1"; option1.disabled = true; option1.textContent = "Selectionner un groupe"; 
+                    
+                    
+                    ContainerGroupes.appendChild(etape);
+                    etape.appendChild(span1);
+                    etape.appendChild(div2);
+                    div2.appendChild(div3);
+                    div3.appendChild(select);
+                    select.appendChild(option1);
+                    TranformSelect();  
+                    RechercheProf();  
+                    RechercheLocaux();  
+                    RechercheGroupes();   
+                }
                 
-                
-                ContainerProfesseur.appendChild(etape);
-                etape.appendChild(span1);
-                etape.appendChild(div2);
-                div2.appendChild(div3);
-                div3.appendChild(select);
-                select.appendChild(option1);
-
-                let ContainerLocaux = document.getElementById("ContainerLocaux");
-
-                etape = document.createElement("div");
-                etape.style = "display: none";
-                etape.className = "etape";
-
-                span1 = document.createElement("span");
-                span1.className = "login100-form-title p-b-41";
-                span1.textContent = "LISTE DES LOCAUX";
-
-                div2 = document.createElement("div");
-                div2.className = "login100-form validate-form p-b-33 p-t-5 ProfForm";
-                div2.id = "Form_Locaux";
-
-                div3 = document.createElement("div");
-                div3.className = "sel";
-                div3.id = "ListLocaux";
-                select = document.createElement("select");
-                select.name = "Plage1"; select.id = "CoursPlage1";
-                option1 = document.createElement("option");
-                option1.value = "Plage1"; option1.disabled = true; option1.textContent = "Selectionner un local"; 
-                
-                
-                ContainerLocaux.appendChild(etape);
-                etape.appendChild(span1);
-                etape.appendChild(div2);
-                div2.appendChild(div3);
-                div3.appendChild(select);
-                select.appendChild(option1);
-                TranformSelect();  
-                RechercheProf();  
-                RechercheLocaux(); 
+                 
             }
-            else if (current == 3)
+            else if (current == 6)
                 document.getElementById("nextBtn").innerHTML = "ENVOYER";
+
+            var x = document.getElementsByClassName("etape");
+            x[current].style.display = "block";
         }
         else
         {
@@ -273,15 +325,43 @@ function showTabAdmin(current)
             }
             else if (current == 1 || current == 2)
             {
-                document.getElementById("nextBtn").innerHTML = "CONTINUER";
-                document.getElementById("prevBtn").innerHTML = "SE DECONNECTER";     
+                if (page[0].textContent == "Page d'administration")
+                {
+                    document.getElementById("nextBtn").style.display = "none";
+                    document.getElementById("prevBtn").style.display = "inline";
+                    document.getElementById("prevBtn").innerHTML = "SE DECONNECTER";  
+                }
+                else
+                {
+                    document.getElementById("nextBtn").innerHTML = "CONTINUER";
+                    document.getElementById("prevBtn").innerHTML = "SE DECONNECTER";                     
+                }
+    
             }    
             else
             {
                 document.getElementById("nextBtn").innerHTML = "CONTINUER";
                 document.getElementById("prevBtn").innerHTML = "RETOUR";     
-            }   
+            }  
+            var x = document.getElementsByClassName("etape");
+            x[current].style.display = "block"; 
         }
+    }
+}
+
+function SupprimerGroupes()
+{
+    console.log("Je tente de supprimer des groupes");
+
+    let groupe = "sel__box__options Bloc";
+    var list = document.getElementsByClassName(groupe);
+    for(let i = list.length - 1; i > 0; i--)
+    {
+        if(list[i] && list[i].parentElement)
+        {
+            console.log("Suppression groupes");
+            list[i].parentElement.removeChild(list[i]); 
+        }            
     }
 }
 
@@ -357,17 +437,117 @@ function RechercheLocaux()
     });
 }
 
+function RechercheGroupes()
+{
+    console.log("Je passe dans RechercheGroupes");
+
+    var bloc; // JE RECUPERE LE BLOC CHOISI
+    var blocs = document.getElementsByClassName("inputBloc clique");
+    bloc =  $(blocs[0]).children().first().prop("name");
+
+    if (bloc.includes("Bloc 1"))
+        blo = 1;
+    else if (bloc.includes("Bloc 2"))
+        blo = 2;
+    else
+        blo = 3;
+
+    var section = []; // JE RECUPERE LES SECTIONS
+    let i = 0;
+    var sections = document.getElementsByClassName("inputJournee clique");
+    $.each(sections, function() // Récupère les différentes sections choisies
+    {
+        section.push($(sections[i]).children().first().prop("name")); 
+        i++;
+    });
+
+
+
+    for (let i = 0; i < section.length; i++)
+    {
+        if (section[i] == "Informatique de Gestion")
+            section[i] = 1;
+        else if (section[i] == "Informatique finalité : Industrielle")
+            section[i] = 2;
+        else
+            section[i] = 3;
+    }  
+
+    $.ajax({
+        url : "php/RechercheGroupes.php",
+        method : "POST",
+        dataType : "JSON",
+        data : {
+            bloc : blo,
+            section : section
+        },
+        success : function(result)
+        {
+            if (result['erreur']) return;
+
+            var $current = $("#ListGroupes");
+            result['groupes'].forEach(elem=>
+            {
+                $current.children('div').append($('<span>', {
+                class: $current.attr('class').replace(/sel/g, 'sel__box__options Bloc'),
+                text: elem['IdGroupe']
+                }));
+
+                $('.sel__box__options').click(function() {
+                    var txt = $(this).text();
+                    var index = $(this).index();
+                    
+                    $(this).siblings('.sel__box__options').removeClass('selected');
+                    $(this).addClass('selected');
+                    
+                    var $currentSel = $(this).closest('.sel');
+                    $currentSel.children('.sel__placeholder').text(txt);
+                    $currentSel.children('select').prop('selectedIndex', index + 1);
+                });
+            });
+        }
+    });
+}
+
 function AffichageNextStepAdmin(n)
 {
-    if (n == 1 && currentTabAdmin == 0)
+    if (n == 1)
+    {
+        if (currentTabAdmin == 0)
+        {
+            if (ConnexionAdmin())
+            {
+                var x = document.getElementsByClassName("etape");
+                    
+                x[currentTabAdmin].style.display = "none";
+                currentTabAdmin += n;
+                
+                showTabAdmin(currentTabAdmin);   
+            }
+            else
+            {
+                let Form = document.getElementById("FormmLogin");
+                Form.classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);
+            }            
+        }
+
+    } 
+    else if (n == -1)
+    {
+        if (currentTabAdmin == 0)
+            document.location.href = "index.html";
+        else
+        {
+            document.getElementById("nextBtn").style.display = "inline";
+            document.location.href = "admin.html";
+        }
+    }
+        
+    else
     {
         document.getElementById("nextBtn").style.display = "none";
         document.getElementById("prevBtn").style.display = "inline";
-    } 
-    if (n == -1 && currentTabAdmin == 0)
-        document.location.href = "index.html";
-    else
-    {
         var x = document.getElementsByClassName("etape");
                 
         x[currentTabAdmin].style.display = "none";
@@ -375,48 +555,6 @@ function AffichageNextStepAdmin(n)
         
         showTabAdmin(currentTabAdmin);         
     }
-
-}
-
-function ClickSection(n) // Je clique sur une section (modification de sa classe)
-{
-    var i, x = document.getElementsByClassName("inputGroup");
-    for (i = 0; i < x.length; i++) 
-    {
-        if (n == i)
-        {
-            if (x[i].className == "inputGroup clique") 
-                x[i].className = "inputGroup";
-            else
-                x[i].className = "inputGroup clique";            
-        }
-    }
-
-    let page = document.getElementsByTagName("title");
-    if (page[0].textContent == "Consultation des cours")
-        RechercheCours();
-    else if (page[0].textContent == "Consultation des étudiants")
-        RechercheEtudiant();
-}
-
-function ClickJournee(n) // Je clique sur une journee (modification de sa classe)
-{
-    var i, x = document.getElementsByClassName("inputJournee");
-    for (i = 0; i < x.length; i++) 
-    {
-        if (n == i)
-        {
-            if (x[i].className == "inputJournee clique") 
-                x[i].className = "inputJournee";
-            else
-                x[i].className = "inputJournee clique";            
-        }
-    }
-    let page = document.getElementsByTagName("title");
-    if (page[0].textContent == "Consultation des cours")
-        RechercheCours();
-    else if (page[0].textContent == "Consultation des étudiants")
-        RechercheEtudiant();
 }
 
 function RechercheCours()
@@ -669,96 +807,161 @@ function SupprimerLignes(bool)
 
 function NextStepCours(n)
 {
-    document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
-    var x = document.getElementsByClassName("etape");
-            
-    x[currentTabAdmin].style.display = "none";
-    currentTabAdmin += n;
-
-    if (currentTabAdmin == x.length) // JE VALIDE LE DOCUMENT
+    if (n == 1)
     {
-        AjouterCours();
-        document.getElementById("regForm").submit();
-        return false;
+        if (currentTabAdmin == 0) // INFOS DU COURS
+        {
+            if (CheckChampsCours())
+            {
+                document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
+                var x = document.getElementsByClassName("etape");
+                x[currentTabAdmin].style.display = "none";
+                currentTabAdmin += n;
+                showTabAdmin(currentTabAdmin); 
+            }
+        }
+        else if (currentTabAdmin == 1)  // TYPE DE COURS
+        {
+            let type = document.getElementsByClassName("inputGroup clique");
+            if (type.length > 1 || type.length == 0)
+            {
+                let Form = document.getElementById("Ajout_Cours");
+                Form.classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);
+            }
+            else
+            {
+                document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
+                var x = document.getElementsByClassName("etape");
+                x[currentTabAdmin].style.display = "none";
+                currentTabAdmin += n;
+                showTabAdmin(currentTabAdmin); 
+            }
+        }
+        else if (currentTabAdmin == 2) // SECTIONS
+        {
+            let type = document.getElementsByClassName("inputJournee clique");
+            if (type.length == 0)
+            {
+                let Form = document.getElementById("Ajout_SectionAdmin");
+                Form.classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);
+            }
+            else
+            {
+                document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
+                var x = document.getElementsByClassName("etape");
+                x[currentTabAdmin].style.display = "none";
+                currentTabAdmin += n;
+                showTabAdmin(currentTabAdmin); 
+            }
+        }
+        else if (currentTabAdmin == 3) // BLOC
+        {
+            let type = document.getElementsByClassName("inputBloc clique");
+            if (type.length == 0 || type.length > 1)
+            {
+                let Form = document.getElementById("Ajout_Bloc");
+                Form.classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);
+            }
+            else
+            {
+                document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
+                var x = document.getElementsByClassName("etape");
+                x[currentTabAdmin].style.display = "none";
+                currentTabAdmin += n;
+                showTabAdmin(currentTabAdmin); 
+            }
+        }
+        else if (currentTabAdmin == 4 || currentTabAdmin == 5 || currentTabAdmin == 6) // FULL SELECT BOX
+        {
+            
+            let etapes = document.getElementsByClassName("etape");
+            let etape = etapes[currentTabAdmin].children[1].children;
+            if (etape[0].children[0].textContent.includes("Selectionner"))
+            {
+                let Form;
+                if (currentTabAdmin == 4)
+                    Form = document.getElementById("Form_Groupes");
+                else if (currentTabAdmin == 5)
+                    Form = document.getElementById("Form_Prof");
+                else if (currentTabAdmin == 6)
+                    Form = document.getElementById("Form_Locaux");
+                Form.classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);                          
+            }
+            else
+            {
+                if (currentTabAdmin == 6)
+                {
+                    AjouterCours();
+                    //document.getElementById("regForm").submit();
+                    return false;  
+                }
+                else
+                {
+                    document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
+                    var x = document.getElementsByClassName("etape");
+                    x[currentTabAdmin].style.display = "none";
+                    currentTabAdmin += n;
+                    showTabAdmin(currentTabAdmin);   
+                }               
+            }
+        }    
     }
-
-    console.log(currentTabAdmin);
-    if (currentTabAdmin == -1 && n == -1)
+    else if (currentTabAdmin == -1 && n == -1)
+    {
         document.location.href = "admin.html";
-    
-    showTabAdmin(currentTabAdmin); 
-
+    }
+    else // JE RECULE 
+    {
+        var x = document.getElementsByClassName("etape");
+        x[currentTabAdmin].style.display = "none";
+        currentTabAdmin += n;
+        showTabAdmin(currentTabAdmin);   
+    }
 }
 
-function TranformSelect()
-{
-    console.log("Transformation des selects");
-    $('.sel').each(function() 
-    {
-        $(this).children('select').css('display', 'none');
-        
-        var $current = $(this);
-        
-        $(this).find('option').each(function(i) 
-        {
-          if (i == 0) 
-          {
-            $current.prepend($('<div>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__box')
-            }));
-            
-            var placeholder = $(this).text();
-            $current.prepend($('<span>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__placeholder'),
-              text: placeholder,
-              'data-placeholder': placeholder
-            }));
-            
-            return;
-          }
-          
-          $current.children('div').append($('<span>', {
-            class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-            text: $(this).text()
-          }));
-        });
-      });
-      
-      // Toggling the `.active` state on the `.sel`.
-      $('.sel').click(function() {
-        $(this).toggleClass('active');
-      });
-      
-      // Toggling the `.selected` state on the options.
-      $('.sel__box__options').click(function() {
-        var txt = $(this).text();
-        var index = $(this).index();
-        
-        $(this).siblings('.sel__box__options').removeClass('selected');
-        $(this).addClass('selected');
-        
-        var $currentSel = $(this).closest('.sel');
-        $currentSel.children('.sel__placeholder').text(txt);
-        $currentSel.children('select').prop('selectedIndex', index + 1);
-      });
+function CheckChampsCours() {
+    var input = $('.validate-input .input100');
+    var check = true;
 
-      var showPass = 0;
-      $('.btn-show-pass').on('click', function()
-      {
-          if(showPass == 0) 
-          {
-              $(this).next('input').attr('type','text');
-              $(this).addClass('active');
-              showPass = 1;
-          }
-          else 
-          {
-              $(this).next('input').attr('type','password');
-              $(this).removeClass('active');
-              showPass = 0;
-          }
-          
-      });
+    for(var i=0; i<input.length; i++)
+    {
+        if(!ValidationChamp(input[i]))
+        {
+            showAll(input[i]);
+            showValidate(input[i]);
+            check=false;
+        }
+        else
+        {
+            hideAll(input[i]);
+            hideValidate(input[i]);
+        }
+    }
+    return check;
+}
+
+function ValidationChamp(input)
+{
+    if (input.name == "NomCours") // NOM DU COURS
+    {
+        if($(input).val().trim() == '')
+            return false;
+    }
+    else if (input.name == "HeureDebut" || input.name == "HeureFin") // HEURE
+    {
+        if($(input).val().trim().match(/(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)/) == null)
+            return false;
+    }
+    else // REPRIS DANS LISTE
+    {
+        if($(input).val().trim().match(/1|0/) == null) // A MODIF
+            return false;
+    }
+    return true;
 }
 
 /* ---------------------------------------------- */
@@ -796,17 +999,61 @@ function RefAjouterCours()
 function AjouterCours()
 {
     console.log("J'ajoute un cours");
-
-    var typecours = [];
-    var i = 0;
+    var typecours;
     var type2 = document.getElementsByClassName("inputGroup clique");
-    $.each(type2, function() // Récupère les différentes sections choisies
+
+    typecours = $(type2[0]).children().first().prop("name"); 
+
+
+    var sections = [];
+    let i = 0;
+    var section2 = document.getElementsByClassName("inputJournee clique");
+    $.each(section2, function() // Récupère les différentes sections choisies
     {
-        typecours.push($(type2[i]).children().first().prop("name")); 
+        sections.push($(section2[i]).children().first().prop("name")); 
         i++;
     });
 
-    // TO DO
+    let prof = document.getElementsByClassName("login100-form validate-form p-b-33 p-t-5 ProfForm");
+    let locaux = document.getElementsByClassName("login100-form validate-form p-b-33 p-t-5 LocauxForm");
+    
+
+    console.log($("#NomCours").val());
+    console.log($("#HeureDébut").val());
+    console.log($("#HeureFin").val());
+    console.log(typecours);
+    console.log(prof[0].children[0].children[0].textContent);
+    console.log(locaux[0].children[0].children[0].textContent);
+
+    $.ajax({
+        url : "php/AjouterCours.php",
+        method : "POST",
+        dataType : "JSON",
+        data : {
+            nomcours : $("#NomCours").val(),
+            heuredebut : $("#HeureDébut").val(),
+            heurefin : $("#HeureFin").val(),
+            type : typecours,
+            prof : prof[0].children[0].children[0].textContent,
+            local : locaux[0].children[0].children[0].textContent,
+            repris : $("#ReprisListe").val(),
+        },
+        success : function(result)
+        {
+            if(result['erreur']){
+                alert('CE COURS EXISTE DEJA');
+            }
+            else
+            {
+                alert('NEXISTE PAS');
+                //document.location.href="admin.html";
+            }   
+        },
+        error : function ()
+        {
+            alert('error');
+        }
+    });
 
 
 

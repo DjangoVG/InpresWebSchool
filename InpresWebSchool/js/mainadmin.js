@@ -622,7 +622,7 @@ function RechercheCours()
 
                 let tdType = document.createElement("td");
                 tdType.className = "cell100 column6";
-                tdType.textContent = elem['IdType'];
+                tdType.textContent = elem['NomType'];
                 tr.appendChild(tdType);
 
                 let tdLocal = document.createElement("td");

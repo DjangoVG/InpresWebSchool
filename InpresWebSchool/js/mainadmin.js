@@ -1,30 +1,24 @@
 document.write('<script type="text/javascript" src="js/util.js" ></script>');
 var currentTabAdmin = 0;
 var admin = true;
+var gomodif = false; // SI COLLECTIF TRUE POUR RECHERCHE LES GROUPES AVANT
 (function($) 
 {
-    showTabAdmin(currentTabAdmin); // Affiche la premiere page du formulaire
+    let page = document.getElementsByTagName("title");
+    if (page[0].textContent == "Page d'administration" && sessionStorage.getItem("connecte") == "1")
+    {
+        console.log("here");
+        var x = document.getElementsByClassName("etape");
+                        
+        x[currentTabAdmin].style.display = "none";
+        currentTabAdmin += 1;
+        
+        showTabAdmin(currentTabAdmin);        
+    }
+    else
+        showTabAdmin(currentTabAdmin); // Affiche la premiere page du formulaire
+
     "use strict";
-   /* $('.column100').on('mouseover',function(){
-		var table1 = $(this).parent().parent().parent();
-		var table2 = $(this).parent().parent();
-		var verTable = $(table1).data('vertable')+"";
-		var column = $(this).data('column') + ""; 
-
-		$(table2).find("."+column).addClass('hov-column-'+ verTable);
-		$(table1).find(".row100.head ."+column).addClass('hov-column-head-'+ verTable);
-	});
-
-	$('.column100').on('mouseout',function(){
-		var table1 = $(this).parent().parent().parent();
-		var table2 = $(this).parent().parent();
-		var verTable = $(table1).data('vertable')+"";
-		var column = $(this).data('column') + ""; 
-
-		$(table2).find("."+column).removeClass('hov-column-'+ verTable);
-		$(table1).find(".row100.head ."+column).removeClass('hov-column-head-'+ verTable);
-    });*/
-
 })(jQuery);
 
 
@@ -56,6 +50,7 @@ function ConnexionAdmin()
             },
             success : function(result)
             {
+                sessionStorage.setItem("connecte","1");
                 return true;
             },
             error : function (result)
@@ -119,7 +114,7 @@ function showTabAdmin(current)
                 document.getElementById("prevBtn").innerHTML = "ACCEUIL";
             else
                 document.getElementById("prevBtn").innerHTML = "RETOUR";
-            if (current == 4)
+            if (current == 4 || gomodif == true)
             {
                 var u = document.getElementsByClassName("etape");
                 if (u.length > 4)
@@ -222,10 +217,10 @@ function showTabAdmin(current)
                     RechercheProf();  
                     RechercheLocaux();  
                     RechercheGroupes();   
-                }
-                
-                 
+                } 
             }
+            else if (current == 5 && gomodif == true)
+                document.getElementById("nextBtn").innerHTML = "ENVOYER";
             else if (current == 6)
                 document.getElementById("nextBtn").innerHTML = "ENVOYER";
 
@@ -478,6 +473,12 @@ function AffichageNextStepAdmin(n)
     {
         if (currentTabAdmin == 0)
             document.location.href = "index.html";
+        else if (currentTabAdmin == 1)
+        {
+            sessionStorage.setItem("connecte", "0");
+            document.getElementById("nextBtn").style.display = "inline";
+            document.location.href = "admin.html";
+        }
         else
         {
             document.getElementById("nextBtn").style.display = "inline";
@@ -796,11 +797,21 @@ function NextStepCours(n)
             }
             else
             {
-                document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
-                var x = document.getElementsByClassName("etape");
-                x[currentTabAdmin].style.display = "none";
-                currentTabAdmin += n;
-                showTabAdmin(currentTabAdmin); 
+                let collectif = document.getElementsByClassName("inputCollectif clique");
+                if (type.length == 1 && collectif.length == 1)
+                {
+                    let Form = document.getElementById("Ajout_SectionAdmin");
+                    Form.classList.add("ErrorForm");
+                    setTimeout(RemoveErrorForm, 1300);
+                }
+                else
+                {
+                    document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
+                    var x = document.getElementsByClassName("etape");
+                    x[currentTabAdmin].style.display = "none";
+                    currentTabAdmin += n;
+                    showTabAdmin(currentTabAdmin);                     
+                }
             }
         }
         else if (currentTabAdmin == 3) // BLOC
@@ -814,16 +825,28 @@ function NextStepCours(n)
             }
             else
             {
-                document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
-                var x = document.getElementsByClassName("etape");
-                x[currentTabAdmin].style.display = "none";
-                currentTabAdmin += n;
-                showTabAdmin(currentTabAdmin); 
+                let collectif = document.getElementsByClassName("inputCollectif clique");
+                if (collectif.length == 1)
+                {
+                    document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
+                    var x = document.getElementsByClassName("etape");
+                    x[currentTabAdmin].style.display = "none";
+                    currentTabAdmin += 2;
+                    gomodif = true;
+                    showTabAdmin(currentTabAdmin); 
+                }
+                else
+                {
+                    document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
+                    var x = document.getElementsByClassName("etape");
+                    x[currentTabAdmin].style.display = "none";
+                    currentTabAdmin += n;
+                    showTabAdmin(currentTabAdmin); 
+                }
             }
         }
         else if (currentTabAdmin == 4 || currentTabAdmin == 5 || currentTabAdmin == 6) // FULL SELECT BOX
         {
-            
             let etapes = document.getElementsByClassName("etape");
             let etape = etapes[currentTabAdmin].children[1].children;
             if (etape[0].children[0].textContent.includes("Selectionner"))
@@ -854,7 +877,7 @@ function NextStepCours(n)
                     currentTabAdmin += n;
                     showTabAdmin(currentTabAdmin);   
                 }               
-            }
+            } 
         }    
     }
     else if (currentTabAdmin == -1 && n == -1)
@@ -1030,6 +1053,9 @@ function AjouterCours()
     else
         jour = 5;
 
+
+    console.log(sections);
+    alert('');
     $.ajax({
         url : "php/AjouterCours.php",
         method : "POST",

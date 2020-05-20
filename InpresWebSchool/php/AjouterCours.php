@@ -53,35 +53,12 @@
                     {
                         $select = 'SELECT IdGroupe FROM groupe WHERE IdSection = '; $select .= $sections[$j]; $select .= ' AND BlocGroupe = '; $select .= $_POST['bloc'];
                         $stmt2 = $bdd->query($select);
-
                         while ($row = $stmt2->fetch_assoc())
                         {
                             $stmt3 = $bdd->prepare('INSERT INTO prevoir (IdGroupe, NomCours, HeureDebut, HeureFin, IdProfesseur) VALUES (?, ?, ?, ?, ?)');
                             $stmt3->bind_param("isssi",$row['IdGroupe'], $_POST['nomcours'],$_POST['heuredebut'], $_POST['heurefin'], $idprof);
-                            if($stmt3->execute())
-                            {
-                                $stmt = $bdd->prepare('INSERT INTO composer (IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) VALUES (?, ?, ?, ?, ?)');
-                                $stmt->bind_param("isssi",$_POST['jour'], $_POST['nomcours'],$_POST['heuredebut'], $_POST['heurefin'], $idprof);
-                                if($stmt->execute())
-                                {
-                                    $return['erreur'] = false;
-                                    $return['message'] = "1/ Probleme dinsertion dans prevoir";
-                                    echo json_encode($return);
-                                }
-                                else
-                                {
-                                    $return['erreur'] = true;
-                                    $return['message'] = "1/ Probleme dinsertion dans prevoir";
-                                    echo json_encode($return);
-                                }
-                            }
-                            else
-                            {
-                                $return['erreur'] = true;
-                                $return['message'] = "1/ Probleme dinsertion dans prevoir";
-                                echo json_encode($return);
-                            }  
-                        }                       
+                            $stmt3->execute() ;
+                        }
                     }        
                     else
                     {
@@ -89,6 +66,20 @@
                         $return['message'] = "1/ Probleme dinsertion dans concerner";
                         echo json_encode($return);
                     }
+                }
+                $stmt = $bdd->prepare('INSERT INTO composer (IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) VALUES (?, ?, ?, ?, ?)');
+                $stmt->bind_param("isssi",$_POST['jour'], $_POST['nomcours'],$_POST['heuredebut'], $_POST['heurefin'], $idprof);
+                if($stmt->execute())
+                {
+                    $return['erreur'] = false;
+                    $return['message'] = "1/ Probleme dinsertion dans prevoir";
+                    echo json_encode($return);
+                }
+                else
+                {
+                    $return['erreur'] = true;
+                    $return['message'] = "1/ Probleme dinsertion dans prevoir";
+                    echo json_encode($return);
                 }
             }
             else

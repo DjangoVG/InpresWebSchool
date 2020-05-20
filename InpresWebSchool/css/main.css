@@ -210,7 +210,7 @@ iframe {
   line-height: 1.2;
   text-align: center;
   text-transform: uppercase;
-width: 1000px;
+  width: 100%;
   display: block;
   padding-top: 50px;
   padding-bottom: 50px;

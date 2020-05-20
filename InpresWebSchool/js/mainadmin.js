@@ -194,6 +194,16 @@ function showTabAdmin(current)
     {
         document.getElementById("nextBtn").innerHTML = "ACCEUIL";
     }
+    else if (page[0].textContent == "Ajouter un local")
+    {
+        document.getElementById("nextBtn").innerHTML = "AJOUTER CE LOCAL";
+        document.getElementById("prevBtn").innerHTML = "ACCEUIL";
+    }
+    else if (page[0].textContent == "Ajouter un professeur")
+    {
+        document.getElementById("nextBtn").innerHTML = "AJOUTER CE PROFESSEUR";
+        document.getElementById("prevBtn").innerHTML = "ACCEUIL";
+    }
     else
     {
         if (page[0].textContent == "Ajouter un cours")
@@ -513,25 +523,50 @@ function AffichageNextStepAdmin(n)
 {
     if (n == 1)
     {
-        if (currentTabAdmin == 0)
+        let page = document.getElementsByTagName("title");
+        if (page[0].textContent == "Ajouter un local")
         {
-            if (ConnexionAdmin())
-            {
-                var x = document.getElementsByClassName("etape");
-                    
-                x[currentTabAdmin].style.display = "none";
-                currentTabAdmin += n;
-                
-                showTabAdmin(currentTabAdmin);   
-            }
+            if (ValidationLocal())
+                AjouterLocal();
             else
             {
-                let Form = document.getElementById("FormmLogin");
+                let Form = document.getElementById("FormLocal");
                 Form.classList.add("ErrorForm");
                 setTimeout(RemoveErrorForm, 1300);
+            }
+        }
+        else if (page[0].textContent == "Ajouter un professeur")
+        {
+            if (ValidationProfesseur())
+                AjouterProfesseur();
+            else
+            {
+                let Form = document.getElementById("FormProfesseur");
+                Form.classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);
+            }
+        }
+        else
+        {
+            if (currentTabAdmin == 0)
+            {
+                if (ConnexionAdmin())
+                {
+                    var x = document.getElementsByClassName("etape");
+                        
+                    x[currentTabAdmin].style.display = "none";
+                    currentTabAdmin += n;
+                    
+                    showTabAdmin(currentTabAdmin);   
+                }
+                else
+                {
+                    let Form = document.getElementById("FormmLogin");
+                    Form.classList.add("ErrorForm");
+                    setTimeout(RemoveErrorForm, 1300);
+                }            
             }            
         }
-
     } 
     else if (n == -1)
     {
@@ -546,14 +581,20 @@ function AffichageNextStepAdmin(n)
         
     else
     {
-        document.getElementById("nextBtn").style.display = "none";
-        document.getElementById("prevBtn").style.display = "inline";
-        var x = document.getElementsByClassName("etape");
-                
-        x[currentTabAdmin].style.display = "none";
-        currentTabAdmin += n;
-        
-        showTabAdmin(currentTabAdmin);         
+        let page = document.getElementsByTagName("title");
+        if (page[0].textContent == "Ajouter un local")
+            AjouterLocal();
+        else
+        {
+            document.getElementById("nextBtn").style.display = "none";
+            document.getElementById("prevBtn").style.display = "inline";
+            var x = document.getElementsByClassName("etape");
+                    
+            x[currentTabAdmin].style.display = "none";
+            currentTabAdmin += n;
+            
+            showTabAdmin(currentTabAdmin);                 
+        }
     }
 }
 
@@ -964,6 +1005,22 @@ function ValidationChamp(input)
     return true;
 }
 
+function ValidationLocal()
+{
+    if($("#NomLocal").val().trim() == '')
+        return false;
+    else
+        return true;
+}
+
+function ValidationProfesseur()
+{
+    if($("#NomProfesseur").val().trim() == '' || $("#PrenomProfesseur").val().trim() == '')
+        return false;
+    else
+        return true;
+}
+
 /* ---------------------------------------------- */
 
 function ConsultationCours()
@@ -1054,20 +1111,63 @@ function AjouterCours()
             alert('error');
         }
     });
-
-
-
-
 }
 
-function AjouterLocal()
+function RefAjouterLocal()
 {
     document.location.href='ajoutlocal.html';
 }
 
-function AjouterProfesseur()
+function AjouterLocal()
+{
+    $.ajax({
+        url : "php/AjoutLocal.php",
+        method : "POST",
+        dataType : "JSON",
+        data : {
+            local : $("#NomLocal").val()
+        },
+        success : function(result)
+        {
+            if(result['erreur'])
+            {
+                let Form = document.getElementById("FormLocal");
+                Form.classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);
+            }
+            else
+                document.location.href="admin.html";
+        }
+    });
+}
+
+function RefAjouterProfesseur()
 {
     document.location.href='ajoutprofesseur.html';
+}
+
+function AjouterProfesseur()
+{
+    $.ajax({
+        url : "php/AjoutProfesseur.php",
+        method : "POST",
+        dataType : "JSON",
+        data : {
+            nom : $("#NomProfesseur").val(),
+            prenom : $("#PrenomProfesseur").val()
+        },
+        success : function(result)
+        {
+            if(result['erreur'])
+            {
+                let Form = document.getElementById("FormProfesseur");
+                Form.classList.add("ErrorForm");
+                setTimeout(RemoveErrorForm, 1300);
+            }
+            else
+                document.location.href="admin.html";
+        }
+    });
 }
 
 function AjouterEtudiant()

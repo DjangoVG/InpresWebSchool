@@ -19,7 +19,7 @@
             } 
             else if ($i == 1)
             {
-                if ($i < count($sections))
+                if (count($sections) == 2)
                 {
                     $select .= " OR IdSection = ";
                     $select .= $sections[$i];  

@@ -5,7 +5,7 @@ var admin = true;
 {
     showTabAdmin(currentTabAdmin); // Affiche la premiere page du formulaire
     "use strict";
-    $('.column100').on('mouseover',function(){
+   /* $('.column100').on('mouseover',function(){
 		var table1 = $(this).parent().parent().parent();
 		var table2 = $(this).parent().parent();
 		var verTable = $(table1).data('vertable')+"";
@@ -23,103 +23,9 @@ var admin = true;
 
 		$(table2).find("."+column).removeClass('hov-column-'+ verTable);
 		$(table1).find(".row100.head ."+column).removeClass('hov-column-head-'+ verTable);
-    });
+    });*/
 
 })(jQuery);
-
-function TranformSelect()
-{
-    $('.sel').each(function() 
-    {
-        $(this).children('select').css('display', 'none');
-        
-        var $current = $(this);
-        
-        $(this).find('option').each(function(i) 
-        {
-          if (i == 0) 
-          {
-            $current.prepend($('<div>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__box')
-            }));
-            
-            var placeholder = $(this).text();
-            $current.prepend($('<span>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__placeholder'),
-              text: placeholder,
-              'data-placeholder': placeholder
-            }));
-            
-            return;
-          }
-          
-          $current.children('div').append($('<span>', {
-            class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-            text: $(this).text()
-          }));
-        });
-      });
-      
-      // Toggling the `.active` state on the `.sel`.
-      $('.sel').click(function() {
-        $(this).toggleClass('active');
-      });
-      
-      // Toggling the `.selected` state on the options.
-      $('.sel__box__options').click(function() {
-        var txt = $(this).text();
-        var index = $(this).index();
-        
-        $(this).siblings('.sel__box__options').removeClass('selected');
-        $(this).addClass('selected');
-        
-        var $currentSel = $(this).closest('.sel');
-        $currentSel.children('.sel__placeholder').text(txt);
-        $currentSel.children('select').prop('selectedIndex', index + 1);
-      });
-
-      var showPass = 0;
-      $('.btn-show-pass').on('click', function()
-      {
-          if(showPass == 0) 
-          {
-              $(this).next('input').attr('type','text');
-              $(this).addClass('active');
-              showPass = 1;
-          }
-          else 
-          {
-              $(this).next('input').attr('type','password');
-              $(this).removeClass('active');
-              showPass = 0;
-          }
-          
-      });
-}
-
-function RemoveErrorForm()
-{
-    let Form = document.getElementsByClassName("login100-form validate-form");
-    for (let p = 0 ; p < Form.length;p++)
-        Form[p].classList.remove("ErrorForm");
-}
-
-function ValidationPattern (input)
-{
-    if($(input).attr('type') == 'email') 
-    {
-    if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null)
-        return false;
-    }
-    else 
-    {
-        if($(input).val().trim() == '')
-        {
-            return false;
-        }
-    }
-    return true;
-}
 
 
 /* PARTIE ADMINISTRATEUR */
@@ -294,7 +200,7 @@ function showTabAdmin(current)
                     span1.textContent = "LISTE DES GROUPES CORRESPONDANT A LA SECTION";
 
                     div2 = document.createElement("div");
-                    div2.className = "login100-form validate-form p-b-33 p-t-5 LocauxForm";
+                    div2.className = "login100-form validate-form p-b-33 p-t-5 GroupeForm";
                     div2.id = "Form_Groupes";
 
                     div3 = document.createElement("div");
@@ -996,6 +902,22 @@ function ValidationChamp(input)
     {
         if($(input).val().trim().match(/(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)/) == null)
             return false;
+        else
+        {
+            if (input.name == "HeureFin") // JE CHECK SI HEURE DEBUT < HEURE FIN
+            {
+                let DateHeureDebut = new Date('December 1, 2020 ' + $('#HeureDébut').val());
+                let DateHeureFin = new Date('December 1, 2020 ' + $('#HeureFin').val());
+                if (DateHeureDebut >= DateHeureFin)
+                    return false;
+            }
+        }
+    }
+    else if (input.name == "JourCours")
+    {
+        if($(input).val() == "Lundi" || $(input).val() == "Mardi" || $(input).val() == "Mercredi" || $(input).val() == "Jeudi" || $(input).val() == "Vendredi") {}
+        else
+            return false;
     }
     else // REPRIS DANS LISTE
     {
@@ -1056,31 +978,57 @@ function RefAjouterCours()
 function AjouterCours()
 {
     console.log("J'ajoute un cours");
-    var typecours;
+
     var type2 = document.getElementsByClassName("inputGroup clique");
+    let typecours = $(type2[0]).children().first().prop("name"); 
 
-    typecours = $(type2[0]).children().first().prop("name"); 
-
-
-    var sections = [];
+    var sections = []; // JE RECUPERE LES SECTIONS
     let i = 0;
     var section2 = document.getElementsByClassName("inputJournee clique");
     $.each(section2, function() // Récupère les différentes sections choisies
     {
-        sections.push($(section2[i]).children().first().prop("name")); 
+        if ($(section2[i]).children().first().prop("name") == "Informatique de Gestion")
+            sections.push(1); 
+        else if ($(section2[i]).children().first().prop("name") == "Informatique finalité : Industrielle")
+            sections.push(2); 
+        else
+            sections.push(3); 
         i++;
     });
 
+    var bloc2 = document.getElementsByClassName("inputBloc clique");
+    let bloc = $(bloc2[0]).children().first().prop("name"); 
+
     let prof = document.getElementsByClassName("login100-form validate-form p-b-33 p-t-5 ProfForm");
     let locaux = document.getElementsByClassName("login100-form validate-form p-b-33 p-t-5 LocauxForm");
-    
+    let groupe = document.getElementsByClassName("login100-form validate-form p-b-33 p-t-5 GroupeForm");
 
-    console.log($("#NomCours").val());
-    console.log($("#HeureDébut").val());
-    console.log($("#HeureFin").val());
-    console.log(typecours);
-    console.log(prof[0].children[0].children[0].textContent);
-    console.log(locaux[0].children[0].children[0].textContent);
+    let commun;
+    let commun2 = document.getElementsByClassName("inputCollectif clique");
+
+    if (commun2.length == 0)
+        commun = "Non";
+    else
+        commun = "Oui";
+
+    if (bloc == "Bloc 1")
+        bloc = 1;
+    else if (bloc == "Bloc 2")
+        bloc = 2;
+    else
+        bloc = 3;
+
+    let jour;
+    if ($("#JourCours").val() == "Lundi")
+        jour = 1;
+    else if ($("#JourCours").val() == "Mardi")
+        jour = 2;
+    else if ($("#JourCours").val() == "Mercredi")
+        jour = 3;
+    else if ($("#JourCours").val() == "Jeudi")
+        jour = 4;
+    else
+        jour = 5;
 
     $.ajax({
         url : "php/AjouterCours.php",
@@ -1094,21 +1042,19 @@ function AjouterCours()
             prof : prof[0].children[0].children[0].textContent,
             local : locaux[0].children[0].children[0].textContent,
             repris : $("#ReprisListe").val(),
+            commun : commun,
+            section : sections,
+            bloc : bloc,
+            groupe : groupe[0].children[0].children[0].textContent,
+            jour : jour
         },
         success : function(result)
         {
             if(result['erreur']){
-                alert('CE COURS EXISTE DEJA');
+                alert(result['message']);
             }
             else
-            {
-                alert('NEXISTE PAS');
-                //document.location.href="admin.html";
-            }   
-        },
-        error : function ()
-        {
-            alert('error');
+                document.location.href="admin.html";
         }
     });
 }

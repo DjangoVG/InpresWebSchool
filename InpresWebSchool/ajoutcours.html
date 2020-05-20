@@ -34,6 +34,10 @@
                                     <input class="input100" type="text" name="NomCours" placeholder="Nom du cours" id="NomCours" for="NomCours">
                                     <span class="focus-input100 Mail"></span>
                                 </div>
+                                <div class="wrap-input100 validate-input" datavalidate = "Entrer un jour valide !">
+                                    <input class="input100" type="text" name="JourCours" placeholder="Jour du cours" id="JourCours" for="JourCours">
+                                    <span class="focus-input100 NomPrenom"></span>
+                                </div>
                                 <div class="wrap-input100 validate-input" datavalidate = "Entrer une heure valide !">
                                     <input class="input100" type="text" name="HeureDebut" placeholder="Heure de début" id="HeureDébut" for="HeureDebut">
                                     <span class="focus-input100 NomPrenom"></span>
@@ -49,7 +53,7 @@
                                 <div class="m-t-20">
                                     <div class="inputCollectif" name="1">
                                         <input id="option1" name="Collectif" type="checkbox" onclick="ClickCollectif(0)"/>
-                                        <label for="option1">Cours multi-groupes</label>
+                                        <label for="option1">Cours commun</label>
                                     </div>                                    
                                 </div>
 
@@ -61,19 +65,20 @@
                                 TYPE DE COURS
                             </span>
                             <div class="login100-form validate-form p-b-5 p-t-5" id="Ajout_Cours">
-                                <div class="inputGroup" name="1">
-                                    <input id="option1" name="Theorie" type="checkbox" onclick="ClickOption(0)"/>
-                                    <label for="option1">Théorie</label>
+
+                                <div class="inputGroup" name="2">
+                                    <input id="option2" name="Theorie" type="checkbox" onclick="ClickOption(0)"/>
+                                    <label for="option2">Théorie</label>
                                 </div>
                                 
                                 <div class="inputGroup" name="2">
-                                <input id="option2" name="Laboratoire" type="checkbox" onclick="ClickOption(1)"/>
-                                <label for="option2">Laboratoire</label>
+                                    <input id="option3" name="Laboratoire" type="checkbox" onclick="ClickOption(1)"/>
+                                    <label for="option3">Laboratoire</label>
                                 </div>
 
                                 <div class="inputGroup" name="3">
-                                    <input id="option3" name="TFE" type="checkbox" onclick="ClickOption(2)"/>
-                                    <label for="option3">TFE</label>
+                                    <input id="option4" name="TFE" type="checkbox" onclick="ClickOption(2)"/>
+                                    <label for="option4">TFE</label>
                                 </div>
                             </div>
                         </div>

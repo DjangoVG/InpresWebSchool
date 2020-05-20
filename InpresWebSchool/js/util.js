@@ -111,6 +111,7 @@ function RemoveErrorForm()
 
 function ClickOption(n) // Je clique sur une section (modification de sa classe)
 {
+    console.log("ok");
     var i, x = document.getElementsByClassName("inputGroup");
     for (i = 0; i < x.length; i++) 
     {

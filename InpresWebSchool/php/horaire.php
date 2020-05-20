@@ -49,9 +49,9 @@
 
             <div class="wrap-table100">
                 <span class="login100-form-title m-b-20">
-                    HORAIRE PERSONNEL...
+                    !-- HORAIRE PERSONNEL --!
                 </span>
-                    <div class="table100 ver1 m-b-50">
+                    <div class="table100 ver1 m-b-50 p-t-85">
                         <div class="table100-head">
                             <table>
                                 <thead>

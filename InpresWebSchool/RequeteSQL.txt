@@ -1,6 +1,6 @@
 Listing etudiant -> cours : 
 
-SELECT etudiant.Nom, etudiant.Prenom, assister.*, journee.Jour, professeur.Nom, professeur.Prenom FROM etudiant INNER JOIN assister ON assister.AdresseMail = etudiant.AdresseMail LEFT JOIN journee ON assister.IdJournee = journee.IdJournee INNER JOIN composer ON journee.IdJournee = composer.IdJournee LEFT JOIN cours ON composer.NomCours = cours.NomCours AND composer.HeureDebut = cours.HeureDebut AND composer.HeureFin = cours.HeureFin AND composer.IdProfesseur = cours.IdProfesseur INNER JOIN professeur ON cours.IdProfesseur = professeur.IdProfesseur GROUP BY etudiant.AdresseMail, assister.IdJournee, assister.NomCours, assister.HeureDebut, assister.HeureFin, assister.IdProfesseur
+SELECT etudiant.Prenom, etudiant.Nom, assister.NomCours, journee.Jour, assister.HeureDebut, assister.HeureFin, cours.NomLocal, professeur.Prenom, professeur.Nom FROM etudiant INNER JOIN assister ON assister.AdresseMail = etudiant.AdresseMail LEFT JOIN journee ON assister.IdJournee = journee.IdJournee INNER JOIN composer ON journee.IdJournee = composer.IdJournee LEFT JOIN cours ON composer.NomCours = cours.NomCours AND composer.HeureDebut = cours.HeureDebut AND composer.HeureFin = cours.HeureFin AND composer.IdProfesseur = cours.IdProfesseur INNER JOIN professeur ON cours.IdProfesseur = professeur.IdProfesseur WHERE etudiant.validation = 1 GROUP BY etudiant.AdresseMail, assister.IdJournee, assister.NomCours, assister.HeureDebut, assister.HeureFin
 
 Programme individuel : 
 

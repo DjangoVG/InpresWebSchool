@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 21 mai 2020 à 01:08
+-- Généré le :  jeu. 21 mai 2020 à 12:48
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -79,13 +79,21 @@ INSERT INTO `assister` (`AdresseMail`, `IdJournee`, `NomCours`, `HeureDebut`, `H
 ('belgianair@gmail.com', 5, 'Analyse et gestion de données', '08:50:00', '10:20:00', 8),
 ('belgianair@gmail.com', 5, 'Analyse et gestion de données', '13:30:00', '15:00:00', 12),
 ('belgianair@gmail.com', 5, 'Thread', '10:30:00', '12:30:00', 20),
+('isen0607@gmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
+('isen0607@gmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
+('isen0607@gmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+('isen0607@gmail.com', 1, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 8),
 ('regis3d@hotmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
 ('regis3d@hotmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
 ('regis3d@hotmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
 ('regis3d@hotmail.com', 2, 'Analyse et gestion de données', '13:30:00', '15:00:00', 6),
 ('regis3d@hotmail.com', 2, 'Anglais technique', '09:20:00', '10:20:00', 11),
 ('regis3d@hotmail.com', 2, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 7),
-('regis4d@hotmail.com', 1, 'Analyse et gestion des données', '08:50:00', '10:20:00', 6);
+('regis4d@hotmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
+('regis4d@hotmail.com', 1, 'Analyse et gestion des données', '08:50:00', '10:20:00', 6),
+('regis4d@hotmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
+('regis4d@hotmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+('regis4d@hotmail.com', 1, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 5);
 
 -- --------------------------------------------------------
 
@@ -114,7 +122,8 @@ INSERT INTO `choisir` (`AdresseMail`, `IdSection`) VALUES
 ('regis3d@hotmail.com', 1),
 ('regis3d@hotmail.com', 2),
 ('regis4d@hotmail.com', 1),
-('regis4dsd@hotmail.com', 1);
+('regis4dsd@hotmail.com', 1),
+('regisd4d@hotmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -413,7 +422,8 @@ INSERT INTO `etudiant` (`AdresseMail`, `Nom`, `Prenom`, `EtablissementScolaire`,
 ('regis4d@hotmail.com', 'Evrard', 'Régis', 'Collège Saint-Louis', '0', 0),
 ('isen.claes@gmail.com', 'Claes', 'Isen', 'Collège du Sartay', '0', 0),
 ('belgianair@gmail.com', 'Evrard', 'Thibault', '', 'c458f048aed04922db29a3cd881a58a6', 1),
-('regis3d@hotmail.com', 'Dubois', 'Lucas', 'Collège du bois', '0', 0);
+('isen0607@gmail.com', 'Claes', 'Isen', '', '1baaa169ebda857860bfb944d8502fa4', 0),
+('regisd4d@hotmail.com', 'Evrard', 'Régis', '', '1aada8e7fbce7e8357fd2e74b2b8794f', 0);
 
 -- --------------------------------------------------------
 
@@ -480,9 +490,11 @@ INSERT INTO `inscrire` (`AdresseMail`, `IdJournee`) VALUES
 ('belgianair@gmail.com', 1),
 ('belgianair@gmail.com', 3),
 ('belgianair@gmail.com', 5),
+('isen0607@gmail.com', 1),
 ('regis3d@hotmail.com', 1),
 ('regis3d@hotmail.com', 2),
-('regis4d@hotmail.com', 1);
+('regis4d@hotmail.com', 1),
+('regisd4d@hotmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -550,6 +562,46 @@ INSERT INTO `local` (`NomLocal`) VALUES
 ('PV3'),
 ('PV8'),
 ('PV9');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `minimumcours`
+--
+
+DROP TABLE IF EXISTS `minimumcours`;
+CREATE TABLE IF NOT EXISTS `minimumcours` (
+  `journee` int(11) NOT NULL,
+  `journees` int(11) NOT NULL,
+  PRIMARY KEY (`journee`,`journees`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Déchargement des données de la table `minimumcours`
+--
+
+INSERT INTO `minimumcours` (`journee`, `journees`) VALUES
+(3, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `periode`
+--
+
+DROP TABLE IF EXISTS `periode`;
+CREATE TABLE IF NOT EXISTS `periode` (
+  `DebutPeriode` date NOT NULL,
+  `FinPeriode` date NOT NULL,
+  PRIMARY KEY (`DebutPeriode`,`FinPeriode`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Déchargement des données de la table `periode`
+--
+
+INSERT INTO `periode` (`DebutPeriode`, `FinPeriode`) VALUES
+('2020-05-20', '2020-05-28');
 
 -- --------------------------------------------------------
 

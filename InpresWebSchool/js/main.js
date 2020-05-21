@@ -8,6 +8,36 @@ var boolean = true;
   "use strict";
 })(jQuery);
 
+function Inscription() { // JE CHECK SI UTILISATEUR DANS LA PERIODE
+    var now = new Date();
+    $.ajax({
+        url : "php/RecherchePeriode.php",
+        method : "POST",
+        dataType : "JSON",
+        async : false,
+        success : function(result)
+        {
+            result['periode'].forEach(elem=>
+            {
+                let DateDebut = new Date(elem['DebutPeriode']);
+                let DateFin = new Date(elem['FinPeriode']);
+                Affiche(DateDebut, DateFin, now);
+                if (now < DateDebut || now > DateFin)
+                    alertbox.show('La période d\'inscription est clotûrée !');
+                else
+                    document.location.href = "inscription.html";
+            })
+        }
+    });
+}
+
+function Affiche(d, dd, ddd)
+{
+    console.log("Date avant = " + d);
+    console.log("Date apres = " + dd);
+    console.log("Date mtn = " + ddd);
+}
+
 function AjoutCoursPlages(journeechoisie)
 {
     console.log("Je passe dans AjoutCoursPlages");
@@ -217,10 +247,6 @@ function AjoutCoursPlages(journeechoisie)
 });
 }
 
-function Affiche(current) {
-    console.log("current " + current.id);
-}
-
 function SupprimerPlage()
 {
     console.log("Je tente de supprimer");
@@ -389,6 +415,7 @@ function ClickBoutonFormulaire(n)
             {
                 let Form = document.getElementsByClassName("login100-form validate-form");
                 Form[currentTab].classList.add("ErrorForm");
+                alertbox.show('Vous devez choisir au minimum une journée !');
                 setTimeout(RemoveErrorForm, 1300);
             }
             else
@@ -512,13 +539,14 @@ function ClickBoutonFormulaire(n)
         }
         else
         {
-            if (n == 1 && currentTab == 1) // JE CHECK SI MINIMUM UNE JOURNEE COCHEE
+            if (n == 1 && currentTab == 1) // JE CHECK SI MINIMUM UNE SECTION COCHEE
             {
                 let journee = document.getElementsByClassName("inputGroup clique");
                 if (journee.length == 0)
                 {
                     let Form = document.getElementsByClassName("login100-form validate-form");
                     Form[currentTab].classList.add("ErrorForm");
+                    alertbox.show('Vous devez choisir au minimum une section !');
                     setTimeout(RemoveErrorForm, 1300);
                 }
                 else
@@ -531,6 +559,7 @@ function ClickBoutonFormulaire(n)
                 {
                     let Form = document.getElementById("Form_Journee");
                     Form.classList.add("ErrorForm");
+                    alertbox.show('Vous devez choisir au minimum une journée !');
                     setTimeout(RemoveErrorForm, 1300);
                 }
                 else
@@ -543,6 +572,23 @@ function ClickBoutonFormulaire(n)
                 let boolean = true;
                 let plages = document.getElementsByClassName("etape");
                 let plage = plages[currentTab].children[1].children; // JE RECUPERE LES 4 PLAGES DE LA CURRENT PLAGE
+                var MinimumCoursJournee = 0;
+                var MinimumCoursJournees = 0;
+
+                $.ajax({
+                    url : "php/RechercheMinimumCours.php",
+                    method : "POST",
+                    dataType : "JSON",
+                    async : false,
+                    success : function(result)
+                    {
+                        result['minimumcours'].forEach(elem=>
+                        {
+                            MinimumCoursJournee = elem['journee'];
+                            MinimumCoursJournees = elem['journees'];
+                        })
+                    }
+                });
 
                 if (plages.length == 4) // J'AI PRIS QU'1 JOURNEE
                 {
@@ -552,6 +598,7 @@ function ClickBoutonFormulaire(n)
                         {
                             let Form = document.getElementById("Form_Plages");
                             Form.classList.add("ErrorForm");
+                            alertbox.show('Vous devez sélectionner un cours en plage ' + i + ' !');
                             setTimeout(RemoveErrorForm, 1300); 
                             boolean = false;                           
                         }
@@ -559,7 +606,7 @@ function ClickBoutonFormulaire(n)
                         {
                             if (plage[i].children[0].textContent.includes("Aucun cours ne m'intéresse"))
                             {
-                                if (i < 3)
+                                if (i < MinimumCoursJournee)
                                 {
                                     let Form = document.getElementById("Form_Plages");
                                     Form.classList.add("ErrorForm");
@@ -570,7 +617,9 @@ function ClickBoutonFormulaire(n)
                         }
                     }  
                     if (boolean) 
-                        AffichageNextStep(n);                   
+                        AffichageNextStep(n);  
+                    else
+                        alertbox.show('Vous devez sélectionner un cours dans les ' + MinimumCoursJournee + ' premières plages !');             
                 }
                 else // J'AI PRIS PLUSIEURS JOURNEES
                 {
@@ -580,6 +629,7 @@ function ClickBoutonFormulaire(n)
                         {
                             let Form = document.getElementById("Form_Plages");
                             Form.classList.add("ErrorForm");
+                            alertbox.show('Vous devez sélectionner un cours en plage ' + i + ' !');
                             setTimeout(RemoveErrorForm, 1300); 
                             boolean = false;                           
                         }
@@ -587,7 +637,7 @@ function ClickBoutonFormulaire(n)
                         {
                             if (plage[i].children[0].textContent.includes("Aucun cours ne m'intéresse"))
                             {
-                                if (i < 2)
+                                if (i < MinimumCoursJournees)
                                 {
                                     let Form = document.getElementById("Form_Plages");
                                     Form.classList.add("ErrorForm");
@@ -599,6 +649,8 @@ function ClickBoutonFormulaire(n)
                     }  
                     if (boolean)
                         AffichageNextStep(n);
+                    else
+                        alertbox.show('Vous devez sélectionner un cours dans les ' + MinimumCoursJournees + ' premières plages !');
                 }
             }
         }
@@ -619,7 +671,6 @@ function AffichageNextStep(n)
         document.getElementById("regForm").submit();
         return false;
     }
-    
     showTab(currentTab); 
 }
 

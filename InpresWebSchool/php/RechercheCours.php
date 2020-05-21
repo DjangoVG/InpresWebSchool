@@ -37,18 +37,19 @@
             $Vendredi = 1;
     }
 
-    $select =  'SELECT DISTINCT cours.NomCours, cours.HeureDebut, cours.HeureFin, cours.ReprisDansListe, professeur.Nom, professeur.Prenom, typecours.NomType, cours.NomLocal 
-        FROM composer, cours, concerner, professeur, typecours
-        WHERE composer.NomCours = cours.NomCours 
-        AND composer.HeureDebut = cours.HeureDebut 
-        AND composer.HeureFin = cours.HeureFin 
-        AND composer.IdProfesseur = cours.IdProfesseur 
-        AND concerner.NomCours = cours.NomCours 
-        AND concerner.HeureDebut = cours.HeureDebut 
-        AND concerner.HeureFin = cours.HeureFin 
-        AND cours.IdProfesseur = professeur.IdProfesseur
-        AND concerner.IdProfesseur = cours.IdProfesseur 
-        AND typecours.IdType = cours.IdType ';
+    $select =  'SELECT DISTINCT cours.NomCours, journee.Jour, cours.HeureDebut, cours.HeureFin, cours.ReprisDansListe, professeur.Nom, professeur.Prenom, typecours.NomType, cours.NomLocal 
+    FROM composer, cours, concerner, professeur, typecours, journee
+    WHERE composer.NomCours = cours.NomCours 
+    AND composer.HeureDebut = cours.HeureDebut 
+    AND composer.HeureFin = cours.HeureFin 
+    AND composer.IdProfesseur = cours.IdProfesseur 
+    AND concerner.NomCours = cours.NomCours 
+    AND concerner.HeureDebut = cours.HeureDebut 
+    AND concerner.HeureFin = cours.HeureFin 
+    AND cours.IdProfesseur = professeur.IdProfesseur
+    AND concerner.IdProfesseur = cours.IdProfesseur 
+    AND typecours.IdType = cours.IdType 
+    AND journee.IdJournee = composer.IdJournee';
 
     $section = [];
     if ($Gestion == 1)

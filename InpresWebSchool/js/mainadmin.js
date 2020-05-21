@@ -647,6 +647,35 @@ function RechercheEtudiant() {
                 tdNombreCours.className = "cell100 column6";
                 tdNombreCours.textContent = elem['NombreJour'];
                 tr.appendChild(tdNombreCours);
+
+
+                let tdformListeCours = document.createElement("td");
+                tdformListeCours.className = "cell100 column6";
+                let formListeCours = document.createElement("form");
+                formListeCours.methode = "POST";
+                // A MODIFIER
+                formListeCours.action = "";
+
+                tr.appendChild(tdformListeCours);
+                let inputListeCours = document.createElement("input");
+                inputListeCours.type = "hidden";
+                inputListeCours.name = "id";
+                inputListeCours.value = "<?php echo $id;?>";
+                formListeCours.appendChild(inputListeCours);
+
+                let tdButtonAfficher = document.createElement("td");
+                inputListeCours.appendChild(tdButtonAfficher);
+
+                let inputButtonAfficher = document.createElement("input");
+                inputButtonAfficher.type = "submit";
+                inputListeCours.value = "Modifier";
+                tdButtonAfficher.appendChild(inputButtonAfficher);
+
+                /*<form method="POST" action="Modif_Questions.php">
+							<input type="hidden" name="id" value="<?php echo $id;?>"/>
+								<td><input type="submit" value="Modifier" /></td>
+				</form>*/
+
             });
         }
     });
@@ -948,7 +977,11 @@ function ValidationChamp(input)
     }
     else if (input.name == "JourCours")
     {
-        if($(input).val() == "Lundi" || $(input).val() == "Mardi" || $(input).val() == "Mercredi" || $(input).val() == "Jeudi" || $(input).val() == "Vendredi") {}
+        let jour = $(input).val();
+        jour = jour.toLowerCase();
+        jour = jour.charAt(0).toUpperCase() + jour.slice(1);
+
+        if(jour == "Lundi" || jour == "Mardi" || jour == "Mercredi" || jour == "Jeudi" || jour == "Vendredi") {}
         else
             return false;
     }

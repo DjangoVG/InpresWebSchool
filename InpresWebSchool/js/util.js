@@ -177,3 +177,36 @@ function ClickCollectif(n) // Je clique sur une journee (modification de sa clas
     else
         x[0].className = "inputCollectif clique";            
 }
+
+var AlertBox = function(id, option) 
+{
+    console.log("Nouvelle AlertBox");
+    this.show = function(msg) 
+    {
+        var alertArea = document.querySelector(id);
+        var alertBox = document.createElement('DIV');
+        var alertContent = document.createElement('DIV');
+        var alertClass = this;
+        alertContent.classList.add('alert-content');
+        alertContent.innerText = msg;
+        alertBox.classList.add('alert-box');
+        alertBox.appendChild(alertContent);
+
+        alertArea.appendChild(alertBox);
+        
+        var alertTimeout = setTimeout(function() 
+        {
+            alertBox.classList.add('hide');
+            var disperseTimeout = setTimeout(function() 
+            {
+                alertBox.parentNode.removeChild(alertBox);
+                clearTimeout(disperseTimeout);
+            }, 500);
+            clearTimeout(alertTimeout);
+        }, option.closeTime);
+    };
+};
+
+var alertbox = new AlertBox('#alert-area', {
+    closeTime: 2000
+  }); // nouvelle AlertBox

@@ -31,6 +31,7 @@ function ConnexionAdmin()
         let Form = document.getElementById("FormmLogin");
         Form.classList.add("ErrorForm");
         setTimeout(RemoveErrorForm, 1300);
+        alertbox.show('Veuillez entrer un vrai login !');
         MauvaisAdmin();      
     }
     else
@@ -58,6 +59,7 @@ function ConnexionAdmin()
                 let Form = document.getElementById("FormmLogin");
                 Form.classList.add("ErrorForm");
                 setTimeout(RemoveErrorForm, 1300);
+                alertbox.show('Mauvais login !');
                 MauvaisAdmin();
             }
         });        
@@ -433,6 +435,7 @@ function AffichageNextStepAdmin(n)
             {
                 let Form = document.getElementById("FormLocal");
                 Form.classList.add("ErrorForm");
+                alertbox.show('Veuiller rentrer des champs valides !');
                 setTimeout(RemoveErrorForm, 1300);
             }
         }
@@ -444,6 +447,7 @@ function AffichageNextStepAdmin(n)
             {
                 let Form = document.getElementById("FormProfesseur");
                 Form.classList.add("ErrorForm");
+                alertbox.show('Veuiller rentrer des champs valides !');
                 setTimeout(RemoveErrorForm, 1300);
             }
         }
@@ -464,6 +468,7 @@ function AffichageNextStepAdmin(n)
                 {
                     let Form = document.getElementById("FormmLogin");
                     Form.classList.add("ErrorForm");
+                    alertbox.show('Mauvais login !');
                     setTimeout(RemoveErrorForm, 1300);
                 }            
             }            
@@ -775,6 +780,7 @@ function NextStepCours(n)
             {
                 let Form = document.getElementById("Ajout_Cours");
                 Form.classList.add("ErrorForm");
+                alertbox.show('Vous devez choisir un type de cours seulement !');
                 setTimeout(RemoveErrorForm, 1300);
             }
             else
@@ -793,6 +799,7 @@ function NextStepCours(n)
             {
                 let Form = document.getElementById("Ajout_SectionAdmin");
                 Form.classList.add("ErrorForm");
+                alertbox.show('Vous devez choisir au moins une section !');
                 setTimeout(RemoveErrorForm, 1300);
             }
             else
@@ -802,6 +809,7 @@ function NextStepCours(n)
                 {
                     let Form = document.getElementById("Ajout_SectionAdmin");
                     Form.classList.add("ErrorForm");
+                    alertbox.show('Vous devez choisir au minimum 2 sections car cours collectif !');
                     setTimeout(RemoveErrorForm, 1300);
                 }
                 else
@@ -821,6 +829,7 @@ function NextStepCours(n)
             {
                 let Form = document.getElementById("Ajout_Bloc");
                 Form.classList.add("ErrorForm");
+                alertbox.show('Vous devez choisir un bloc !');
                 setTimeout(RemoveErrorForm, 1300);
             }
             else
@@ -859,6 +868,7 @@ function NextStepCours(n)
                 else if (currentTabAdmin == 6)
                     Form = document.getElementById("Form_Locaux");
                 Form.classList.add("ErrorForm");
+                alertbox.show('Veuillez choisir un élement dans la liste !');
                 setTimeout(RemoveErrorForm, 1300);                          
             }
             else
@@ -1105,6 +1115,7 @@ function AjouterLocal()
             {
                 let Form = document.getElementById("FormLocal");
                 Form.classList.add("ErrorForm");
+                alertbox.show('Ce local existe déja !');
                 setTimeout(RemoveErrorForm, 1300);
             }
             else
@@ -1134,6 +1145,7 @@ function AjouterProfesseur()
             {
                 let Form = document.getElementById("FormProfesseur");
                 Form.classList.add("ErrorForm");
+                alertbox.show('Ce professeur existe déja !');
                 setTimeout(RemoveErrorForm, 1300);
             }
             else
@@ -1144,7 +1156,7 @@ function AjouterProfesseur()
 
 function AjouterEtudiant()
 {
-    //document.location.href='ajoutetudian.html';
+    //document.location.href='ajoutetudiant.html';
 }
 
 function GenererProgramme()

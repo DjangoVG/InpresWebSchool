@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 19 mai 2020 à 22:08
--- Version du serveur :  5.7.19
--- Version de PHP :  5.6.31
+-- Généré le :  jeu. 21 mai 2020 à 01:08
+-- Version du serveur :  10.4.10-MariaDB
+-- Version de PHP :  7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -69,25 +69,16 @@ CREATE TABLE IF NOT EXISTS `assister` (
 --
 
 INSERT INTO `assister` (`AdresseMail`, `IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
-('isen0607@gmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
-('isen0607@gmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
-('isen0607@gmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
-('isen0607@gmail.com', 1, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 8),
-('isen0607@gmail.com', 2, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 7),
-('isen0607@gmail.com', 2, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 7),
-('isen0607@gmail.com', 2, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
-('isen0607@gmail.com', 2, 'Stat C++', '15:30:00', '17:00:00', 20),
-('isen0607@gmail.com', 3, 'Anglais technique', '10:30:00', '11:30:00', 11),
-('isen0607@gmail.com', 3, 'Data mining', '08:20:00', '10:20:00', 20),
-('isen0607@gmail.com', 3, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 2),
-('isen0607@gmail.com', 3, 'Stat C++', '15:30:00', '17:00:00', 20),
-('isen0607@gmail.com', 4, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
-('isen0607@gmail.com', 4, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
-('isen0607@gmail.com', 4, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
-('isen0607@gmail.com', 4, 'Stat C++', '15:30:00', '17:00:00', 20),
-('isen0607@gmail.com', 5, 'Analyse et gestion de données', '13:30:00', '15:00:00', 12),
-('isen0607@gmail.com', 5, 'Data mining', '08:20:00', '10:20:00', 20),
-('isen0607@gmail.com', 5, 'Thread', '10:30:00', '12:30:00', 20),
+('belgianair@gmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
+('belgianair@gmail.com', 1, 'Mathématiques appliquées au traitement d\'images', '10:30:00', '12:30:00', 4),
+('belgianair@gmail.com', 1, 'Organisation et exploitation des données', '08:20:00', '10:20:00', 5),
+('belgianair@gmail.com', 3, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+('belgianair@gmail.com', 3, 'Data mining', '08:20:00', '10:20:00', 20),
+('belgianair@gmail.com', 3, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
+('belgianair@gmail.com', 3, 'Stat C++', '15:30:00', '17:00:00', 20),
+('belgianair@gmail.com', 5, 'Analyse et gestion de données', '08:50:00', '10:20:00', 8),
+('belgianair@gmail.com', 5, 'Analyse et gestion de données', '13:30:00', '15:00:00', 12),
+('belgianair@gmail.com', 5, 'Thread', '10:30:00', '12:30:00', 20),
 ('regis3d@hotmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
 ('regis3d@hotmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
 ('regis3d@hotmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
@@ -116,6 +107,8 @@ CREATE TABLE IF NOT EXISTS `choisir` (
 --
 
 INSERT INTO `choisir` (`AdresseMail`, `IdSection`) VALUES
+('belgianair@gmail.com', 1),
+('belgianair@gmail.com', 2),
 ('isen0607@gmail.com', 1),
 ('redgis4d@hotmail.com', 1),
 ('regis3d@hotmail.com', 1),
@@ -248,6 +241,7 @@ INSERT INTO `concerner` (`IdSection`, `NomCours`, `HeureDebut`, `HeureFin`, `IdP
 (1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
 (1, 'Anglais technique', '09:20:00', '10:20:00', 14),
 (1, 'Anglais technique', '10:30:00', '11:30:00', 11),
+(1, 'Collectif', '08:20:00', '10:20:00', 3),
 (1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
 (1, 'Data mining', '08:20:00', '10:20:00', 20),
 (1, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
@@ -290,6 +284,7 @@ INSERT INTO `concerner` (`IdSection`, `NomCours`, `HeureDebut`, `HeureFin`, `IdP
 (3, 'Analyse et gestion de données', '13:30:00', '15:00:00', 17),
 (3, 'Anglais technique', '09:20:00', '10:20:00', 13),
 (3, 'Anglais technique', '10:30:00', '11:30:00', 14),
+(3, 'Collectif', '08:20:00', '10:20:00', 3),
 (3, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
 (3, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 9),
 (3, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 9),
@@ -388,7 +383,10 @@ INSERT INTO `cours` (`NomCours`, `HeureDebut`, `HeureFin`, `ReprisDansListe`, `I
 ('Programmation orienté objet - C#', '13:30:00', '15:30:00', 1, 20, 2, 'B01'),
 ('Stat C++', '15:30:00', '17:00:00', 1, 20, 2, 'B01'),
 ('Data mining', '08:20:00', '10:20:00', 1, 20, 2, 'B01'),
-('Thread', '10:30:00', '12:30:00', 1, 20, 2, 'B01');
+('Thread', '10:30:00', '12:30:00', 1, 20, 2, 'B01'),
+('Zzzz', '08:10:00', '10:10:00', 1, 17, 2, 'PV2'),
+('Collectif', '08:20:00', '10:20:00', 1, 3, 1, 'AE'),
+('qzdzqddz', '00:00:00', '00:00:01', 1, 2, 1, 'AX');
 
 -- --------------------------------------------------------
 
@@ -402,7 +400,8 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
   `Nom` varchar(50) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
   `EtablissementScolaire` varchar(50) DEFAULT NULL,
-  `cle` tinyint(4) NOT NULL DEFAULT '0',
+  `cle` varchar(150) NOT NULL DEFAULT '0',
+  `validation` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`AdresseMail`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -410,11 +409,11 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
 -- Déchargement des données de la table `etudiant`
 --
 
-INSERT INTO `etudiant` (`AdresseMail`, `Nom`, `Prenom`, `EtablissementScolaire`, `cle`) VALUES
-('regis4d@hotmail.com', 'Evrard', 'Régis', 'Collège Saint-Louis', 0),
-('isen.claes@gmail.com', 'Claes', 'Isen', 'Collège du Sartay', 0),
-('belgianair@gmail.com', 'Belgian', 'Air', 'Institut de Notre-Dames de Paris', 0),
-('regis3d@hotmail.com', 'Dubois', 'Lucas', 'Collège du bois', 0);
+INSERT INTO `etudiant` (`AdresseMail`, `Nom`, `Prenom`, `EtablissementScolaire`, `cle`, `validation`) VALUES
+('regis4d@hotmail.com', 'Evrard', 'Régis', 'Collège Saint-Louis', '0', 0),
+('isen.claes@gmail.com', 'Claes', 'Isen', 'Collège du Sartay', '0', 0),
+('belgianair@gmail.com', 'Evrard', 'Thibault', '', 'c458f048aed04922db29a3cd881a58a6', 1),
+('regis3d@hotmail.com', 'Dubois', 'Lucas', 'Collège du bois', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -478,11 +477,9 @@ CREATE TABLE IF NOT EXISTS `inscrire` (
 --
 
 INSERT INTO `inscrire` (`AdresseMail`, `IdJournee`) VALUES
-('isen0607@gmail.com', 1),
-('isen0607@gmail.com', 2),
-('isen0607@gmail.com', 3),
-('isen0607@gmail.com', 4),
-('isen0607@gmail.com', 5),
+('belgianair@gmail.com', 1),
+('belgianair@gmail.com', 3),
+('belgianair@gmail.com', 5),
 ('regis3d@hotmail.com', 1),
 ('regis3d@hotmail.com', 2),
 ('regis4d@hotmail.com', 1);
@@ -536,6 +533,7 @@ INSERT INTO `local` (`NomLocal`) VALUES
 ('B02'),
 ('B03'),
 ('B16'),
+('B19'),
 ('B22'),
 ('BX'),
 ('L01'),
@@ -578,6 +576,9 @@ CREATE TABLE IF NOT EXISTS `prevoir` (
 --
 
 INSERT INTO `prevoir` (`IdGroupe`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
+(2102, 'Collectif', '08:20:00', '10:20:00', 3),
+(2103, 'Collectif', '08:20:00', '10:20:00', 3),
+(2104, 'Collectif', '08:20:00', '10:20:00', 3),
 (2202, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
 (2202, 'Analyse et gestion de données', '10:30:00', '12:00:00', 8),
 (2202, 'Analyse et gestion de données', '13:30:00', '15:00:00', 12),

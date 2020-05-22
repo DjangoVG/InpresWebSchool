@@ -274,6 +274,23 @@ function showTabAdmin(current)
             x[current].style.display = "block"; 
         }
     }
+    else if (page[0].textContent == "Modifier le nombre de cours" || page[0].textContent == "Modifier la période d'inscription")
+    {
+        if (current == 0) 
+        {
+            document.getElementById("nextBtn").innerHTML = "CONTINUER";
+            document.getElementById("prevBtn").innerHTML = "ACCEUIL";    
+        }
+        else if (current == 1)
+        {
+            let x = document.getElementsByClassName("etape");
+            x[0].style.display = "none"; 
+            document.getElementById("nextBtn").innerHTML = "MODIFIER";
+            document.getElementById("prevBtn").innerHTML = "RETOUR";  
+        }
+        var x = document.getElementsByClassName("etape");
+        x[current].style.display = "block";  
+    }
     else
     {
         if (current == 0) 
@@ -581,6 +598,7 @@ function NextStep(n)
         {
             if (currentTabAdmin == 0) // INFOS DU COURS
             {
+                var input = $('.validate-input .input100');
                 if (CheckChamps())
                 {
                     document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
@@ -792,10 +810,85 @@ function NextStep(n)
                             },
                             error : function(result)
                             {
-                                alert('error');
+                                document.location.href = "admin.html";
                             }
                         });
                     }
+                }
+            }
+        }
+        else if (page[0].textContent == "Modifier le nombre de cours")
+        {
+            if (currentTabAdmin == 0)
+            {
+                var input = $('#NbJournee');
+                if (CheckChamps(input))
+                {
+                    currentTabAdmin += n;
+                    showTabAdmin(currentTabAdmin); 
+                }
+            }
+            else if (currentTabAdmin == 1)
+            {
+                var input = $('#NbJournees');
+                if (CheckChamps(input))
+                {
+                    $.ajax({
+                        url : "php/ModifNbCoursObligatoires.php",
+                        method : "POST",
+                        dataType : "JSON",
+                        data : {
+                            journee : $('#NbJournee').val(),
+                            journees : $('#NbJournees').val()
+                        },
+                        success : function(result)
+                        {
+                            alertbox.show("Modifié !")
+                            setTimeout(RetourMenu, 3000);
+                        }
+                    });
+                }
+            }
+        }
+        else if (page[0].textContent == "Modifier la période d'inscription")
+        {
+            if (currentTabAdmin == 0)
+            {
+                var input = $('#DateDebut');
+                if (CheckChamps(input))
+                {
+                    currentTabAdmin += n;
+                    showTabAdmin(currentTabAdmin); 
+                }
+            }
+            else if (currentTabAdmin == 1)
+            {
+                var input = $('#DateFin');
+                if (CheckChamps(input))
+                {
+                    var debut = $('#DateDebut').val();
+                    
+                    let debutarray = debut.split("/");
+                    debut = "";
+                    debut = debut.concat(debutarray[2], "-", debutarray[1], "-", debutarray[0]);
+                    var fin = $('#DateFin').val();
+                    let finarray = fin.split("/");
+                    fin ="";
+                    fin = fin.concat(finarray[2], "-", finarray[1], "-", finarray[0]);
+                    $.ajax({
+                        url : "php/ModifPeriode.php",
+                        method : "POST",
+                        dataType : "JSON",
+                        data : {
+                            DateDebut : debut,
+                            DateFin : fin
+                        },
+                        success : function(result)
+                        {
+                            alertbox.show("Modifié !")
+                            setTimeout(RetourMenu, 2500);
+                        }
+                    });
                 }
             }
         }
@@ -1307,8 +1400,7 @@ function SupprimerLignes(bool)
     }
 }
 
-function CheckChamps() {
-    var input = $('.validate-input .input100');
+function CheckChamps(input) {
     var check = true;
 
     for(var i=0; i<input.length; i++)
@@ -1426,7 +1518,6 @@ function ValidationChamp(input)
     }
     else if (input.name == "NombreEtudiants") // NOMBRES DETUDIANTS TO ADD
     {
-        console.log("ed");
         if($(input).val().trim().match(/^[0-9]+$/) == null)
         {
             return false;
@@ -1444,18 +1535,35 @@ function ValidationChamp(input)
     }
     else if (input.name == "Nom")
     {
-        console.log(input.name);
-        return false;
+        if($(input).val().trim() == '')
+            return false;
     }
     else if (input.name == "Prenom")
     {
-        console.log(input.name);
-        return false;
+        if($(input).val().trim() == '')
+            return false;
     }
     else if (input.name == "EtablissementScolaire")
     {
-        console.log(input.name);
-        return false;
+        if($(input).val().trim() == '')
+            return false;
+    }
+    else if (input.name == "NbJournee" || input.name == "NbJournees")
+    {
+        if($(input).val().trim().match(/^[0-9]+$/) == null)
+        {
+            return false;
+        }
+        else
+        {
+            if($(input).val() < 1 || $(input).val() > 4)
+                return false;            
+        }
+    }
+    else if (input.name == "DateDebut" || input.name == "DateFin")
+    {
+        if($(input).val().trim().match(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/) == null)
+            return false;
     }
     return true;
 }
@@ -1478,49 +1586,48 @@ function ValidationProfesseur()
 
 /* ---------------------------------------------- */
 
-function ConsultationCours()
-{
+function ConsultationCours() {
     document.location.href='cours.html';
 }
 
-function ConsultationEtudiant()
-{
+function ConsultationEtudiant() {
     document.location.href='etudiant.html';
 }
 
-function ConsultationProfesseur()
-{
+function ConsultationProfesseur() {
     document.location.href='professeurs.html';
 }
 
-function ConsultationSections()
-{
+function ConsultationSections() {
     document.location.href='sections.html';
 }
 
-function ConsultationLocaux()
-{
+function ConsultationLocaux() {
     document.location.href='locaux.html';
 }
 
-function RefAjouterCours()
-{
+function RefAjouterCours() {
     document.location.href = 'ajoutcours.html';
 }
 
-function RefAjouterLocal()
-{
+function RefAjouterLocal() {
     document.location.href='ajoutlocal.html';
 }
 
-function RefAjouterProfesseur()
-{
+function RefAjouterProfesseur() {
     document.location.href='ajoutprofesseur.html';
 }
 
-function RefAjouterEtudiant()
-{
+function RefAjouterEtudiant() {
     document.location.href='ajoutetudiant.html';
+}
+
+function RefModifNbMinimumCours() {
+    document.location.href='modifnbcours.html';
+}
+
+function RefPeriodeInscription() {
+    document.location.href='modifperiode.html';
 }
 
 /* AJOUT ------------------------------------------------ */
@@ -1661,19 +1768,9 @@ function AjouterProfesseur()
     });
 }
 
-function AjouterEtudiant()
-{
-    //document.location.href='ajoutetudiant.html';
-}
-
-function GenererProgramme()
-{
-    document.location.href='genererprogramme.html';
-}
-
 function ExporterBD()
 {
-    document.location.href='exportbd.html';
+    document.location.href='php/ExportListing.php';
 }
 
 function GenererAttestation()

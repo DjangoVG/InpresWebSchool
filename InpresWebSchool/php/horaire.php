@@ -95,7 +95,7 @@
                 {?>
                     <div class="container-login100-form-btn">
                     <button type="button" id="nextBtn" class="login100-form-btn" onclick="document.location.href='../etudiant.html'">
-                        RETOUR À L'ACCEUIL
+                        RETOUR
                     </button>
                     </div>                            
                 <?php } ?>

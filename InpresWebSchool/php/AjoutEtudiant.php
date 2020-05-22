@@ -2,10 +2,9 @@
     include('ConnexionBD.php');
 
     $email = $_POST['mailetudiant'];
-
     $cle = md5(microtime(TRUE)*100000);
 
-    $destinataire = $_POST['mailetudiant'];
+    $destinataire = $email;
     $sujet = "Validation d'inscription à la semaine d'immersion !" ;
     $entete = "From: contact@regisevrard.be" ;
     $message = 'Votre demande d\'inscription est bien validée,
@@ -23,7 +22,7 @@
 
 
     $stmt = $bdd->prepare("insert into etudiant(AdresseMail,Nom,Prenom,EtablissementScolaire, cle) values(?,?,?,?,?)"); // J'AJOUTE L'ETUDIANT DANS LA TABLE
-    $stmt->bind_param("sssss",$_POST['mailetudiant'],$_POST['nometudiant'],$_POST['prenometudiant'],$_POST['etablissementetudiant'], $cle);
+    $stmt->bind_param("sssss",$email,$_POST['nometudiant'],$_POST['prenometudiant'],$_POST['etablissementetudiant'], $cle);
     if($stmt->execute())
         $return['erreur'] = false;
     else
@@ -43,7 +42,7 @@
         if ($value == "Informatique de Gestion")
         {
             $stmt = $bdd->prepare("insert into choisir(AdresseMail,IdSection) values(?,1)");
-            $stmt->bind_param("s",$_POST['mailetudiant']);
+            $stmt->bind_param("s",$email);
             if($stmt->execute())
                 $return['erreur'] = false;
             else
@@ -55,7 +54,7 @@
         else if ($value == "Informatique finalité : Industrielle")
         {
             $stmt = $bdd->prepare("insert into choisir(AdresseMail,IdSection) values(?,2)");
-            $stmt->bind_param("s",$_POST['mailetudiant']);
+            $stmt->bind_param("s",$email);
             if($stmt->execute())
                 $return['erreur'] = false;
             else
@@ -67,7 +66,7 @@
         else if ($value == "Informatique finalité : Réseau et télécom")
         {
             $stmt = $bdd->prepare("insert into choisir(AdresseMail,IdSection) values(?,3)");
-            $stmt->bind_param("s",$_POST['mailetudiant']);
+            $stmt->bind_param("s",$email);
             if($stmt->execute())
                 $return['erreur'] = false;
             else
@@ -86,8 +85,7 @@
         date_default_timezone_set('UTC'); 
         setlocale (LC_TIME, 'fr_FR.utf8','fra');
         //$journeechoisie = array(strftime('%d %B %Y'));
-        $journeechoisie = array("15 juin 2020");
-        echo $journeechoisie[0];
+        $journeechoisie = array("Lundi 15 juin 2020"); // A MODIFIER LE JOUR DE LA VRAI SEMAINE D'IMMERSION
     }
 
     if (isset($_POST['plagechoisies']))
@@ -127,8 +125,11 @@
             $string .= $row['Nom'];
             array_push($plageschoisies, $string);
         }
-        
     }
+    echo $plageschoisies[0];
+    echo $plageschoisies[1];
+    echo $plageschoisies[2];
+    echo $plageschoisies[3];
     $cpt = 0;
     foreach ($journeechoisie as &$jour)  // J'AJOUTE DES TUPLES PAR JOURNEE CHOISIES
     {
@@ -194,11 +195,10 @@
                         }
                     }
                     $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,1,?,?,?,?)");
-                    $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
+                    $stmt->bind_param("ssssi",$email,$nomcours, $heuredebut, $heurefin, $idprof);
                     if($stmt->execute())
                     {
-                        $return['erreur'] = true;
-                        $return['message'] = "1/ Problème d'ajout dans la table assister";
+                        $return['erreur'] = false;
                     }
                     else
                     {
@@ -208,7 +208,7 @@
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,1)");
-            $stmt->bind_param("s",$_POST ['mailetudiant']);
+            $stmt->bind_param("s",$email);
             if($stmt->execute())
                 $return['erreur'] = false;
             else
@@ -279,11 +279,10 @@
                         }
                     }
                     $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,2,?,?,?,?)");
-                    $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
+                    $stmt->bind_param("ssssi",$email,$nomcours, $heuredebut, $heurefin, $idprof);
                     if($stmt->execute())
                     {
-                        $return['erreur'] = true;
-                        $return['message'] = "1/ Problème d'ajout dans la table assister";
+                        $return['erreur'] = false;
                     }
                     else
                     {
@@ -293,9 +292,9 @@
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,2)");
-            $stmt->bind_param("s",$_POST ['mailetudiant']);
+            $stmt->bind_param("s",$email);
             if($stmt->execute())
-            $return['erreur'] = false;
+                $return['erreur'] = false;
             else
             {
                 $return['erreur'] = true;
@@ -364,11 +363,10 @@
                         }
                     }
                     $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,3,?,?,?,?)");
-                    $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
+                    $stmt->bind_param("ssssi",$email,$nomcours, $heuredebut, $heurefin, $idprof);
                     if($stmt->execute())
                     {
-                        $return['erreur'] = true;
-                        $return['message'] = "3/ Problème d'ajout dans la table assister";
+                        $return['erreur'] = false;
                     }
                     else
                     {
@@ -378,7 +376,7 @@
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,3)");
-            $stmt->bind_param("s",$_POST ['mailetudiant']);
+            $stmt->bind_param("s",$email);
             if($stmt->execute())
             $return['erreur'] = false;
             else
@@ -449,11 +447,10 @@
                         }
                     }
                     $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,4,?,?,?,?)");
-                    $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
+                    $stmt->bind_param("ssssi",$email,$nomcours, $heuredebut, $heurefin, $idprof);
                     if($stmt->execute())
                     {
-                        $return['erreur'] = true;
-                        $return['message'] = "4/ Problème d'ajout dans la table assister";
+                        $return['erreur'] = false;
                     }
                     else
                     {
@@ -463,9 +460,9 @@
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,4)");
-            $stmt->bind_param("s",$_POST ['mailetudiant']);
+            $stmt->bind_param("s",$email);
             if($stmt->execute())
-            $return['erreur'] = false;
+                $return['erreur'] = false;
             else
             {
                 $return['erreur'] = true;
@@ -534,12 +531,9 @@
                         }
                     }
                     $stmt = $bdd->prepare("insert into assister(AdresseMail,IdJournee, NomCours, HeureDebut, HeureFin, IdProfesseur) values(?,5,?,?,?,?)");
-                    $stmt->bind_param("ssssi",$_POST ['mailetudiant'],$nomcours, $heuredebut, $heurefin, $idprof);
+                    $stmt->bind_param("ssssi",$email,$nomcours, $heuredebut, $heurefin, $idprof);
                     if($stmt->execute())
-                    {
-                        $return['erreur'] = true;
-                        $return['message'] = "5/ Problème d'ajout dans la table assister";
-                    }
+                        $return['erreur'] = false;
                     else
                     {
                         $return['erreur'] = true;
@@ -548,9 +542,9 @@
                 }
             }
             $stmt = $bdd->prepare("insert into inscrire(AdresseMail,IdJournee) values(?,5)");
-            $stmt->bind_param("s",$_POST ['mailetudiant']);
+            $stmt->bind_param("s",$email);
             if($stmt->execute())
-            $return['erreur'] = false;
+                $return['erreur'] = false;
             else
             {
                 $return['erreur'] = true;

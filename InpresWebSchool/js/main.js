@@ -20,7 +20,6 @@ function Inscription() { // JE CHECK SI UTILISATEUR DANS LA PERIODE
             {
                 let DateDebut = new Date(elem['DebutPeriode']);
                 let DateFin = new Date(elem['FinPeriode']);
-                Affiche(DateDebut, DateFin, now);
                 if (now < DateDebut || now > DateFin)
                     alertbox.show('La période d\'inscription est clotûrée !');
                 else

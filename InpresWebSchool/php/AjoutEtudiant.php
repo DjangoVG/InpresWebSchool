@@ -32,7 +32,12 @@
         $return['message'] = "Problème d'ajout dans la table étudiant";
     }
 
-    $tableausections = $_POST['sections'];
+    if (isset($_POST['sections']))
+        $tableausections = $_POST['sections'];
+    else // J'AJOUTE TOUTES LES SECTIONS CAR JE SUIS EN RANDOM PROGRAMME
+        $tableausections = array("Informatique de Gestion", "Informatique finalité : Industrielle", "Informatique finalité : Réseau et télécom");
+
+
     foreach ($tableausections as &$value)  // J'AJOUTE UN TUPLE PAR SECTION CHOISIES
     {
         if ($value == "Informatique de Gestion")
@@ -74,9 +79,56 @@
     }
 
     // J'AJOUTE DANS LA TABLE INSCRIRE (ETUDIANT->JOURNEE)
+    if (isset($_POST['journeeschoisies']))
+        $journeechoisie = $_POST['journeeschoisies'];
+    else
+    {
+        date_default_timezone_set('UTC'); 
+        setlocale (LC_TIME, 'fr_FR.utf8','fra');
+        //$journeechoisie = array(strftime('%d %B %Y'));
+        $journeechoisie = array("15 juin 2020");
+        echo $journeechoisie[0];
+    }
 
-    $journeechoisie = $_POST['journeeschoisies'];
-    $plageschoisies = $_POST['plagechoisies'];
+    if (isset($_POST['plagechoisies']))
+        $plageschoisies = $_POST['plagechoisies'];
+    else
+    {
+        $plageschoisies = array();
+        for ($j = 0; $j < 4; $j++)
+        {
+            if ($j == 1) // COURS OBLIGATOIRE
+            {
+                $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureFin <= \'11:00:00\' AND IdType != 0 ORDER BY RAND() LIMIT 1';
+            }
+            else if ($j == 2) // COURS NON-OBLIGATOIRE (PLAGE 4)
+            {
+                $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureDebut >= \'10:00:00\' AND HeureFin <= \'13:00:00\' AND IdType != 0 ORDER BY RAND() LIMIT 1';
+            }
+            else if ($j == 3)
+            {
+                $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureDebut >= \'13:00:00\' AND HeureFin <= \'16:00:00\' AND IdType != 0 ORDER BY RAND() LIMIT 1';
+            }
+            else // PLAGE 4 NON OBLIGATOIRE
+            {
+                $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureDebut >= \'15:00:00\' ORDER BY RAND() LIMIT 1';
+            }
+
+            $stmt = $bdd->query($select);
+            $row = $stmt->fetch_assoc();
+            $string = $row['NomCours'];
+            $string .= " | [";
+            $string .= $row['HeureDebut'];
+            $string .= " - ";
+            $string .= $row['HeureFin'];
+            $string .= "] -> ";
+            $string .= $row['Prenom'];
+            $string .= " ";
+            $string .= $row['Nom'];
+            array_push($plageschoisies, $string);
+        }
+        
+    }
     $cpt = 0;
     foreach ($journeechoisie as &$jour)  // J'AJOUTE DES TUPLES PAR JOURNEE CHOISIES
     {

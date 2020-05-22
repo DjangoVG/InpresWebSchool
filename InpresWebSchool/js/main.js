@@ -59,13 +59,11 @@ function AjoutCoursPlages(journeechoisie)
             console.log("cours : " + elem['NomCours']);
             if (elem['HeureFin'] <= '11:00:00') // PLAGE 1
             {
-                console.log("cours 8h : " + elem['NomCours']);
                 let string = ".sel--Plage01Jour0";
                 let result = string.concat (journeechoisie);
                 $(result).each(function() 
                 {
                     var $current = $(this);
-                    Affiche($current);
                     // JE RECHERCHE L'ID DU PROFESSEUR
                     $.ajax({
                         url : "php/RechercheProfesseur.php",
@@ -209,10 +207,8 @@ function AjoutCoursPlages(journeechoisie)
                         {   
                             result['professeur'].forEach(prof=>
                             {
-                                
                                 nomprof = prof['Nom'];
                                 prenomprof = prof['Prenom'];
-                                console.log("check : " + prof['Nom']);
                             });
 
                             $current.children('div').append($('<span>', {
@@ -231,7 +227,8 @@ function AjoutCoursPlages(journeechoisie)
                                 $currentSel.children('.sel__placeholder').text(txt);
                                 $currentSel.children('select').prop('selectedIndex', index + 1);
                             });
-                        }});
+                        }
+                    });
                 });           
             }
         });
@@ -241,7 +238,6 @@ function AjoutCoursPlages(journeechoisie)
 
 function SupprimerPlage()
 {
-    console.log("Je tente de supprimer");
     let input = document.getElementsByClassName("inputJournee clique");
     for(let i = 0; i < input.length ; i++)
     {

@@ -273,10 +273,6 @@ function showTabAdmin(current)
             x = document.getElementsByClassName("etape");
             x[current].style.display = "block"; 
         }
-        else 
-        {
-            
-        }
     }
     else
     {
@@ -581,30 +577,6 @@ function NextStep(n)
                 }
             }
         }
-        else if (page[0].textContent == "Ajouter un local")
-        {
-            if (ValidationLocal())
-                AjouterLocal();
-            else
-            {
-                let Form = document.getElementById("FormLocal");
-                Form.classList.add("ErrorForm");
-                alertbox.show('Veuiller rentrer des champs valides !');
-                setTimeout(RemoveErrorForm, 1300);
-            }
-        }
-        else if (page[0].textContent == "Ajouter un professeur")
-        {
-            if (ValidationProfesseur())
-                AjouterProfesseur();
-            else
-            {
-                let Form = document.getElementById("FormProfesseur");
-                Form.classList.add("ErrorForm");
-                alertbox.show('Veuiller rentrer des champs valides !');
-                setTimeout(RemoveErrorForm, 1300);
-            }
-        }
         else if (page[0].textContent == "Ajouter un cours")
         {
             if (currentTabAdmin == 0) // INFOS DU COURS
@@ -792,27 +764,37 @@ function NextStep(n)
             }
             else if (currentTabAdmin == 1)
             {
-                let bool = true;
+                let bool = false;
                 let ContainerEtudiants = document.getElementById("ContainerEtudiants");
                 for (let i = 0; i < ContainerEtudiants.children.length ; i++) // JE RECUPERE CHAQUES CHAMPS POUR LES VERIFIER
                 {
                     if (CheckChampFormulaireMultiEtudiant(ContainerEtudiants.children[i].children[1]))
-                        bool = false;
+                        bool = true;
                 }
                 if (bool)
                 {
                     for (let i = 0; i < ContainerEtudiants.children.length ; i++) // JE REPARCOURS LE CONTAINER ET JE LES AJOUTE TOUS + ADDING PROGRAMME
                     {
-
-
-
-
-
-
-
-
-
-
+                        $.ajax({
+                            url : "php/AjoutEtudiant.php",
+                            method : "POST",
+                            dataType : "JSON",
+                            async : false,
+                            data : {
+                                mailetudiant : $(ContainerEtudiants.children[i].children[1].children[0].children[0]).val(),
+                                nometudiant : $(ContainerEtudiants.children[i].children[1].children[1].children[0]).val(),
+                                prenometudiant : $(ContainerEtudiants.children[i].children[1].children[2].children[0]).val(),
+                                etablissementetudiant : $(ContainerEtudiants.children[i].children[1].children[3].children[0]).val(),
+                            },
+                            success : function(result)
+                            {
+                                document.location.href = "admin.html";
+                            },
+                            error : function(result)
+                            {
+                                alert('error');
+                            }
+                        });
                     }
                 }
             }

@@ -44,12 +44,13 @@
         ?> 
         <!DOCTYPE html>
         <link rel="stylesheet" type="text/css" href="../css/main.css">
+        <link rel="stylesheet" type="text/css" href="../css/util.css">
         <div class="limiter">
         <div class="container-login100" style="background-image: url('../images/Fond_InpresWebSchool.jpeg');">
 
             <div class="wrap-table100">
                 <span class="login100-form-title m-b-20">
-                    !-- HORAIRE PERSONNEL --!
+                    HORAIRE PERSONNEL de <?php echo $email ?>
                 </span>
                     <div class="table100 ver1 m-b-50 p-t-85">
                         <div class="table100-head">
@@ -70,26 +71,34 @@
                         <div class="table100-body js-pscroll">
                             <table id="TableCours">
                                 <tbody>
-                    <?php
+                                    <?php
 
-                    $stmt = $bdd->query($select);
-                    while($row = $stmt->fetch_assoc()) 
-                    {
+                                    $stmt = $bdd->query($select);
+                                    while($row = $stmt->fetch_assoc()) 
+                                    {
 
-                        echo "<tr class=\"row100 body\">";
-                        echo "<td class=\"cell100 column2\">".$row['Jour']."</td>";
-                        echo "<td class=\"cell100 column1\">".$row['NomCours']."</td>";
-                        echo "<td class=\"cell100 column3\">".$row['HeureDebut']."</td>";
-                        echo "<td class=\"cell100 column3\">".$row['HeureFin']."</td>";
-                        echo "<td class=\"cell100 column5\">".$row['Nomprof']."</td>";
-                        echo "<td class=\"cell100 column6\">".$row['PrenomProf']."</td>";
-                        echo "</tr>";
-                    
-                    }   ?>        
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                                        echo "<tr class=\"row100 body\">";
+                                        echo "<td class=\"cell100 column2\">".$row['Jour']."</td>";
+                                        echo "<td class=\"cell100 column1\">".$row['NomCours']."</td>";
+                                        echo "<td class=\"cell100 column3\">".$row['HeureDebut']."</td>";
+                                        echo "<td class=\"cell100 column3\">".$row['HeureFin']."</td>";
+                                        echo "<td class=\"cell100 column5\">".$row['Nomprof']."</td>";
+                                        echo "<td class=\"cell100 column6\">".$row['PrenomProf']."</td>";
+                                        echo "</tr>";
+                                    
+                                    }   ?>        
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <?php if ($_GET['email'] != null)
+                {?>
+                    <div class="container-login100-form-btn">
+                    <button type="button" id="nextBtn" class="login100-form-btn" onclick="document.location.href='../etudiant.html'">
+                        RETOUR À L'ACCEUIL
+                    </button>
+                    </div>                            
+                <?php } ?>
     </div><?php
 
 

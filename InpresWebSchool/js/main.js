@@ -1,6 +1,5 @@
 document.write('<script type="text/javascript" src="js/util.js" ></script>');
 var currentTab = 0; // 0 car premiere page du formulaire
-var currentTabAdmin = 0;
 var boolean = true;
 (function($) 
 {
@@ -29,13 +28,6 @@ function Inscription() { // JE CHECK SI UTILISATEUR DANS LA PERIODE
             })
         }
     });
-}
-
-function Affiche(d, dd, ddd)
-{
-    console.log("Date avant = " + d);
-    console.log("Date apres = " + dd);
-    console.log("Date mtn = " + ddd);
 }
 
 function AjoutCoursPlages(journeechoisie)
@@ -745,61 +737,4 @@ function CheckChampFormulaire()
 
     }
     return check;
-}
-
-function ValidationPattern (input)
-{
-    if($(input).attr('type') == 'email') 
-    {
-    if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null)
-        return false;
-    }
-    else 
-    {
-        if($(input).val().trim() == '')
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-function ValidationUnique(input)
-{
-    $.ajax({
-        url : "php/RechercheEtudiant.php",
-        method : "POST",
-        dataType : "JSON",
-        async : false,
-        data : {
-            mailetudiant : $(input).val()
-        },
-        success : function(result)
-        {
-            let input = $('.validate-input .input100');
-            if (result['erreur'])
-            {
-                NotUnique();
-                showAll(input[0]);
-                showValidateNotUnique(input[0]);  
-               
-            }
-            else
-            {
-                Unique();
-                hideAll(input[0]);
-                hideValidateNotUnique(input[0]);               
-            }
-        }
-    });
-    return boolean;
-}
-
-function NotUnique()
-{
-    boolean = false;
-}
-function Unique()
-{
-    boolean = true;
 }

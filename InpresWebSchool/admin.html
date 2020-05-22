@@ -77,7 +77,7 @@
                                         UN PROFESSEUR
                                     </button>
                                     <button type="button" id="" class="login100-form-btn Center" onclick="RefAjouterEtudiant()">
-                                        UN ÉTUDIANT
+                                        UN OU PLUSIEURS ÉTUDIANTS
                                     </button>
                                 </div>
                             </div>
@@ -88,9 +88,6 @@
                                 <span class="login100-form-title black p-t-5 p-b-5">
                                     JE VOUDRAI ÉGALEMENT...
                                 </span>
-                                    <button type="button" id="" class="login100-form-btn Center" onclick="GenererProgramme()">
-                                        GÉNÉRER LE PROGRAMME INDIVIDUEL DE CHAQUE ÉTUDIANT
-                                    </button>
                                     <button type="button" id="" class="login100-form-btn Center" onclick="ExporterBD()">
                                         EXPORTER LE LISTING DE LA BASE DE DONNÉES
                                     </button>
@@ -103,10 +100,10 @@
                     </form>
 
                     <div class="container-login100-form-btn m-t-32">
-                        <button type="button" id="nextBtn" class="login100-form-btn" onclick="AffichageNextStepAdmin(1)">
+                        <button type="button" id="nextBtn" class="login100-form-btn" onclick="NextStep(1)">
                             SE CONNECTER
                         </button>
-                        <button type="button" id="prevBtn" class="login100-form-btn" onclick="AffichageNextStepAdmin(-1)">
+                        <button type="button" id="prevBtn" class="login100-form-btn" onclick="NextStep(-1)">
                             ACCEUIL
                         </button>
                     </div>

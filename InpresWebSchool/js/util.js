@@ -32,6 +32,62 @@ function hideAll(input)
     $(thisAlert).removeClass('alert-validate');
 }
 
+function ValidationPattern (input)
+{
+    if($(input).attr('type') == 'email') 
+    {
+        if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null)
+            return false;
+    }
+    else 
+    {
+        if($(input).val().trim() == '')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+function ValidationUnique(input)
+{
+    $.ajax({
+        url : "php/RechercheEtudiant.php",
+        method : "POST",
+        dataType : "JSON",
+        async : false,
+        data : {
+            mailetudiant : $(input).val()
+        },
+        success : function(result)
+        {
+            if (result['erreur'])
+            {
+                NotUnique();
+                showAll(input);
+                showValidateNotUnique(input);  
+               
+            }
+            else
+            {
+                Unique();
+                hideAll(input[0]);
+                hideValidateNotUnique(input);               
+            }
+        }
+    });
+    return boolean;
+}
+
+function NotUnique()
+{
+    boolean = false;
+}
+function Unique()
+{
+    boolean = true;
+}
+
 function TranformSelect()
 {
     console.log("Transformation des selects");
@@ -111,7 +167,6 @@ function RemoveErrorForm()
 
 function ClickOption(n) // Je clique sur une section (modification de sa classe)
 {
-    console.log("ok");
     var i, x = document.getElementsByClassName("inputGroup");
     for (i = 0; i < x.length; i++) 
     {
@@ -133,7 +188,6 @@ function ClickOption(n) // Je clique sur une section (modification de sa classe)
 
 function ClickJournee(n) // Je clique sur une journee (modification de sa classe)
 {
-    console.log('clique');
     var i, x = document.getElementsByClassName("inputJournee");
     for (i = 0; i < x.length; i++) 
     {
@@ -154,7 +208,6 @@ function ClickJournee(n) // Je clique sur une journee (modification de sa classe
 
 function ClickBloc(n) // Je clique sur une journee (modification de sa classe)
 {
-    console.log('clique');
     var i, x = document.getElementsByClassName("inputBloc");
     for (i = 0; i < x.length; i++) 
     {
@@ -180,7 +233,6 @@ function ClickCollectif(n) // Je clique sur une journee (modification de sa clas
 
 var AlertBox = function(id, option) 
 {
-    console.log("Nouvelle AlertBox");
     this.show = function(msg) 
     {
         var alertArea = document.querySelector(id);

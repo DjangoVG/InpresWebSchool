@@ -613,7 +613,7 @@ function NextStep(n)
             if (currentTabAdmin == 0) // INFOS DU COURS
             {
                 var input = $('.validate-input .input100');
-                if (CheckChamps())
+                if (CheckChamps(input))
                 {
                     document.getElementsByClassName("step")[currentTabAdmin].className += " finish";
                     var x = document.getElementsByClassName("etape");
@@ -1727,9 +1727,6 @@ function AjouterCours()
     else
         jour = 5;
 
-
-    console.log(sections);
-    alert('');
     $.ajax({
         url : "php/AjouterCours.php",
         method : "POST",
@@ -1748,13 +1745,16 @@ function AjouterCours()
             groupe : groupe[0].children[0].children[0].textContent,
             jour : jour
         },
-        success : function(result)
+        success : function()
         {
-            if(result['erreur']){
-                alert(result['message']);
-            }
-            else
-                document.location.href="admin.html";
+            RetourMenu();
+        },
+        error : function()
+        {
+            let Form = document.getElementById("Form_Locaux");
+            Form.classList.add("ErrorForm");
+            alertbox.show('Ce cours  existe déja !');
+            setTimeout(RemoveErrorForm, 1300);
         }
     });
 }

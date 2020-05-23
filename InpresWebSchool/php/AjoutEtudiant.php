@@ -1,4 +1,30 @@
 <?php
+
+    function CheckPlacesDispo ($nomducours, $heurededebut, $heuredefin, $idprof) 
+    {
+        $verifcount =  'SELECT   NomCours, HeureDebut, HeureFin, IdProfesseur, IdJournee ,COUNT(*) As PlacesOccupees
+        FROM     Assister
+        WHERE assister.NomCours = \'' . $nomducours . '\' AND assister.HeureDebut = \'' . $heurededebut . '\' AND assister.HeureFin = \'' . $heuredefin . '\' AND assister.IdProfesseur = ' . $idprof . 
+        ' GROUP BY NomCours, HeureDebut, HeureFin, IdProfesseur, IdJournee;';
+        $stmt = $bdd->query($verifcount);
+        $row = $stmt->fetch_assoc();
+        $placesoccupees = $row['PlacesOccupees'];
+
+        $nbplaces = 'SELECT TypeCours.NbPlaces FROM typecours LEFT JOIN cours ON cours.IdType = typecours.IdType AND cours.NomCours = \'' . $nomducours . '\' AND cours.HeureDebut = \'' . $heurededebut . '\' AND cours.HeureFin = \'' . $heuredefin . '\' AND cours.IdProfesseur = ' . $idprof;
+        $stmt = $bdd->query($nbplaces);
+        $row = $stmt->fetch_assoc();
+        $placesmax = $row['NbPlaces'];
+   
+
+        if ($placesoccupees < $nbplaces)
+            return false;
+        else 
+            return true;
+    }
+
+
+
+
     include('ConnexionBD.php');
 
     $email = $_POST['mailetudiant'];
@@ -95,34 +121,42 @@
         $plageschoisies = array();
         for ($j = 0; $j < 4; $j++)
         {
-            if ($j == 1) // COURS OBLIGATOIRE
+            $bool = false;
+            while ($bool == false)
             {
-                $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureFin <= \'11:00:00\' AND IdType != 0 ORDER BY RAND() LIMIT 1';
+                if ($j == 1) // COURS OBLIGATOIRE
+                {
+                    $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom, professeur.IdProfesseur FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureFin <= \'11:00:00\' AND IdType != 0 ORDER BY RAND() LIMIT 1';
+                }
+                else if ($j == 2) // COURS NON-OBLIGATOIRE (PLAGE 4)
+                {
+                    $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom, professeur.IdProfesseur FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureDebut >= \'10:00:00\' AND HeureFin <= \'13:00:00\' AND IdType != 0 ORDER BY RAND() LIMIT 1';
+                }
+                else if ($j == 3)
+                {
+                    $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom, professeur.IdProfesseur FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureDebut >= \'13:00:00\' AND HeureFin <= \'16:00:00\' AND IdType != 0 ORDER BY RAND() LIMIT 1';
+                }
+                else // PLAGE 4 NON OBLIGATOIRE
+                {
+                    $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom, professeur.IdProfesseur FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureDebut >= \'15:00:00\' ORDER BY RAND() LIMIT 1';
+                }
+            
+                $stmt = $bdd->query($select);
+                $row = $stmt->fetch_assoc();
+                $string = $row['NomCours'];
+                $string .= " | [";
+                $string .= $row['HeureDebut'];
+                $string .= " - ";
+                $string .= $row['HeureFin'];
+                $string .= "] -> ";
+                $string .= $row['Prenom'];
+                $string .= " ";
+                $string .= $row['Nom'];
+                
+                
+                if (CheckPlacesDispo($row['NomCours'], $row['HeureDebut'], $row['HeureFin'], $row['IdProfesseur']))
+                    $bool = true;
             }
-            else if ($j == 2) // COURS NON-OBLIGATOIRE (PLAGE 4)
-            {
-                $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureDebut >= \'10:00:00\' AND HeureFin <= \'13:00:00\' AND IdType != 0 ORDER BY RAND() LIMIT 1';
-            }
-            else if ($j == 3)
-            {
-                $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureDebut >= \'13:00:00\' AND HeureFin <= \'16:00:00\' AND IdType != 0 ORDER BY RAND() LIMIT 1';
-            }
-            else // PLAGE 4 NON OBLIGATOIRE
-            {
-                $select = 'SELECT cours.NomCours, cours.HeureDebut, cours.HeureFin, professeur.Nom, professeur.Prenom FROM cours, professeur WHERE cours.IdProfesseur = professeur.IdProfesseur AND ReprisDansListe = 1 AND HeureDebut >= \'15:00:00\' ORDER BY RAND() LIMIT 1';
-            }
-
-            $stmt = $bdd->query($select);
-            $row = $stmt->fetch_assoc();
-            $string = $row['NomCours'];
-            $string .= " | [";
-            $string .= $row['HeureDebut'];
-            $string .= " - ";
-            $string .= $row['HeureFin'];
-            $string .= "] -> ";
-            $string .= $row['Prenom'];
-            $string .= " ";
-            $string .= $row['Nom'];
             array_push($plageschoisies, $string);
         }
     }

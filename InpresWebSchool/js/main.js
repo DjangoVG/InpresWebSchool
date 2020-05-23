@@ -3,8 +3,8 @@ var currentTab = 0; // 0 car premiere page du formulaire
 var boolean = true;
 (function($) 
 {
-  showTab(currentTab); // Affiche la premiere page du formulaire
-  "use strict";
+    showTab(currentTab); // Affiche la premiere page du formulaire
+    "use strict";
 })(jQuery);
 
 function Inscription() { // JE CHECK SI UTILISATEUR DANS LA PERIODE

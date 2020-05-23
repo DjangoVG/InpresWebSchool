@@ -8,7 +8,7 @@
     $csv_export = ''; 
     
     // Extraction des données de la table 
-    $select = 'SELECT etudiant.Prenom AS EtudiantNom, etudiant.Nom AS EtudiantPrenom, assister.NomCours, journee.Jour, assister.HeureDebut, assister.HeureFin, cours.NomLocal, professeur.Prenom AS ProfesseurPrenom, professeur.Nom AS ProfesseurNom
+    $select = 'SELECT etudiant.AdresseMail, etudiant.Prenom AS EtudiantNom, etudiant.Nom AS EtudiantPrenom, assister.NomCours, journee.Jour, assister.HeureDebut, assister.HeureFin, cours.NomLocal, professeur.Prenom AS ProfesseurPrenom, professeur.Nom AS ProfesseurNom
     FROM etudiant
     INNER JOIN assister 
     ON assister.AdresseMail = etudiant.AdresseMail 
@@ -34,8 +34,7 @@
 
     $csv_export.= '
     '; 
-     
-    // Boucle des tuples pour remplir le fichier 
+
     while($row = mysqli_fetch_array($query)) 
     { 
         for($i = 0; $i < $field; $i++) 
@@ -45,8 +44,7 @@
         $csv_export.= '
     '; 
     } 
-     
-    // Export des données au format CSV et appel du fichier créé pour téléchargement 
+    
     header("Content-type: text/x-csv"); 
     header("Content-Disposition: attachment; filename=".$Fichier.""); 
     echo($csv_export); 

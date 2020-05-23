@@ -6,18 +6,32 @@ var boolean = true; // MAIL UNIQUE ?
 (function($) 
 {
     let page = document.getElementsByTagName("title");
-    if (page[0].textContent == "Page d'administration" && sessionStorage.getItem("connecte") == "1")
+    if (page[0].textContent == "Page d'administration")
     {
-        var x = document.getElementsByClassName("etape");
-                        
-        x[currentTabAdmin].style.display = "none";
-        currentTabAdmin += 1;
-        
-        showTabAdmin(currentTabAdmin);        
+        if (sessionStorage.getItem("connecte") == "1")
+        {
+            var x = document.getElementsByClassName("etape");
+                            
+            x[currentTabAdmin].style.display = "none";
+            currentTabAdmin += 1;
+            
+            showTabAdmin(currentTabAdmin);               
+        }
+        else
+        {
+            showTabAdmin(currentTabAdmin);
+        }
     }
     else
-        showTabAdmin(currentTabAdmin); // Affiche la premiere page du formulaire
-
+    {
+        if (sessionStorage.getItem("connecte") == "1")
+        {
+            showTabAdmin(currentTabAdmin);
+        }
+        else
+            document.location.href = 'admin.html';
+    }
+        
     "use strict";
 })(jQuery);
 
@@ -925,6 +939,8 @@ function NextStep(n)
                 document.location.href = "admin.html";
             }
         }
+        else if (page[0].textContent == "Modifier la période d'inscription" || page[0].textContent == "Modifier le nombre de cours")
+            document.location.href = "admin.html";
         else if (currentTabAdmin == 0)
             document.location.href = "index.html";
         else if (currentTabAdmin == 1)

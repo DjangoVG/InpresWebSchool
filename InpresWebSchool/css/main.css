@@ -154,6 +154,7 @@ iframe {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  background-attachment: fixed;
   position: relative;
   z-index: 1;  
 }
@@ -1550,9 +1551,7 @@ iframe {
   .wrap-table100 {
     width: 1170px;
   }
-  
-  /*//////////////////////////////////////////////////////////////////
-  [ Table ]*/
+
   .table100 {
     background-color: #fff;
   }
@@ -1563,7 +1562,7 @@ iframe {
   
   th, td {
     font-weight: unset;
-    padding-right: 10px;
+    padding: 0px 10px;
   }
   
   .column1 {

@@ -39,7 +39,7 @@
     { 
         for($i = 0; $i < $field; $i++) 
         { 
-            $csv_export.= '"'.$row[mysqli_fetch_field_direct($query, $i)->name].'";'; 
+            $csv_export.= $row[mysqli_fetch_field_direct($query, $i)->name].';'; 
         } 
         $csv_export.= '
     '; 

@@ -117,6 +117,13 @@ function showTabAdmin(current)
         document.getElementById("nextBtn").innerHTML = "AJOUTER CE LOCAL";
         document.getElementById("prevBtn").innerHTML = "ACCEUIL";
     }
+    else if (page[0].textContent == "Génération d'une attestation")
+    {
+        document.getElementById("nextBtn").innerHTML = "GÉNÉRER";
+        document.getElementById("prevBtn").innerHTML = "ACCEUIL";
+        var x = document.getElementsByClassName("etape");
+        x[current].style.display = "block"; 
+    }
     else if (page[0].textContent == "Ajouter un professeur")
     {
         document.getElementById("nextBtn").innerHTML = "AJOUTER CE PROFESSEUR";
@@ -906,6 +913,36 @@ function NextStep(n)
                 }
             }
         }
+        else if (page[0].textContent == "Génération d'une attestation")
+        {
+            var input = $('#Nom');
+            if (CheckChamps(input))
+            {
+                $.ajax({
+                    url : "php/RechercheEtudiant.php",
+                    method : "POST",
+                    dataType : "JSON",
+                    data : {
+                        mailetudiant : $('#Nom').val()
+                    },
+                    success : function(result)
+                    {
+                        if (!result['erreur'])
+                        {
+                            let Form = document.getElementById("FormEtudiant");
+                            Form.classList.add("ErrorForm");
+                            alertbox.show('Cet étudiant n\'existe pas !');
+                            setTimeout(RemoveErrorForm, 1300);
+                        }
+                        else
+                        {
+                            alertbox.show('Attestation générée !');
+                            top.location.href = "./php/attestation.php?email=" + encodeURI($('#Nom').val());
+                        }
+                    }
+                });
+            }
+        }
     } 
     else if (n == -1)
     {
@@ -939,7 +976,7 @@ function NextStep(n)
                 document.location.href = "admin.html";
             }
         }
-        else if (page[0].textContent == "Modifier la période d'inscription" || page[0].textContent == "Modifier le nombre de cours")
+        else if (page[0].textContent == "Modifier la période d'inscription" || page[0].textContent == "Modifier le nombre de cours" || page[0].textContent == "Génération d'une attestation")
             document.location.href = "admin.html";
         else if (currentTabAdmin == 0)
             document.location.href = "index.html";
@@ -1490,7 +1527,7 @@ function CheckChampFormulaireMultiEtudiant(IndexEtudiant)
 
 function ValidationChamp(input)
 {
-    if (input.name == "NomCours") // NOM DU COURS
+    if (input.name == "NomCours" || input.name == "Nom") // NOM DU COURS OU NOM ETUDIANT (ATTESTATION)
     {
         if($(input).val().trim() == '')
             return false;

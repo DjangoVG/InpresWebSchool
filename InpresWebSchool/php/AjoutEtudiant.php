@@ -1,11 +1,12 @@
 <?php
 
-    function CheckPlacesDispo ($nomducours, $heurededebut, $heuredefin, $idprof) 
+    function CheckPlacesDispo ($nomducours, $heurededebut, $heuredefin, $idprof, $bdd) 
     {
-        $verifcount =  'SELECT   NomCours, HeureDebut, HeureFin, IdProfesseur, IdJournee ,COUNT(*) As PlacesOccupees
+        $verifcount =  'SELECT NomCours, HeureDebut, HeureFin, IdProfesseur, IdJournee ,COUNT(*) As PlacesOccupees
         FROM     Assister
         WHERE assister.NomCours = \'' . $nomducours . '\' AND assister.HeureDebut = \'' . $heurededebut . '\' AND assister.HeureFin = \'' . $heuredefin . '\' AND assister.IdProfesseur = ' . $idprof . 
         ' GROUP BY NomCours, HeureDebut, HeureFin, IdProfesseur, IdJournee;';
+
         $stmt = $bdd->query($verifcount);
         $row = $stmt->fetch_assoc();
         $placesoccupees = $row['PlacesOccupees'];
@@ -14,12 +15,11 @@
         $stmt = $bdd->query($nbplaces);
         $row = $stmt->fetch_assoc();
         $placesmax = $row['NbPlaces'];
-   
 
-        if ($placesoccupees < $nbplaces)
-            return false;
-        else 
+        if ($placesoccupees < $placesmax)
             return true;
+        else 
+            return false;
     }
 
 
@@ -55,6 +55,7 @@
     {
         $return['erreur'] = true;
         $return['message'] = "Problème d'ajout dans la table étudiant";
+        echo "Probelem";
     }
 
     if (isset($_POST['sections']))
@@ -154,16 +155,13 @@
                 $string .= $row['Nom'];
                 
                 
-                if (CheckPlacesDispo($row['NomCours'], $row['HeureDebut'], $row['HeureFin'], $row['IdProfesseur']))
+                if (CheckPlacesDispo($row['NomCours'], $row['HeureDebut'], $row['HeureFin'], $row['IdProfesseur'], $bdd))
                     $bool = true;
             }
             array_push($plageschoisies, $string);
         }
     }
-    echo $plageschoisies[0];
-    echo $plageschoisies[1];
-    echo $plageschoisies[2];
-    echo $plageschoisies[3];
+
     $cpt = 0;
     foreach ($journeechoisie as &$jour)  // J'AJOUTE DES TUPLES PAR JOURNEE CHOISIES
     {
@@ -293,7 +291,6 @@
                             $select .= '\' AND Nom = \'';
                             $select .= $prenomprof;
                             $select .= '\'';
-                            echo $select;
                             $stmt = $bdd->query($select);
                             if ($stmt->num_rows > 0)
                             {

@@ -335,6 +335,7 @@ function AjouterEtudiant()
             else
             {
                 location.reload();
+
             }
                 
         }
@@ -352,7 +353,7 @@ function showTab(n)
     else 
         document.getElementById("prevBtn").innerHTML = "RETOUR";
 
-    if (n == (x.length - 1) && n != 2) 
+    if (n == (x.length - 2) && n != 2) 
         document.getElementById("nextBtn").innerHTML = "ENVOYER";
     else 
         document.getElementById("nextBtn").innerHTML = "CONTINUER";
@@ -380,6 +381,11 @@ function showTab(n)
             AjoutCoursPlages(journeechoisie);
         }            
     }
+    if (n == (x.length - 1))
+    {
+        document.getElementById("prevBtn").innerHTML = "ACCEUIL";
+        document.getElementById("nextBtn").style.display = "none";
+    }
     AffichageStepFormulaire(n)
 }
 
@@ -389,6 +395,10 @@ function ClickBoutonFormulaire(n)
     {
         if (currentTab == 0)
             document.location.href='index.html'; 
+        else if (currentTab == 4)
+        {
+            document.location.href='inscription.html';
+        }
         else
             AffichageNextStep(n);
     }

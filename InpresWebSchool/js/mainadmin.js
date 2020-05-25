@@ -826,8 +826,9 @@ function NextStep(n)
                                 etablissementetudiant : $(ContainerEtudiants.children[i].children[1].children[3].children[0]).val(),
                             },
                             success : function(result)
-                            {
-                                document.location.href = "admin.html";
+                            {                        
+                                alertbox.show("Etudiant ajouté !")
+                                setTimeout(RetourMenu, 3000);
                             },
                             error : function(result)
                             {
@@ -1704,7 +1705,11 @@ function AjouterLocal()
                 setTimeout(RemoveErrorForm, 1300);
             }
             else
-                document.location.href="admin.html";
+            {
+                alertbox.show("Local ajouté !")
+                setTimeout(RetourMenu, 3000);
+            }
+                
         }
     });
 }
@@ -1784,7 +1789,8 @@ function AjouterCours()
         },
         success : function()
         {
-            RetourMenu();
+            alertbox.show("Cours ajouté !")
+            setTimeout(RetourMenu, 3000);
         },
         error : function()
         {
@@ -1816,7 +1822,10 @@ function AjouterProfesseur()
                 setTimeout(RemoveErrorForm, 1300);
             }
             else
-                document.location.href="admin.html";
+            {
+                alertbox.show("Professeur ajouté !")
+                setTimeout(RetourMenu, 3000);
+            }
         }
     });
 }

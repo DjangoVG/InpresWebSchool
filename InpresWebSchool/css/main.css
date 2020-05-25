@@ -1794,6 +1794,13 @@ iframe {
     transition: background 0.1s;
 }
 
-
+.SuccesInscription{
+  font-family: arial;
+  font-size: 20px;
+  font-weight: bold;
+  color: mediumvioletred;
+  text-align: center;
+  margin: 10px;
+}
 
 

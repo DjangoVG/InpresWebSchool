@@ -1,5 +1,5 @@
 <?php
-
+    include('ConnexionBD.php');
     function CheckPlacesDispo ($nomducours, $heurededebut, $heuredefin, $idprof, $bdd) 
     {
         $verifcount =  'SELECT NomCours, HeureDebut, HeureFin, IdProfesseur, IdJournee ,COUNT(*) As PlacesOccupees
@@ -22,10 +22,7 @@
             return false;
     }
 
-
-
-
-    include('ConnexionBD.php');
+    
 
     $email = $_POST['mailetudiant'];
     $cle = md5(microtime(TRUE)*100000);

@@ -335,7 +335,6 @@ function AjouterEtudiant()
             else
             {
                 location.reload();
-
             }
                 
         }
@@ -662,11 +661,9 @@ function AffichageNextStep(n)
     x[currentTab].style.display = "none";
     currentTab += n;
 
-    if (currentTab == x.length) // JE VALIDE LE DOCUMENT
+    if (currentTab == x.length-1) // JE VALIDE LE DOCUMENT
     {
         AjouterEtudiant();
-        document.getElementById("regForm").submit();
-        return false;
     }
     showTab(currentTab); 
 }

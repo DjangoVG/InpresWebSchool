@@ -130,8 +130,28 @@
         $i = 0;
         while($row = $stmt->fetch_assoc()) 
         {
-          $results[$i]=$row;
-          $i++;
+            $verifcount =  'SELECT NomCours, HeureDebut, HeureFin, IdProfesseur, IdJournee ,COUNT(*) As PlacesOccupees
+            FROM     Assister
+            WHERE assister.NomCours = \'' . $row['NomCours'] . '\' AND assister.HeureDebut = \'' . $row['HeureDebut'] . '\' AND assister.HeureFin = \'' . $row['HeureFin'] . '\' AND assister.IdProfesseur = ' . $row['IdProfesseur'] . 
+            ' GROUP BY NomCours, HeureDebut, HeureFin, IdProfesseur, IdJournee;';
+
+            $stmt2 = $bdd->query($verifcount);
+            $row2 = $stmt2->fetch_assoc();
+            if ($stmt2->num_rows > 0)
+                $placesoccupees = $row2['PlacesOccupees'];
+            else
+                $placesoccupees = 0;
+
+            $nbplaces = 'SELECT TypeCours.NbPlaces FROM typecours LEFT JOIN cours ON cours.IdType = typecours.IdType AND cours.NomCours = \'' . $row['NomCours'] . '\' AND cours.HeureDebut = \'' . $row['HeureDebut'] . '\' AND cours.HeureFin = \'' . $row['HeureFin'] . '\' AND cours.IdProfesseur = ' . $row['IdProfesseur'];
+            $stmt2 = $bdd->query($nbplaces);
+            $row2 = $stmt2->fetch_assoc();
+            $placesmax = $row2['NbPlaces'];
+    
+            if ($placesoccupees < $placesmax)
+            {
+                $results[$i]=$row;
+                $i++;                
+            }
         }
         $return['cours'] = $results;
         echo json_encode($return);

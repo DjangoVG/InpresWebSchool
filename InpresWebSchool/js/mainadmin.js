@@ -45,7 +45,7 @@ function ConnexionAdmin()
         let Form = document.getElementById("FormmLogin");
         Form.classList.add("ErrorForm");
         setTimeout(RemoveErrorForm, 1300);
-        alertbox.show('Veuillez entrer un vrai login !');
+        alertbox.show('Adresse mail incorrect !');
         MauvaisAdmin();      
     }
     else
@@ -73,7 +73,7 @@ function ConnexionAdmin()
                 let Form = document.getElementById("FormmLogin");
                 Form.classList.add("ErrorForm");
                 setTimeout(RemoveErrorForm, 1300);
-                alertbox.show('Mauvais login !');
+                alertbox.show('Mot de passe incorrect !');
                 MauvaisAdmin();
             }
         });        

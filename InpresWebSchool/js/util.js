@@ -6,13 +6,11 @@ function showAll (input)
 
 function showValidate(input) {
     var thisAlert = $(input).parent();
-
     $(thisAlert).addClass('faux');
 }
 
 function showValidateNotUnique(input) {
     var thisAlert = $(input).parent();
-
     $(thisAlert).addClass('notunique');
 }
 
@@ -34,19 +32,19 @@ function hideAll(input)
 
 function ValidationPattern (input)
 {
-    if($(input).attr('type') == 'email') 
+    let checkbool = true;
+    if($(input).attr('type') == 'email')
     {
         if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null)
-            return false;
+            checkbool = false;         
     }
     else 
     {
         if($(input).val().trim() == '')
-        {
-            return false;
-        }
+            checkbool = false;         
     }
-    return true;
+
+    return checkbool;
 }
 
 function ValidationUnique(input)
@@ -79,12 +77,10 @@ function ValidationUnique(input)
     return boolean;
 }
 
-function NotUnique()
-{
+function NotUnique() {
     boolean = false;
 }
-function Unique()
-{
+function Unique() {
     boolean = true;
 }
 
@@ -99,63 +95,60 @@ function TranformSelect()
         
         $(this).find('option').each(function(i) 
         {
-          if (i == 0) 
-          {
-            $current.prepend($('<div>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__box')
-            }));
+            if (i == 0) 
+            {
+                $current.prepend($('<div>', { // rajoute une option en tant que premier enfant
+                class: $current.attr('class').replace(/sel/g, 'sel__box')
+                }));
+                
+                var placeholder = $(this).text();
+                $current.prepend($('<span>', {
+                class: $current.attr('class').replace(/sel/g, 'sel__placeholder'),
+                text: placeholder,
+                'data-placeholder': placeholder
+                }));
+                return;
+            }
             
-            var placeholder = $(this).text();
-            $current.prepend($('<span>', {
-              class: $current.attr('class').replace(/sel/g, 'sel__placeholder'),
-              text: placeholder,
-              'data-placeholder': placeholder
+            $current.children('div').append($('<span>', {
+                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                text: $(this).text()
             }));
-            
-            return;
-          }
-          
-          $current.children('div').append($('<span>', {
-            class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-            text: $(this).text()
-          }));
         });
-      });
-      
-      // Toggling the `.active` state on the `.sel`.
-      $('.sel').click(function() {
+    });
+
+    $('.sel').click(function() {
         $(this).toggleClass('active');
-      });
-      
-      // Toggling the `.selected` state on the options.
-      $('.sel__box__options').click(function() {
+    });
+        
+    $('.sel__box__options').click(function() {
         var txt = $(this).text();
         var index = $(this).index();
         
-        $(this).siblings('.sel__box__options').removeClass('selected');
+        $(this).siblings('.sel__box__options').removeClass('selected'); // renvoie le noeud suivant immédiatement le noeud spécifié dans child list
         $(this).addClass('selected');
         
-        var $currentSel = $(this).closest('.sel');
+        var $currentSel = $(this).closest('.sel'); // renvoie le parent le plus proche
         $currentSel.children('.sel__placeholder').text(txt);
-        $currentSel.children('select').prop('selectedIndex', index + 1);
-      });
+        $currentSel.children('select').prop('selectedIndex', index + 1); // recuperer la propriete selctedsIndex
+    });
 
-      var showPass = 0;
-      $('.btn-show-pass').on('click', function()
-      {
-          if(showPass == 0) 
-          {
-              $(this).next('input').attr('type','text');
-              $(this).addClass('active');
-              showPass = 1;
-          }
-          else 
-          {
-              $(this).next('input').attr('type','password');
-              $(this).removeClass('active');
-              showPass = 0;
-          }
-      });
+    var showPass = 0;
+    $('.btn-show-pass').on('click', function() // bouton formulaire email mdp
+    {
+        if(showPass == 0) 
+        {
+            $(this).next('input').attr('type','text');
+            $(this).addClass('active');
+            showPass = 1;
+        }
+        else 
+        {
+            $(this).next('input').attr('type','password');
+            $(this).removeClass('active');
+            showPass = 0;
+        }
+    });
 }
 
 function RemoveErrorForm()

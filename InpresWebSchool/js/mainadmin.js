@@ -10,34 +10,23 @@ var boolean = true; // MAIL UNIQUE ?
     {
         if (sessionStorage.getItem("connecte") == "1")
         {
-            var x = document.getElementsByClassName("etape");
-                            
+            var x = document.getElementsByClassName("etape");     
             x[currentTabAdmin].style.display = "none";
-            currentTabAdmin += 1;
-            
-            showTabAdmin(currentTabAdmin);               
+            currentTabAdmin += 1;               
         }
-        else
-        {
-            showTabAdmin(currentTabAdmin);
-        }
+        showTabAdmin(currentTabAdmin);
     }
     else
     {
         if (sessionStorage.getItem("connecte") == "1")
-        {
             showTabAdmin(currentTabAdmin);
-        }
         else
-            document.location.href = 'admin.html';
-    }
-        
+            RetourMenu();
+    } 
     "use strict";
 })(jQuery);
 
-
 /* LOGIN ADMINISTRATEUR */
-
 function ConnexionAdmin()
 {
     if ($("#AdresseMailAdmin").val().length == 0)
@@ -45,7 +34,7 @@ function ConnexionAdmin()
         let Form = document.getElementById("FormmLogin");
         Form.classList.add("ErrorForm");
         setTimeout(RemoveErrorForm, 1300);
-        alertbox.show('Adresse mail incorrect !');
+        alertbox.show('Adresse mail invalide !');
         MauvaisAdmin();      
     }
     else
@@ -66,7 +55,6 @@ function ConnexionAdmin()
             success : function(result)
             {
                 sessionStorage.setItem("connecte","1");
-                return true;
             },
             error : function (result)
             {
@@ -78,8 +66,6 @@ function ConnexionAdmin()
             }
         });        
     }
-
-
     if (!admin)
         return false;
     else
@@ -253,7 +239,6 @@ function showTabAdmin(current)
     {
         document.getElementsByClassName("step")[currentTab].className += " finish";
         var x = document.getElementsByClassName("etape");
-                
         x[currentTab].style.display = "none";
         currentTab += n;
     
@@ -340,22 +325,6 @@ function showTabAdmin(current)
         }  
         var x = document.getElementsByClassName("etape");
         x[current].style.display = "block"; 
-    }
-}
-
-function SupprimerGroupes()
-{
-    console.log("Je tente de supprimer des groupes");
-
-    let groupe = "sel__box__options Bloc";
-    var list = document.getElementsByClassName(groupe);
-    for(let i = list.length - 1; i > 0; i--)
-    {
-        if(list[i] && list[i].parentElement)
-        {
-            console.log("Suppression groupes");
-            list[i].parentElement.removeChild(list[i]); 
-        }            
     }
 }
 
@@ -552,14 +521,15 @@ function NextStep(n)
             }
             else if (currentTabAdmin == 1)
             {
-                let bool = false;
+                var bool = 0;
                 let ContainerEtudiants = document.getElementById("ContainerEtudiants");
                 for (let i = 0; i < ContainerEtudiants.children.length ; i++) // JE RECUPERE CHAQUES CHAMPS POUR LES VERIFIER
                 {
                     if (CheckChampFormulaireMultiEtudiant(ContainerEtudiants.children[i].children[1]))
-                        bool = true;
+                        bool++;
                 }
-                if (bool)
+                console.log(bool);
+                if (bool == ContainerEtudiants.children.length)
                 {
                     for (let i = 0; i < ContainerEtudiants.children.length ; i++) // JE REPARCOURS LE CONTAINER ET JE LES AJOUTE TOUS + ADDING PROGRAMME
                     {
@@ -581,7 +551,8 @@ function NextStep(n)
                             },
                             error : function(result)
                             {
-                                document.location.href = "admin.html";
+                                alertbox.show("Etudiant ajouté !")
+                                setTimeout(RetourMenu, 3000);
                             }
                         });
                     }
@@ -699,9 +670,7 @@ function NextStep(n)
         if (page[0].textContent == "Ajouter un cours")
         {
             if (currentTabAdmin == 0 && n == -1)
-            {
-                document.location.href = "admin.html";
-            }
+                RetourMenu();
             else // JE RECULE 
             {
                 var x = document.getElementsByClassName("etape");
@@ -756,10 +725,8 @@ function NextStep(n)
                 document.getElementById("nextBtn").style.display = "none";
                 document.getElementById("prevBtn").style.display = "inline";
                 var x = document.getElementsByClassName("etape");
-                        
                 x[currentTabAdmin].style.display = "none";
                 currentTabAdmin += n;
-                
                 showTabAdmin(currentTabAdmin);                 
             }
         }
@@ -768,10 +735,8 @@ function NextStep(n)
             document.getElementById("nextBtn").style.display = "none";
             document.getElementById("prevBtn").style.display = "inline";
             var x = document.getElementsByClassName("etape");
-                    
             x[currentTabAdmin].style.display = "none";
             currentTabAdmin += n;
-            
             showTabAdmin(currentTabAdmin);                 
         }
     }
@@ -950,8 +915,6 @@ function RechercheEtudiant() {
 
 function RechercheProf()
 {
-    console.log("Je passe dans RechercheProf");
-    
     $.ajax({
         url : "php/RechercheProfesseurs.php",
         method : "POST",
@@ -986,8 +949,6 @@ function RechercheProf()
 
 function RechercheLocaux()
 {
-    console.log("Je passe dans RechercheLocaux");
-    
     $.ajax({
         url : "php/RechercheLocaux.php",
         method : "POST",
@@ -1022,8 +983,6 @@ function RechercheLocaux()
 
 function RechercheGroupes()
 {
-    console.log("Je passe dans RechercheGroupes");
-
     var bloc; // JE RECUPERE LE BLOC CHOISI
     var blocs = document.getElementsByClassName("inputBloc clique");
     bloc =  $(blocs[0]).children().first().prop("name");
@@ -1043,8 +1002,6 @@ function RechercheGroupes()
         section.push($(sections[i]).children().first().prop("name")); 
         i++;
     });
-
-
 
     for (let i = 0; i < section.length; i++)
     {
@@ -1179,9 +1136,13 @@ function RechercheLocal()
     });
 }
 
-function Redirection (mail, cle)
+function SupprimerGroupes()
 {
-    document.location.href = "php/horaire.php?email=" + encodeURI(mail) + "&cle=" + encodeURI(cle);
+    let groupe = "sel__box__options Bloc";
+    var list = document.getElementsByClassName(groupe);
+    for(let i = list.length - 1; i > 0; i--)
+        if(list[i] && list[i].parentElement)
+            list[i].parentElement.removeChild(list[i]);
 }
 
 function SupprimerLignes(bool)
@@ -1195,13 +1156,11 @@ function SupprimerLignes(bool)
     let Tbody = Tableau.children[0];
     let NbLignes = Tbody.childNodes.length;
     if (NbLignes >= 1)
-    {
         for (let i = 0; i < NbLignes; i++)
-        {
             Tbody.removeChild(Tbody.firstChild); 
-        }        
-    }
 }
+
+/* -------- CHECK CHAMPS ------------ */
 
 function CheckChamps(input) {
     var check = true;
@@ -1225,7 +1184,7 @@ function CheckChamps(input) {
 
 function CheckNombreEtudiants() {
     var input = $('#NombreEtudiants');
-    var check = true;
+    let check = true;
 
     if(!ValidationChamp(input))
     {
@@ -1244,8 +1203,8 @@ function CheckNombreEtudiants() {
 
 function CheckChampFormulaireMultiEtudiant(IndexEtudiant)
 {
-    var check = true;
-    for(var i=0; i<4; i++)
+    let check = true;
+    for(let i=0; i<4; i++)
     {
         if(!ValidationPattern(IndexEtudiant.children[i].children[0]))
         {
@@ -1254,23 +1213,20 @@ function CheckChampFormulaireMultiEtudiant(IndexEtudiant)
                 hideValidateNotUnique(IndexEtudiant.children[i].children[0]);
                 showAll(IndexEtudiant.children[i].children[0]);
                 showValidate(IndexEtudiant.children[i].children[0]);
-                check=false;      
+                check = false;      
             }
         }
         else
         {
             if (i == 0)
-            {
                 if (!ValidationUnique(IndexEtudiant.children[i].children[0]))
-                    check = false; 
-            }
+                    check = false;
             else
             {
                 hideAll(IndexEtudiant.children[i].children[0]);
                 hideValidate(IndexEtudiant.children[i].children[0]);
             }
         }
-
     }
     return check;
 }
@@ -1387,7 +1343,7 @@ function ValidationProfesseur()
         return true;
 }
 
-/* ---------------------------------------------- */
+/* ------------- REDIRECTION ---------------------- */
 
 function ConsultationCours() {
     document.location.href='cours.html';
@@ -1463,8 +1419,7 @@ function AjouterLocal()
     });
 }
 
-function AjouterCours()
-{
+function AjouterCours() {
     console.log("J'ajoute un cours");
 
     var type2 = document.getElementsByClassName("inputGroup clique");
@@ -1551,8 +1506,7 @@ function AjouterCours()
     });
 }
 
-function AjouterProfesseur()
-{
+function AjouterProfesseur() {
     $.ajax({
         url : "php/AjoutProfesseur.php",
         method : "POST",
@@ -1579,16 +1533,18 @@ function AjouterProfesseur()
     });
 }
 
-function ExporterBD()
-{
+function ExporterBD() {
     document.location.href='php/ExportListing.php';
 }
 
-function GenererAttestation()
-{
+function GenererAttestation() {
     document.location.href='genererattestation.html';
 }
 
 function RetourMenu() {
     document.location.href = 'admin.html';
+}
+
+function Redirection (mail, cle) {
+    document.location.href = "php/horaire.php?email=" + encodeURI(mail) + "&cle=" + encodeURI(cle);
 }

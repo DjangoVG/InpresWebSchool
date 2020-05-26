@@ -5,7 +5,6 @@
     $select = 'SELECT * FROM etudiant WHERE AdresseMail = \'';
     $select .= $_POST['mailetudiant'];
     $select .= '\'';
-    $select .= " AND validation = 1";
 
     $stmt = $bdd->query($select);
     if ($stmt->num_rows > 0)

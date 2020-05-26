@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 25 mai 2020 à 15:43
+-- Généré le :  mar. 26 mai 2020 à 19:33
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -83,6 +83,26 @@ INSERT INTO `assister` (`AdresseMail`, `IdJournee`, `NomCours`, `HeureDebut`, `H
 ('isen0607@gmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
 ('isen0607@gmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
 ('isen0607@gmail.com', 1, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 8),
+('lea.manso@outlook.com', 1, 'Analyse et gestion de données', '13:30:00', '15:00:00', 17),
+('lea.manso@outlook.com', 1, 'Logiciel de contrôle', '10:30:00', '13:00:00', 19),
+('lea.manso@outlook.com', 1, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 15),
+('lea.manso@outlook.com', 1, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 10),
+('lea.manso@outlook.com', 3, 'Analyse de périphériques', '13:30:00', '15:00:00', 21),
+('lea.manso@outlook.com', 3, 'Analyse et gestion de données', '10:30:00', '12:00:00', 12),
+('lea.manso@outlook.com', 3, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 9),
+('lea.manso@outlook.com', 3, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 15),
+('lea.manso@outlook.com', 4, 'Logiciel de contrôle', '10:30:00', '13:00:00', 10),
+('lea.manso@outlook.com', 4, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 16),
+('louis.patrick@hotmail.com', 1, 'Analyse et gestion de données', '13:30:00', '15:00:00', 6),
+('louis.patrick@hotmail.com', 1, 'Anglais technique', '10:30:00', '11:30:00', 14),
+('louis.patrick@hotmail.com', 1, 'Collectif', '08:20:00', '10:20:00', 3),
+('louis.patrick@hotmail.com', 1, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 2),
+('madrid.king@gmail.com', 4, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+('madrid.king@gmail.com', 4, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
+('madrid.king@gmail.com', 4, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
+('madrid.king@gmail.com', 4, 'Stat C++', '15:30:00', '17:00:00', 20),
+('madrid.king@gmail.com', 5, 'Data mining', '08:20:00', '10:20:00', 20),
+('madrid.king@gmail.com', 5, 'Thread', '10:30:00', '12:30:00', 20),
 ('manuela.lout@skynet.be', 3, 'Analyse et gestion de données', '10:30:00', '12:00:00', 12),
 ('manuela.lout@skynet.be', 3, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 9),
 ('manuela.lout@skynet.be', 4, 'Analyse et gestion de données', '13:30:00', '15:00:00', 17),
@@ -106,10 +126,17 @@ INSERT INTO `assister` (`AdresseMail`, `IdJournee`, `NomCours`, `HeureDebut`, `H
 ('regis3d@hotmail.com', 2, 'Analyse et gestion de données', '13:30:00', '15:00:00', 6),
 ('regis3d@hotmail.com', 2, 'Anglais technique', '09:20:00', '10:20:00', 11),
 ('regis3d@hotmail.com', 2, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 7),
+('regis4d@hotmail.com', 1, 'Analyse et gestion de données', '13:30:00', '15:00:00', 6),
+('regis4d@hotmail.com', 1, 'Analyse et gestion de données', '13:30:00', '15:00:00', 12),
 ('regis4d@hotmail.com', 1, 'Analyse et gestion des données', '08:50:00', '10:20:00', 6),
 ('regis4d@hotmail.com', 1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
+('regis4d@hotmail.com', 1, 'Anglais technique', '09:20:00', '10:20:00', 13),
 ('regis4d@hotmail.com', 1, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
+('regis4d@hotmail.com', 1, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 9),
+('regis4d@hotmail.com', 1, 'Langage et logique de programmation 2', '15:30:00', '17:00:00', 1),
 ('regis4d@hotmail.com', 1, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 5),
+('regis4d@hotmail.com', 1, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 19),
+('regis4d@hotmail.com', 1, 'Présentation Stage - TFE par les étudiants de 3ème', '10:30:00', '12:00:00', 18),
 ('regis4dd@hotmail.com', 1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
 ('regis4dd@hotmail.com', 1, 'Présentation Stage - TFE par les étudiants de 3ème', '10:30:00', '12:00:00', 18),
 ('regis5d@hotmail.com', 2, 'Langage et logique de programmation 2', '08:20:00', '10:20:00', 7),
@@ -122,7 +149,18 @@ INSERT INTO `assister` (`AdresseMail`, `IdJournee`, `NomCours`, `HeureDebut`, `H
 ('regis5d@hotmail.com', 3, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
 ('regis5d@hotmail.com', 4, 'Comptabilité appliquée et langue', '10:30:00', '12:30:00', 15),
 ('regis5d@hotmail.com', 4, 'Développement orienté objets java', '08:20:00', '10:20:00', 2),
-('regis5d@hotmail.com', 4, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20);
+('regis5d@hotmail.com', 4, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
+('regis6d@hotmail.com', 1, 'Anglais technique', '09:20:00', '10:20:00', 11),
+('regis6d@hotmail.com', 1, 'Logiciel de contrôle', '10:30:00', '13:00:00', 19),
+('regis6d@hotmail.com', 1, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 2),
+('regis6d@hotmail.com', 1, 'Sécurité réseau', '13:30:00', '15:30:00', 16),
+('regis6d@hotmail.com', 2, 'Langage et logique de programmation 2', '10:30:00', '12:00:00', 7),
+('regis6d@hotmail.com', 2, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 4),
+('regis6d@hotmail.com', 2, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
+('regis6d@hotmail.com', 2, 'Stat C++', '15:30:00', '17:00:00', 20),
+('steveaoki@outlook.fr', 3, 'Analyse de périphériques', '13:30:00', '15:00:00', 21),
+('steveaoki@outlook.fr', 3, 'Analyse et gestion de données', '10:30:00', '12:00:00', 12),
+('steveaoki@outlook.fr', 3, 'Mathématiques et statistiques appliquées 2', '08:20:00', '10:20:00', 15);
 
 -- --------------------------------------------------------
 
@@ -147,6 +185,13 @@ INSERT INTO `choisir` (`AdresseMail`, `IdSection`) VALUES
 ('belgianair@gmail.com', 1),
 ('belgianair@gmail.com', 2),
 ('isen0607@gmail.com', 1),
+('lea.manso@outlook.com', 1),
+('lea.manso@outlook.com', 2),
+('lea.manso@outlook.com', 3),
+('louis.patrick@hotmail.com', 1),
+('louis.patrick@hotmail.com', 2),
+('louis.patrick@hotmail.com', 3),
+('madrid.king@gmail.com', 1),
 ('manuela.lout@skynet.be', 2),
 ('manuela.lout@skynet.be', 3),
 ('redggg@gmail.com', 1),
@@ -158,9 +203,17 @@ INSERT INTO `choisir` (`AdresseMail`, `IdSection`) VALUES
 ('regis3d@hotmail.com', 1),
 ('regis3d@hotmail.com', 2),
 ('regis4d@hotmail.com', 1),
+('regis4d@hotmail.com', 2),
+('regis4d@hotmail.com', 3),
 ('regis4dd@hotmail.com', 1),
+('regis4qdzd@hotmail.com', 2),
+('regis4qdzd@hotmail.com', 3),
 ('regis5d@hotmail.com', 1),
-('regis5d@hotmail.com', 3);
+('regis5d@hotmail.com', 3),
+('regis6d@hotmail.com', 1),
+('regis6d@hotmail.com', 2),
+('regis6d@hotmail.com', 3),
+('steveaoki@outlook.fr', 2);
 
 -- --------------------------------------------------------
 
@@ -189,6 +242,7 @@ CREATE TABLE IF NOT EXISTS `composer` (
 
 INSERT INTO `composer` (`IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProfesseur`) VALUES
 (1, 'Administration réseaux', '13:30:00', '15:30:00', 10),
+(1, 'Analyse de failles informatiques', '08:20:00', '10:30:00', 12),
 (1, 'Analyse et gestion de données', '08:50:00', '10:20:00', 6),
 (1, 'Analyse orienté objet', '13:30:00', '15:00:00', 8),
 (1, 'Anglais technique', '09:20:00', '10:20:00', 14),
@@ -241,6 +295,7 @@ INSERT INTO `composer` (`IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdPr
 (4, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 24),
 (4, 'Stat C++', '15:30:00', '17:00:00', 20),
 (4, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 16),
+(5, 'Analyse du réseau local', '13:00:00', '15:30:00', 21),
 (5, 'Analyse et gestion de données', '08:50:00', '10:20:00', 8),
 (5, 'Analyse et gestion de données', '13:30:00', '15:00:00', 12),
 (5, 'Anglais technique', '10:30:00', '11:30:00', 14),
@@ -250,6 +305,7 @@ INSERT INTO `composer` (`IdJournee`, `NomCours`, `HeureDebut`, `HeureFin`, `IdPr
 (5, 'Organisation et exploitation des données', '15:00:00', '17:00:00', 19),
 (5, 'Programmation orienté objet - C#', '13:30:00', '15:30:00', 20),
 (5, 'Programmation orienté objet - JAVA', '13:30:00', '15:30:00', 23),
+(5, 'qzdzqd', '08:10:00', '10:20:00', 2),
 (5, 'Réseau TCP/IP', '10:30:00', '12:30:00', 12),
 (5, 'Réseau TCP/IP', '10:30:00', '12:30:00', 23),
 (5, 'Stat C++', '15:30:00', '17:00:00', 20),
@@ -305,6 +361,7 @@ INSERT INTO `concerner` (`IdSection`, `NomCours`, `HeureDebut`, `HeureFin`, `IdP
 (1, 'Programmation web 2', '15:30:00', '17:30:00', 3),
 (1, 'Stat C++', '15:30:00', '17:00:00', 20),
 (1, 'Thread', '10:30:00', '12:30:00', 20),
+(2, 'Analyse de failles informatiques', '08:20:00', '10:30:00', 12),
 (2, 'Analyse de périphériques', '13:30:00', '15:00:00', 21),
 (2, 'Analyse et gestion de données', '08:50:00', '10:20:00', 8),
 (2, 'Analyse et gestion de données', '10:30:00', '12:00:00', 12),
@@ -327,6 +384,8 @@ INSERT INTO `concerner` (`IdSection`, `NomCours`, `HeureDebut`, `HeureFin`, `IdP
 (2, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 10),
 (2, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 16),
 (3, 'Administration réseaux', '13:30:00', '15:30:00', 10),
+(3, 'Analyse de failles informatiques', '08:20:00', '10:30:00', 12),
+(3, 'Analyse du réseau local', '13:00:00', '15:30:00', 21),
 (3, 'Analyse et gestion de données', '08:50:00', '10:20:00', 12),
 (3, 'Analyse et gestion de données', '10:30:00', '12:00:00', 6),
 (3, 'Analyse et gestion de données', '13:30:00', '15:00:00', 17),
@@ -434,8 +493,9 @@ INSERT INTO `cours` (`NomCours`, `HeureDebut`, `HeureFin`, `ReprisDansListe`, `I
 ('Thread', '10:30:00', '12:30:00', 1, 20, 2, 'B01'),
 ('Analyse de périphériques', '13:30:00', '15:00:00', 1, 21, 1, 'PV11'),
 ('Collectif', '08:20:00', '10:20:00', 1, 3, 1, 'AE'),
-('qzdzqddz', '00:00:00', '00:00:01', 1, 2, 1, 'AX'),
-('Aucun cours ne m\'intéresse', '16:00:00', '16:00:00', 1, 0, 0, '0');
+('Aucun cours ne m\'intéresse', '16:00:00', '16:00:00', 1, 0, 0, '0'),
+('Analyse de failles informatiques', '08:20:00', '10:30:00', 1, 12, 1, 'PV9'),
+('Analyse du réseau local', '13:00:00', '15:30:00', 1, 21, 2, 'PV2');
 
 -- --------------------------------------------------------
 
@@ -466,7 +526,12 @@ INSERT INTO `etudiant` (`AdresseMail`, `Nom`, `Prenom`, `EtablissementScolaire`,
 ('regis4dd@hotmail.com', 'Evrard', 'Régis', '', '67a30a6bf9f5d246b2a13c50b5f7a8a4', 1),
 ('redggg@gmail.com', 'Courtois', 'Thibault', '', '076b265bf2c5dce79e4677fc4f86058a', 0),
 ('regis5d@hotmail.com', 'Froidmont', 'Louis', 'Collège du mélange', '489471272341d1902ba083fdc5881f3e', 1),
-('manuela.lout@skynet.be', 'Loutin', 'Manuela', 'Institut du Pasteur', '187e81dc515821a3fc4c4b17cbf64e8b', 1);
+('manuela.lout@skynet.be', 'Loutin', 'Manuela', 'Institut du Pasteur', '187e81dc515821a3fc4c4b17cbf64e8b', 1),
+('regis6d@hotmail.com', 'Fred', 'Dumont', '', '7c9ff83b3f419fcca6046d04f3709c65', 0),
+('lea.manso@outlook.com', 'Ansion', 'Miguel', 'Collège Saint-François d\'Assise', '723366fe51f123104f65992087268097', 1),
+('madrid.king@gmail.com', 'Nadal', 'Rafael', 'Collège de la raquette', '2826f56956f08db8f57d41787817b4f1', 1),
+('steveaoki@outlook.fr', 'Aoki', 'Steve', '', '4a07aaf8d01d4132a2d00c2057618f6d', 1),
+('louis.patrick@hotmail.com', 'Patrick', 'Louis', 'Collège des pains-perdus', '0a5796f9408d0838771e2400e1cc6452', 1);
 
 -- --------------------------------------------------------
 
@@ -534,6 +599,12 @@ INSERT INTO `inscrire` (`AdresseMail`, `IdJournee`) VALUES
 ('belgianair@gmail.com', 3),
 ('belgianair@gmail.com', 5),
 ('isen0607@gmail.com', 1),
+('lea.manso@outlook.com', 1),
+('lea.manso@outlook.com', 3),
+('lea.manso@outlook.com', 4),
+('louis.patrick@hotmail.com', 1),
+('madrid.king@gmail.com', 4),
+('madrid.king@gmail.com', 5),
 ('manuela.lout@skynet.be', 3),
 ('manuela.lout@skynet.be', 4),
 ('manuela.lout@skynet.be', 5),
@@ -545,7 +616,10 @@ INSERT INTO `inscrire` (`AdresseMail`, `IdJournee`) VALUES
 ('regis4dd@hotmail.com', 1),
 ('regis5d@hotmail.com', 2),
 ('regis5d@hotmail.com', 3),
-('regis5d@hotmail.com', 4);
+('regis5d@hotmail.com', 4),
+('regis6d@hotmail.com', 1),
+('regis6d@hotmail.com', 2),
+('steveaoki@outlook.fr', 3);
 
 -- --------------------------------------------------------
 
@@ -595,11 +669,13 @@ INSERT INTO `local` (`NomLocal`) VALUES
 ('B01'),
 ('B02'),
 ('B03'),
+('B14'),
 ('B16'),
 ('B19'),
 ('B20'),
 ('B22'),
 ('BX'),
+('C18'),
 ('L01'),
 ('L02'),
 ('LEO'),
@@ -703,6 +779,7 @@ INSERT INTO `prevoir` (`IdGroupe`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProf
 (2202, 'Programmation web 2', '15:30:00', '17:30:00', 3),
 (2202, 'Stat C++', '15:30:00', '17:00:00', 20),
 (2202, 'Thread', '10:30:00', '12:30:00', 20),
+(2221, 'Analyse de failles informatiques', '08:20:00', '10:30:00', 12),
 (2221, 'Analyse et gestion de données', '08:50:00', '10:20:00', 8),
 (2221, 'Analyse et gestion de données', '10:30:00', '12:00:00', 12),
 (2221, 'Analyse et gestion de données', '13:30:00', '15:00:00', 6),
@@ -721,7 +798,9 @@ INSERT INTO `prevoir` (`IdGroupe`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProf
 (2221, 'Réseau TCP/IP', '10:30:00', '12:30:00', 12),
 (2221, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 10),
 (2221, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 16),
+(2222, 'Analyse de failles informatiques', '08:20:00', '10:30:00', 12),
 (2225, 'Administration réseaux', '13:30:00', '15:30:00', 10),
+(2225, 'Analyse de failles informatiques', '08:20:00', '10:30:00', 12),
 (2225, 'Analyse et gestion de données', '08:50:00', '10:20:00', 12),
 (2225, 'Analyse et gestion de données', '10:30:00', '12:00:00', 6),
 (2225, 'Analyse et gestion de données', '13:30:00', '15:00:00', 17),
@@ -740,9 +819,12 @@ INSERT INTO `prevoir` (`IdGroupe`, `NomCours`, `HeureDebut`, `HeureFin`, `IdProf
 (2225, 'Réseaux et programmation réseaux', '15:30:00', '17:00:00', 24),
 (2225, 'Sécurité réseau', '13:30:00', '15:30:00', 16),
 (2225, 'Technique des microprocesseurs', '08:50:00', '10:20:00', 10),
+(2226, 'Analyse de failles informatiques', '08:20:00', '10:30:00', 12),
+(2227, 'Analyse de failles informatiques', '08:20:00', '10:30:00', 12),
 (2301, 'Présentation Stage - TFE par les étudiants de 3ème', '08:50:00', '10:20:00', 18),
 (2301, 'Présentation Stage - TFE par les étudiants de 3ème', '10:30:00', '12:00:00', 18),
-(2321, 'Analyse de périphériques', '13:30:00', '15:00:00', 21);
+(2321, 'Analyse de périphériques', '13:30:00', '15:00:00', 21),
+(2326, 'Analyse du réseau local', '13:00:00', '15:30:00', 21);
 
 -- --------------------------------------------------------
 

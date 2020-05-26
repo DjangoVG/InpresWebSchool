@@ -1,4 +1,3 @@
-document.write('<script type="text/javascript" src="js/util.js" ></script>');
 var currentTab = 0; // 0 car premiere page du formulaire
 var boolean = true;
 (function($) 
@@ -35,204 +34,50 @@ function AjoutCoursPlages(journeechoisie)
     var sections = [];
     var i = 0;
     var section2 = document.getElementsByClassName("inputGroup clique");
-    var nomprof;
     $.each(section2, function() // Récupère les différentes sections choisies
     {
         sections.push($(section2[i]).children().first().prop("name")); 
         i++;
     });
-  $.ajax({
-    url : "php/AjoutCoursPlage.php",
-    method : "POST",
-    dataType : "JSON",
-    data : {
-        sectionss : sections,
-        journee : journeechoisie
-    },
-    success : function(result)
-    {
-        if (result['erreur']) return;
-        
-        result['cours'].forEach(elem=>
+
+    $.ajax({
+        url : "php/AjoutCoursPlage.php",
+        method : "POST",
+        dataType : "JSON",
+        data : {
+            sectionss : sections,
+            journee : journeechoisie
+        },
+        success : function(result)
         {
-            console.log("cours : " + elem['NomCours']);
-            if (elem['HeureFin'] <= '11:00:00') // PLAGE 1
+            if (result['erreur']) return;
+            
+            result['cours'].forEach(elem=>
             {
-                let string = ".sel--Plage01Jour0";
-                let result = string.concat (journeechoisie);
-                $(result).each(function() 
+                //console.log("cours : " + elem['NomCours']);
+                if (elem['HeureFin'] <= '11:00:00') // PLAGE 1
                 {
-                    var $current = $(this);
-                    // JE RECHERCHE L'ID DU PROFESSEUR
-                    $.ajax({
-                        url : "php/RechercheProfesseur.php",
-                        method : "POST",
-                        dataType : "JSON",
-                        data : {
-                            idprof : elem["IdProfesseur"],
-                        },
-                        success : function(result)
-                        {   
-                            result['professeur'].forEach(prof=>
-                            {
-                                
-                                nomprof = prof['Nom'];
-                                prenomprof = prof['Prenom'];
-                            });
-
-                            $current.children('div').append($('<span>', {
-                            class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + prenomprof + " " + nomprof
-                            }));
-
-                            $('.sel__box__options').click(function() {
-                                var txt = $(this).text();
-                                var index = $(this).index();
-                                
-                                $(this).siblings('.sel__box__options').removeClass('selected');
-                                $(this).addClass('selected');
-                                
-                                var $currentSel = $(this).closest('.sel');
-                                $currentSel.children('.sel__placeholder').text(txt);
-                                $currentSel.children('select').prop('selectedIndex', index + 1);
-                        });
-                    }});
-                });   
-            }
-            else if (elem['HeureFin'] <= '13:00:00') // PLAGE 2
-            {
-                let string = ".sel--Plage02Jour0";
-                let result = string.concat (journeechoisie);
-                $(result).each(function() 
+                    let string = ".sel--Plage01Jour0";
+                    AjoutCoursEtFiltrage(string, journeechoisie, elem['IdProfesseur'], elem['NomCours'], elem['HeureDebut'], elem['HeureFin']);   
+                }
+                else if (elem['HeureFin'] <= '13:00:00') // PLAGE 2
                 {
-                    var $current = $(this);
-                    // JE RECHERCHE L'ID DU PROFESSEUR
-                    $.ajax({
-                        url : "php/RechercheProfesseur.php",
-                        method : "POST",
-                        dataType : "JSON",
-                        data : {
-                            idprof : elem["IdProfesseur"],
-                        },
-                        success : function(result)
-                        {   
-                            result['professeur'].forEach(prof=>
-                            {
-                                
-                                nomprof = prof['Nom'];
-                                prenomprof = prof['Prenom'];
-                                console.log("check : " + prof['Nom']);
-                            });
-
-                            $current.children('div').append($('<span>', {
-                            class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + prenomprof + " " + nomprof
-                            }));
-
-                            $('.sel__box__options').click(function() {
-                                var txt = $(this).text();
-                                var index = $(this).index();
-                                
-                                $(this).siblings('.sel__box__options').removeClass('selected');
-                                $(this).addClass('selected');
-                                
-                                var $currentSel = $(this).closest('.sel');
-                                $currentSel.children('.sel__placeholder').text(txt);
-                                $currentSel.children('select').prop('selectedIndex', index + 1);
-                            });
-                        }});
-                });          
-            }
-            else if (elem['HeureFin'] <= '16:00:00') // PLAGE 3
-            {
-                let string = ".sel--Plage03Jour0";
-                let result = string.concat (journeechoisie);
-                $(result).each(function() 
+                    let string = ".sel--Plage02Jour0";
+                    AjoutCoursEtFiltrage(string, journeechoisie, elem['IdProfesseur'], elem['NomCours'], elem['HeureDebut'], elem['HeureFin']);                
+                }
+                else if (elem['HeureFin'] <= '16:00:00') // PLAGE 3
                 {
-                    var $current = $(this);
-                    // JE RECHERCHE L'ID DU PROFESSEUR
-                    $.ajax({
-                        url : "php/RechercheProfesseur.php",
-                        method : "POST",
-                        dataType : "JSON",
-                        data : {
-                            idprof : elem["IdProfesseur"],
-                        },
-                        success : function(result)
-                        {   
-                            result['professeur'].forEach(prof=>
-                            {
-                                
-                                nomprof = prof['Nom'];
-                                prenomprof = prof['Prenom'];
-                                console.log("check : " + prof['Nom']);
-                            });
-
-                            $current.children('div').append($('<span>', {
-                            class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + prenomprof + " " + nomprof
-                            }));
-
-                            $('.sel__box__options').click(function() {
-                                var txt = $(this).text();
-                                var index = $(this).index();
-                                
-                                $(this).siblings('.sel__box__options').removeClass('selected');
-                                $(this).addClass('selected');
-                                
-                                var $currentSel = $(this).closest('.sel');
-                                $currentSel.children('.sel__placeholder').text(txt);
-                                $currentSel.children('select').prop('selectedIndex', index + 1);
-                            });
-                        }});
-                });          
-            }
-            else if (elem['HeureFin'] <= '18:00:00') // DERNIERE PLAGE
-            {
-                let string = ".sel--Plage04Jour0";
-                let result = string.concat (journeechoisie);
-                $(result).each(function() 
+                    let string = ".sel--Plage03Jour0";
+                    AjoutCoursEtFiltrage(string, journeechoisie, elem['IdProfesseur'], elem['NomCours'], elem['HeureDebut'], elem['HeureFin']);         
+                }
+                else if (elem['HeureFin'] <= '18:00:00') // DERNIERE PLAGE
                 {
-                    var $current = $(this);
-                    // JE RECHERCHE L'ID DU PROFESSEUR
-                    $.ajax({
-                        url : "php/RechercheProfesseur.php",
-                        method : "POST",
-                        dataType : "JSON",
-                        data : {
-                            idprof : elem["IdProfesseur"],
-                        },
-                        success : function(result)
-                        {   
-                            result['professeur'].forEach(prof=>
-                            {
-                                nomprof = prof['Nom'];
-                                prenomprof = prof['Prenom'];
-                            });
-
-                            $current.children('div').append($('<span>', {
-                            class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-                            text: elem['NomCours'] + " | [" + elem['HeureDebut'] + " - " + elem['HeureFin'] + "] -> " + prenomprof + " " + nomprof
-                            }));
-
-                            $('.sel__box__options').click(function() {
-                                var txt = $(this).text();
-                                var index = $(this).index();
-                                
-                                $(this).siblings('.sel__box__options').removeClass('selected');
-                                $(this).addClass('selected');
-                                
-                                var $currentSel = $(this).closest('.sel');
-                                $currentSel.children('.sel__placeholder').text(txt);
-                                $currentSel.children('select').prop('selectedIndex', index + 1);
-                            });
-                        }
-                    });
-                });           
-            }
-        });
-    }
-});
+                    let string = ".sel--Plage04Jour0";
+                    AjoutCoursEtFiltrage(string, journeechoisie, elem['IdProfesseur'], elem['NomCours'], elem['HeureDebut'], elem['HeureFin']);            
+                }
+            });
+        }
+    });
 }
 
 function SupprimerPlage()
@@ -240,53 +85,17 @@ function SupprimerPlage()
     let input = document.getElementsByClassName("inputJournee clique");
     for(let i = 0; i < input.length ; i++)
     {
-        let chaine1 = "sel__box__options sel__box__options--Plage01";
-        let final = chaine1.concat("Jour0" + i);
-        var list = document.getElementsByClassName(final);
-        for(let i = list.length - 1; i > 0; i--)
-        {
-            if(list[i] && list[i].parentElement)
-            {
-                console.log("Suppression plage 1");
-                list[i].parentElement.removeChild(list[i]); 
-            }            
-        }
+        let chaine = "sel__box__options sel__box__options--Plage01";
+        SupressionPlages(chaine, i);
 
-        chaine1 = "sel__box__options sel__box__options--Plage02";
-        final = chaine1.concat("Jour0" + i);
-        list = document.getElementsByClassName(final);
-        for(let i = list.length - 1; i > 0; i--)
-        {
-            if(list[i] && list[i].parentElement)
-            {
-                console.log("Suppression plage 2");
-                list[i].parentElement.removeChild(list[i]); 
-            }            
-        }
+        chaine = "sel__box__options sel__box__options--Plage02";
+        SupressionPlages(chaine, i);
 
-        chaine1 = "sel__box__options sel__box__options--Plage03";
-        final = chaine1.concat("Jour0" + i);
-        list = document.getElementsByClassName(final);
-        for(let i = list.length - 1; i > 0; i--)
-        {
-            if(list[i] && list[i].parentElement)
-            {
-                console.log("Suppression plage 3");
-                list[i].parentElement.removeChild(list[i]); 
-            }            
-        }
+        chaine = "sel__box__options sel__box__options--Plage03";
+        SupressionPlages(chaine, i);
 
-        chaine1 = "sel__box__options sel__box__options--Plage04";
-        final = chaine1.concat("Jour0" + i);
-        list = document.getElementsByClassName(final);
-        for(let i = list.length - 1; i > 0; i--)
-        {
-            if(list[i] && list[i].parentElement)
-            {
-                console.log("Suppression plage 4");
-                list[i].parentElement.removeChild(list[i]); 
-            }            
-        }
+        chaine = "sel__box__options sel__box__options--Plage04";
+        SupressionPlages(chaine, i);
     }
 }
 
@@ -329,14 +138,10 @@ function AjouterEtudiant()
         },
         success : function(result)
         {
-            if(result['erreur']){
+            if(result['erreur'])
                 alert(result['message']);
-            }
             else
-            {
-                location.reload();
-            }
-                
+                location.reload(); 
         }
     });
 }
@@ -362,8 +167,6 @@ function showTab(n)
         SupprimerPlage();
         let journeechoisie = 0;
         let journee = document.getElementsByClassName("inputJournee clique");
-        let fullplages = document.getElementsByClassName("login100-form validate-form p-b-33 p-t-5 PlageForm");
-        console.log(journee[0].children[0]);
         for (let i = 0; i < journee.length; i++)
         {
             if ($(journee[i]).children().first().prop("name") == "Lundi 15 juin 2020")
@@ -392,12 +195,11 @@ function ClickBoutonFormulaire(n)
 {
     if (n == -1)
     {
+        var x = document.getElementsByClassName("etape");
         if (currentTab == 0)
             document.location.href='index.html'; 
-        else if (currentTab == 4)
-        {
+        else if (currentTab == x.length-1)
             document.location.href='inscription.html';
-        }
         else
             AffichageNextStep(n);
     }
@@ -529,125 +331,118 @@ function ClickBoutonFormulaire(n)
         else if (currentTab == 0) // JE SUIS PREMIERE PAGE DONC JE VERIFIE LES CHAMPS
         {
             if (CheckChampFormulaire())
-            {
                 AffichageNextStep(n);
-            }
         }
-        else
+        else if (currentTab == 1) // JE CHECK SI MINIMUM UNE SECTION COCHEE
         {
-            if (n == 1 && currentTab == 1) // JE CHECK SI MINIMUM UNE SECTION COCHEE
+            let journee = document.getElementsByClassName("inputGroup clique");
+            if (journee.length == 0)
             {
-                let journee = document.getElementsByClassName("inputGroup clique");
-                if (journee.length == 0)
-                {
-                    let Form = document.getElementsByClassName("login100-form validate-form");
-                    Form[currentTab].classList.add("ErrorForm");
-                    alertbox.show('Vous devez choisir au minimum une section !');
-                    setTimeout(RemoveErrorForm, 1300);
-                }
-                else
-                    AffichageNextStep(n);
-            } 
-            else if (n == 1 && currentTab == 2) // JE CHECK SI MINIMUM UNE JOURNEE COCHEE
-            {
-                let journee = document.getElementsByClassName("inputJournee clique");
-                if (journee.length == 0)
-                {
-                    let Form = document.getElementById("Form_Journee");
-                    Form.classList.add("ErrorForm");
-                    alertbox.show('Vous devez choisir au minimum une journée !');
-                    setTimeout(RemoveErrorForm, 1300);
-                }
-                else
-                {
-                    AffichageNextStep(n);
-                }
+                let Form = document.getElementsByClassName("login100-form validate-form");
+                Form[currentTab].classList.add("ErrorForm");
+                alertbox.show('Vous devez choisir au minimum une section !');
+                setTimeout(RemoveErrorForm, 1300);
             }
-            else if (n == 1 && currentTab >= 3) // JE CHECK LES PLAGES
+            else
+                AffichageNextStep(n);
+        }   
+        else if (currentTab == 2) // JE CHECK SI MINIMUM UNE JOURNEE COCHEE
+        {
+            let journee = document.getElementsByClassName("inputJournee clique");
+            if (journee.length == 0)
             {
-                let boolean = true;
-                let plages = document.getElementsByClassName("etape");
-                let plage = plages[currentTab].children[1].children; // JE RECUPERE LES 4 PLAGES DE LA CURRENT PLAGE
-                var MinimumCoursJournee = 0;
-                var MinimumCoursJournees = 0;
+                let Form = document.getElementById("Form_Journee");
+                Form.classList.add("ErrorForm");
+                alertbox.show('Vous devez choisir au minimum une journée !');
+                setTimeout(RemoveErrorForm, 1300);
+            }
+            else
+                AffichageNextStep(n);
+        }
+        else if (currentTab >= 3) // JE CHECK LES PLAGES
+        {
+            let boolean = true;
+            let plages = document.getElementsByClassName("etape");
+            let plage = plages[currentTab].children[1].children; // JE RECUPERE LES 4 PLAGES DE LA CURRENT PLAGE
+            var MinimumCoursJournee = 0;
+            var MinimumCoursJournees = 0;
 
-                $.ajax({
-                    url : "php/RechercheMinimumCours.php",
-                    method : "POST",
-                    dataType : "JSON",
-                    async : false,
-                    success : function(result)
+            $.ajax({
+                url : "php/RechercheMinimumCours.php",
+                method : "POST",
+                dataType : "JSON",
+                async : false,
+                success : function(result)
+                {
+                    result['minimumcours'].forEach(elem=>
                     {
-                        result['minimumcours'].forEach(elem=>
-                        {
-                            MinimumCoursJournee = elem['journee'];
-                            MinimumCoursJournees = elem['journees'];
-                        })
+                        MinimumCoursJournee = elem['journee'];
+                        MinimumCoursJournees = elem['journees'];
+                    })
+                }
+            });
+
+            if (plages.length == 4) // J'AI PRIS QU'1 JOURNEE
+            {
+                for (let i = 0; i < plage.length; i++)
+                {
+                    if (plage[i].children[0].textContent.includes("Plage"))
+                    {
+                        let Form = document.getElementById("Form_Plages");
+                        Form.classList.add("ErrorForm");
+                        alertbox.show('Vous devez sélectionner un cours en plage ' + i + ' !');
+                        setTimeout(RemoveErrorForm, 1300); 
+                        boolean = false;                           
                     }
-                });
-
-                if (plages.length == 4) // J'AI PRIS QU'1 JOURNEE
-                {
-                    for (let i = 0; i < plage.length; i++)
-                    {
-                        if (plage[i].children[0].textContent.includes("Plage"))
-                        {
-                            let Form = document.getElementById("Form_Plages");
-                            Form.classList.add("ErrorForm");
-                            alertbox.show('Vous devez sélectionner un cours en plage ' + i + ' !');
-                            setTimeout(RemoveErrorForm, 1300); 
-                            boolean = false;                           
-                        }
-                        else
-                        {
-                            if (plage[i].children[0].textContent.includes("Aucun cours ne m'intéresse"))
-                            {
-                                if (i < MinimumCoursJournee)
-                                {
-                                    let Form = document.getElementById("Form_Plages");
-                                    Form.classList.add("ErrorForm");
-                                    setTimeout(RemoveErrorForm, 1300);
-                                    boolean = false;  
-                                }
-                            }                  
-                        }
-                    }  
-                    if (boolean) 
-                        AffichageNextStep(n);  
                     else
-                        alertbox.show('Vous devez sélectionner un cours dans les ' + MinimumCoursJournee + ' premières plages !');             
-                }
-                else // J'AI PRIS PLUSIEURS JOURNEES
-                {
-                    for (let i = 0; i < plage.length; i++)
                     {
-                        if (plage[i].children[0].textContent.includes("Plage"))
+                        if (plage[i].children[0].textContent.includes("Aucun cours ne m'intéresse"))
                         {
-                            let Form = document.getElementById("Form_Plages");
-                            Form.classList.add("ErrorForm");
-                            alertbox.show('Vous devez sélectionner un cours en plage ' + i + ' !');
-                            setTimeout(RemoveErrorForm, 1300); 
-                            boolean = false;                           
-                        }
-                        else
-                        {
-                            if (plage[i].children[0].textContent.includes("Aucun cours ne m'intéresse"))
+                            if (i < MinimumCoursJournee)
                             {
-                                if (i < MinimumCoursJournees)
-                                {
-                                    let Form = document.getElementById("Form_Plages");
-                                    Form.classList.add("ErrorForm");
-                                    setTimeout(RemoveErrorForm, 1300);
-                                    boolean = false;  
-                                }
-                            }                  
-                        }
-                    }  
-                    if (boolean)
-                        AffichageNextStep(n);
+                                let Form = document.getElementById("Form_Plages");
+                                Form.classList.add("ErrorForm");
+                                setTimeout(RemoveErrorForm, 1300);
+                                boolean = false;  
+                            }
+                        }                  
+                    }
+                }  
+                if (boolean) 
+                    AffichageNextStep(n);  
+                else
+                    alertbox.show('Vous devez sélectionner un cours dans les ' + MinimumCoursJournee + ' premières plages !');             
+            }
+            else // J'AI PRIS PLUSIEURS JOURNEES
+            {
+                for (let i = 0; i < plage.length; i++)
+                {
+                    if (plage[i].children[0].textContent.includes("Plage"))
+                    {
+                        let Form = document.getElementById("Form_Plages");
+                        Form.classList.add("ErrorForm");
+                        alertbox.show('Vous devez sélectionner un cours en plage ' + i + ' !');
+                        setTimeout(RemoveErrorForm, 1300); 
+                        boolean = false;                           
+                    }
                     else
-                        alertbox.show('Vous devez sélectionner un cours dans les ' + MinimumCoursJournees + ' premières plages !');
-                }
+                    {
+                        if (plage[i].children[0].textContent.includes("Aucun cours ne m'intéresse"))
+                        {
+                            if (i < MinimumCoursJournees)
+                            {
+                                let Form = document.getElementById("Form_Plages");
+                                Form.classList.add("ErrorForm");
+                                setTimeout(RemoveErrorForm, 1300);
+                                boolean = false;  
+                            }
+                        }                  
+                    }
+                }  
+                if (boolean)
+                    AffichageNextStep(n);
+                else
+                    alertbox.show('Vous devez sélectionner un cours dans les ' + MinimumCoursJournees + ' premières plages !');
             }
         }
     }
@@ -661,42 +456,40 @@ function AffichageNextStep(n)
     x[currentTab].style.display = "none";
     currentTab += n;
 
-    if (currentTab == x.length-1) // JE VALIDE LE DOCUMENT
-    {
+    if (currentTab == x.length-1) // JE VALIDE LE DOCUMENT ET J'AJOUTE L'ÉTUDIANT
         AjouterEtudiant();
-    }
     showTab(currentTab); 
 }
 
 function SupprimerAllJournee()
 {
+    console.log("Je supprime toutes les journées");
     let ContainerJournee = document.getElementById("ContainerJournees");
     let idstep = document.getElementById("idstep");
 
     while (ContainerJournee.firstChild != null)
     {
-        ContainerJournee.removeChild(ContainerJournee.firstChild);   
+        ContainerJournee.removeChild(ContainerJournee.firstChild);
         idstep.removeChild(idstep.lastChild);     
     }
-
 }
 
 function AffichageStepFormulaire(n) 
 {
-  var i, x = document.getElementsByClassName("step");
-  for (i = 0; i < x.length; i++) {
-    x[i].className = x[i].className.replace(" active", "");
-  }
-  x[n].className += " active";
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+        x[i].className = x[i].className.replace(" active", "");
+    }
+    x[n].className += " active";
 }
 
 function AjoutStepDocument()
 {
+    let idstep = document.getElementById("idstep");
     let nbretape = document.getElementsByClassName("etape");
-
-    for (let i = 3; i < nbretape.length; i++)
+    for (let i = 3; i < nbretape.length-1; i++)
     {
-        step = document.createElement("span");
+        let step = document.createElement("span");
         if (i == 4)
             step.className = "step active"; 
         else 
@@ -726,17 +519,14 @@ function CheckChampFormulaire()
         else
         {
             if (i == 0)
-            {
                 if (!ValidationUnique(input[i]))
-                    check = false; 
-            }
+                    check = false;
             else
             {
                 hideAll(input[i]);
                 hideValidate(input[i]);
             }
         }
-
     }
     return check;
 }

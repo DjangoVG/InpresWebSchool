@@ -261,4 +261,62 @@ var AlertBox = function(id, option)
 
 var alertbox = new AlertBox('#alert-area', {
     closeTime: 2000
-  }); // nouvelle AlertBox
+}); // nouvelle AlertBox
+
+function AjoutCoursEtFiltrage(string, journeechoisie, elemprof, nomcours, heuredebut, heurefin) 
+{
+    let result = string.concat (journeechoisie);
+    $(result).each(function() 
+    {
+        var $current = $(this);
+        // JE RECHERCHE L'ID DU PROFESSEUR
+        $.ajax({
+            url : "php/RechercheProfesseur.php",
+            method : "POST",
+            dataType : "JSON",
+            data : {
+                idprof : elemprof,
+            },
+            success : function(result)
+            {   
+                result['professeur'].forEach(prof=>
+                {
+                    nomprof = prof['Nom'];
+                    prenomprof = prof['Prenom'];
+                    console.log("check : " + prof['Nom']);
+                });
+
+                $current.children('div').append($('<span>', {
+                class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
+                text: nomcours + " | [" + heuredebut + " - " + heurefin + "] -> " + prenomprof + " " + nomprof
+                }));
+
+                $('.sel__box__options').click(function() {
+                    var txt = $(this).text();
+                    var index = $(this).index();
+                    
+                    $(this).siblings('.sel__box__options').removeClass('selected');
+                    $(this).addClass('selected');
+                    
+                    var $currentSel = $(this).closest('.sel');
+                    $currentSel.children('.sel__placeholder').text(txt);
+                    $currentSel.children('select').prop('selectedIndex', index + 1);
+                });
+            }
+        });
+    });  
+}
+
+function SupressionPlages(chaine, i)
+{
+    final = chaine.concat("Jour0" + i);
+    list = document.getElementsByClassName(final);
+    for(let i = list.length - 1; i > 0; i--)
+    {
+        if(list[i] && list[i].parentElement)
+        {
+            console.log("Suppression plage 2");
+            list[i].parentElement.removeChild(list[i]); 
+        }            
+    }
+}

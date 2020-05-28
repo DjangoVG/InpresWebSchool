@@ -49,7 +49,7 @@ function ValidationPattern (input)
 
 function ValidationUnique(input)
 {
-    $.ajax({
+    $.ajax({ // CALLBACK ?
         url : "php/RechercheEtudiant.php",
         method : "POST",
         dataType : "JSON",

@@ -265,8 +265,7 @@
                             {
                                 if ($recup[$k+1] != "|")
                                     $nomcoursnotyet .= ' ';                     
-                            }
-                                
+                            }   
                         }
                         else
                         {

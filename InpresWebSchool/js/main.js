@@ -5,7 +5,7 @@ var boolean = true;
     showTab(currentTab); // Affiche la premiere page du formulaire
     "use strict";
 })(jQuery);
-
+    
 function Inscription() { // JE CHECK SI UTILISATEUR DANS LA PERIODE
     var now = new Date();
     $.ajax({
@@ -205,7 +205,25 @@ function ClickBoutonFormulaire(n)
     }
     else
     {
-        if (currentTab == 2) // J'AVANCE DANS LE FORMULAIRE
+        if (currentTab == 0) // JE SUIS PREMIERE PAGE DONC JE VERIFIE LES CHAMPS
+        {
+            if (CheckChampFormulaire())
+                AffichageNextStep(n);
+        }
+        else if (currentTab == 1) // JE CHECK SI MINIMUM UNE SECTION COCHEE
+        {
+            let journee = document.getElementsByClassName("inputGroup clique");
+            if (journee.length == 0)
+            {
+                let Form = document.getElementsByClassName("login100-form validate-form");
+                Form[currentTab].classList.add("ErrorForm");
+                alertbox.show('Vous devez choisir au minimum une section !');
+                setTimeout(RemoveErrorForm, 1300);
+            }
+            else
+                AffichageNextStep(n);
+        } 
+        else if (currentTab == 2) // J'AVANCE DANS LE FORMULAIRE
         {
             SupprimerAllJournee();
             var compteurjour = document.getElementsByClassName("inputJournee clique");
@@ -328,37 +346,6 @@ function ClickBoutonFormulaire(n)
             }
             
         }
-        else if (currentTab == 0) // JE SUIS PREMIERE PAGE DONC JE VERIFIE LES CHAMPS
-        {
-            if (CheckChampFormulaire())
-                AffichageNextStep(n);
-        }
-        else if (currentTab == 1) // JE CHECK SI MINIMUM UNE SECTION COCHEE
-        {
-            let journee = document.getElementsByClassName("inputGroup clique");
-            if (journee.length == 0)
-            {
-                let Form = document.getElementsByClassName("login100-form validate-form");
-                Form[currentTab].classList.add("ErrorForm");
-                alertbox.show('Vous devez choisir au minimum une section !');
-                setTimeout(RemoveErrorForm, 1300);
-            }
-            else
-                AffichageNextStep(n);
-        }   
-        else if (currentTab == 2) // JE CHECK SI MINIMUM UNE JOURNEE COCHEE
-        {
-            let journee = document.getElementsByClassName("inputJournee clique");
-            if (journee.length == 0)
-            {
-                let Form = document.getElementById("Form_Journee");
-                Form.classList.add("ErrorForm");
-                alertbox.show('Vous devez choisir au minimum une journée !');
-                setTimeout(RemoveErrorForm, 1300);
-            }
-            else
-                AffichageNextStep(n);
-        }
         else if (currentTab >= 3) // JE CHECK LES PLAGES
         {
             let boolean = true;
@@ -382,7 +369,7 @@ function ClickBoutonFormulaire(n)
                 }
             });
 
-            if (plages.length == 4) // J'AI PRIS QU'1 JOURNEE
+            if (plages.length == 5) // J'AI PRIS QU'1 JOURNEE
             {
                 for (let i = 0; i < plage.length; i++)
                 {
@@ -390,7 +377,7 @@ function ClickBoutonFormulaire(n)
                     {
                         let Form = document.getElementById("Form_Plages");
                         Form.classList.add("ErrorForm");
-                        alertbox.show('Vous devez sélectionner un cours en plage ' + i + ' !');
+                        alertbox.show('Vous devez sélectionner un cours en plage ' + (i + 1) + ' !');
                         setTimeout(RemoveErrorForm, 1300); 
                         boolean = false;                           
                     }
@@ -421,7 +408,7 @@ function ClickBoutonFormulaire(n)
                     {
                         let Form = document.getElementById("Form_Plages");
                         Form.classList.add("ErrorForm");
-                        alertbox.show('Vous devez sélectionner un cours en plage ' + i + ' !');
+                        alertbox.show('Vous devez sélectionner un cours en plage ' + (i +1) + ' !');
                         setTimeout(RemoveErrorForm, 1300); 
                         boolean = false;                           
                     }

@@ -15,14 +15,9 @@
     $VerifMdp = password_verify($_POST['mdp'], $resultat['motdepasse']);
 
     if (!$resultat)
-    {
         $return['erreur'] = true;
-        echo json_encode($return);       
-    }
 
     if ($VerifMdp)
-    {
         $return['erreur'] = false;
-        echo json_encode($return);        
-    }
+    echo json_encode($return); 
 ?>

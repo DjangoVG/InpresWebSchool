@@ -50,11 +50,9 @@ function AjoutCoursPlages(journeechoisie)
         },
         success : function(result)
         {
-            if (result['erreur']) return;
-            
             result['cours'].forEach(elem=>
             {
-                //console.log("cours : " + elem['NomCours']);
+                console.log("cours : " + elem['NomCours']);
                 if (elem['HeureFin'] <= '11:00:00') // PLAGE 1
                 {
                     let string = ".sel--Plage01Jour0";
@@ -76,6 +74,9 @@ function AjoutCoursPlages(journeechoisie)
                     AjoutCoursEtFiltrage(string, journeechoisie, elem['IdProfesseur'], elem['NomCours'], elem['HeureDebut'], elem['HeureFin']);            
                 }
             });
+        },
+        error : function() {
+            console.log ("erreur");
         }
     });
 }

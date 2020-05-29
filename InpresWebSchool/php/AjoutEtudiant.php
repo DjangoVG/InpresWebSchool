@@ -11,7 +11,7 @@
         $row = $stmt->fetch_assoc();
         $placesoccupees = $row['PlacesOccupees'];
 
-        $nbplaces = 'SELECT TypeCours.NbPlaces FROM typecours LEFT JOIN cours ON cours.IdType = typecours.IdType AND cours.NomCours = \'' . $nomducours . '\' AND cours.HeureDebut = \'' . $heurededebut . '\' AND cours.HeureFin = \'' . $heuredefin . '\' AND cours.IdProfesseur = ' . $idprof;
+        $nbplaces = 'SELECT TypeCours.NbPlaces FROM typecours INNER JOIN cours ON cours.IdType = typecours.IdType AND cours.NomCours = \'' . $nomducours . '\' AND cours.HeureDebut = \'' . $heurededebut . '\' AND cours.HeureFin = \'' . $heuredefin . '\' AND cours.IdProfesseur = ' . $idprof;
         $stmt = $bdd->query($nbplaces);
         $row = $stmt->fetch_assoc();
         $placesmax = $row['NbPlaces'];
@@ -21,8 +21,6 @@
         else 
             return false;
     }
-
-    
 
     $email = $_POST['mailetudiant'];
     $cle = md5(microtime(TRUE)*100000);

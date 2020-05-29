@@ -1,5 +1,6 @@
 <?php
     include('ConnexionBD.php');
+
     $sections = $_POST['sectionss'];
     $Gestion = 0;
     $Indus = 0;
@@ -123,7 +124,6 @@
 
     $select .= $_POST['journee'];
     $stmt = $bdd->query($select);
-    
     if ($stmt->num_rows > 0)
     {
         $results = array();
@@ -134,31 +134,33 @@
             FROM     Assister
             WHERE assister.NomCours = \'' . $row['NomCours'] . '\' AND assister.HeureDebut = \'' . $row['HeureDebut'] . '\' AND assister.HeureFin = \'' . $row['HeureFin'] . '\' AND assister.IdProfesseur = ' . $row['IdProfesseur'] . 
             ' GROUP BY NomCours, HeureDebut, HeureFin, IdProfesseur, IdJournee;';
-
-            $stmt2 = $bdd->query($verifcount);
-            $row2 = $stmt2->fetch_assoc();
-            if ($stmt2->num_rows > 0)
-                $placesoccupees = $row2['PlacesOccupees'];
+            $stmtt = $bdd->query($verifcount);
+            if ($stmtt->num_rows > 0)
+            {
+                $rowd = $stmtt->fetch_assoc();
+                $placesoccupees = $rowd['PlacesOccupees'];
+                $nbplaces = 'SELECT TypeCours.NbPlaces FROM typecours INNER JOIN cours ON cours.IdType = typecours.IdType AND cours.NomCours = \'' . $row['NomCours'] . '\' AND cours.HeureDebut = \'' . $row['HeureDebut'] . '\' AND cours.HeureFin = \'' . $row['HeureFin'] . '\' AND cours.IdProfesseur = ' . $row['IdProfesseur'];
+                $stmtt = $bdd->query($nbplaces);
+                if ($stmtt->num_rows > 0)
+                {
+                    $rowd = $stmtt->fetch_assoc();
+                    $placesmax = $rowd['NbPlaces'];                      
+                }
+            }
             else
+            {
                 $placesoccupees = 0;
-
-            $nbplaces = 'SELECT TypeCours.NbPlaces FROM typecours LEFT JOIN cours ON cours.IdType = typecours.IdType AND cours.NomCours = \'' . $row['NomCours'] . '\' AND cours.HeureDebut = \'' . $row['HeureDebut'] . '\' AND cours.HeureFin = \'' . $row['HeureFin'] . '\' AND cours.IdProfesseur = ' . $row['IdProfesseur'];
-            $stmt2 = $bdd->query($nbplaces);
-            $row2 = $stmt2->fetch_assoc();
-            $placesmax = $row2['NbPlaces'];
+                $placesmax = 1;
+            }
     
             if ($placesoccupees < $placesmax)
             {
                 $results[$i]=$row;
-                $i++;                
+                $i++;  
             }
         }
         $return['cours'] = $results;
-        echo json_encode($return);
-    } 
-    else 
-    {
-        $return['erreur'] = true;
+        $return['erreur'] = false;
         echo json_encode($return);
     }
 ?>
